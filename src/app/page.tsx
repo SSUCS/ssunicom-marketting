@@ -1,103 +1,226 @@
-import Image from "next/image";
+import type { Metadata } from "next";
+import { HeroVisual } from "@/components/HeroVisual";
+import { Icon, type IconName } from "@/components/Icon";
+import { LeadJourney } from "@/components/LeadJourney";
+import { CtaBand, ProcessSteps, ServiceCard } from "@/components/sections";
+import { ButtonLink, Container, Eyebrow, SectionHeading, TextLink } from "@/components/ui";
+import { commitments, services, workflowSteps } from "@/lib/content";
+import { site } from "@/lib/site";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: { absolute: `${site.name} | Business Process Support & Lead Generation` },
+  description: site.description,
+  alternates: { canonical: "/" },
+};
+
+const capabilities: { icon: IconName; title: string; text: string }[] = [
+  { icon: "target", title: "Lead generation", text: "Capture, organise and qualify inquiries." },
+  { icon: "headset", title: "Customer support", text: "Responsive, documented customer interactions." },
+  { icon: "database", title: "Data management", text: "Accurate entry, upkeep and reporting." },
+  { icon: "layers", title: "Back-office operations", text: "Administrative and process workflows." },
+];
+
+const markets = [
+  { code: "US", name: "United States", focus: "Lead generation, document-preparation workflows, student-loan and finance-related process support." },
+  { code: "CA", name: "Canada", focus: "Client coordination, administrative documentation, scheduling and CRM support." },
+  { code: "IN", name: "India", focus: "EdTech inquiry management, student follow-up and customer support." },
+];
+
+export default function HomePage() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <>
+      {/* 1. Hero */}
+      <section className="relative overflow-hidden">
+        <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_70%_30%,black,transparent_70%)]" aria-hidden />
+        <Container className="relative grid items-center gap-14 pb-20 pt-14 sm:pt-20 lg:grid-cols-12 lg:gap-10 lg:pb-28 lg:pt-24">
+          <div className="lg:col-span-6">
+            <Eyebrow>Business process outsourcing from India</Eyebrow>
+            <h1 className="text-[2.6rem] font-extrabold leading-[1.03] sm:text-6xl lg:text-[3.6rem] xl:text-[4rem]">
+              Smarter processes.{" "}
+              <span className="text-accent">Stronger business outcomes.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+              We help businesses run lead generation, customer interactions and back-office workflows with
+              dependable, documented process support, focused on quality, consistency and measurable progress.
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/contact" arrow>
+                Discuss Your Requirements
+              </ButtonLink>
+              <ButtonLink href="/services" variant="secondary">
+                Explore Our Services
+              </ButtonLink>
+            </div>
+            <dl className="mt-12 grid max-w-lg grid-cols-2 gap-6 border-t border-line pt-6">
+              <div>
+                <dt className="text-sm text-muted">Industry experience</dt>
+                <dd className="mt-1 font-display text-xl font-bold">{site.experience} in BPO</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-muted">Markets supported</dt>
+                <dd className="mt-1 font-display text-xl font-bold">US · Canada · India</dd>
+              </div>
+            </dl>
+          </div>
+          <div className="lg:col-span-6">
+            <HeroVisual />
+          </div>
+        </Container>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+      {/* 2. Positioning */}
+      <section className="border-y border-line bg-white py-20 sm:py-28">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <Eyebrow>Who we are</Eyebrow>
+              <p className="text-sm leading-relaxed text-muted">
+                A BPO, lead generation and business support company based in India.
+              </p>
+            </div>
+            <p className="reveal font-display text-2xl font-semibold leading-snug tracking-tight sm:text-3xl lg:col-span-8 lg:text-[2.35rem] lg:leading-[1.2]">
+              For over ten years, our team has handled the operational work that keeps businesses moving:{" "}
+              <span className="text-muted">
+                generating and qualifying leads, supporting customer interactions and managing back-end processes,
+                technical and non-technical alike.
+              </span>
+            </p>
+          </div>
+          <ul className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {capabilities.map((c, i) => (
+              <li
+                key={c.title}
+                className="reveal bg-white p-6"
+                style={{ "--reveal-delay": `${i * 70}ms` } as React.CSSProperties}
+              >
+                <Icon name={c.icon} className="h-6 w-6 text-accent" />
+                <h2 className="mt-5 font-display text-lg font-bold">{c.title}</h2>
+                <p className="mt-1.5 text-[0.95rem] text-muted">{c.text}</p>
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      {/* 3. Signature animation */}
+      <LeadJourney />
+
+      {/* 4. Services overview */}
+      <section className="py-20 sm:py-28">
+        <Container>
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <SectionHeading
+              eyebrow="Services"
+              title="Process support for three markets, and for your own workflow."
+              intro="Each engagement is shaped around your requirements. These are the areas we most often support."
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+            <TextLink href="/services" className="shrink-0">
+              View all services
+            </TextLink>
+          </div>
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {services.slice(0, 3).map((s, i) => (
+              <ServiceCard key={s.id} service={s} index={i} />
+            ))}
+          </div>
+          <div className="reveal mt-5 flex flex-col gap-5 rounded-[var(--radius-card)] border border-dashed border-ink/20 p-7 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-4">
+              <Icon name="puzzle" className="mt-1 h-6 w-6 shrink-0 text-accent" />
+              <div>
+                <h3 className="text-lg font-bold">{services[3].title}</h3>
+                <p className="mt-1 text-muted">{services[3].summary}</p>
+              </div>
+            </div>
+            <ButtonLink href="/contact" variant="secondary" className="shrink-0">
+              Describe your workflow
+            </ButtonLink>
+          </div>
+        </Container>
+      </section>
+
+      {/* 5. Why choose us */}
+      <section className="border-y border-line bg-paper-2/60 py-20 sm:py-28">
+        <Container className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-28">
+              <SectionHeading
+                eyebrow="Why SS Unicom Service"
+                title="What you can expect from working with us."
+                intro="These are the commitments we build every engagement around."
+              />
+            </div>
+          </div>
+          <ul className="lg:col-span-7">
+            {commitments.map((c, i) => (
+              <li key={c.title} className="reveal flex gap-6 border-t border-line py-7 last:border-b">
+                <span className="font-display text-sm font-bold tabular-nums text-accent">0{i + 1}</span>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold">{c.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{c.text}</p>
+                </div>
+                <Icon name={c.icon} className="hidden h-6 w-6 shrink-0 text-ink/40 sm:block" />
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </section>
+
+      {/* 6. How we work */}
+      <section className="py-20 sm:py-28">
+        <Container>
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <SectionHeading
+              eyebrow="How we work"
+              title="A clear, repeatable way of working."
+              intro="Five stages take an engagement from first conversation to ongoing improvement."
+            />
+            <TextLink href="/how-we-work" className="shrink-0">
+              See our process in detail
+            </TextLink>
+          </div>
+          <div className="mt-14">
+            <ProcessSteps steps={workflowSteps} />
+          </div>
+        </Container>
+      </section>
+
+      {/* 7. Markets & industries */}
+      <section className="border-t border-line bg-white py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Markets & industries"
+            title="Delivered from India for businesses in three markets."
+            intro="We adapt each workflow to the client's market, requirements and existing tools."
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <div className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line md:grid-cols-3">
+            {markets.map((m, i) => (
+              <div
+                key={m.code}
+                className="reveal bg-white p-8"
+                style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+              >
+                <p className="font-display text-6xl font-extrabold tracking-tight text-ink/10" aria-hidden>
+                  {m.code}
+                </p>
+                <h3 className="mt-4 text-xl font-bold">{m.name}</h3>
+                <p className="mt-2 leading-relaxed text-muted">{m.focus}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-muted">
+              Industries: lead generation, document preparation, student-loan and finance-related processes, education
+              technology and general business operations.
+            </p>
+            <TextLink href="/industries" className="shrink-0">
+              Industries &amp; markets
+            </TextLink>
+          </div>
+        </Container>
+      </section>
+
+      {/* 8. Final CTA */}
+      <CtaBand />
+    </>
   );
 }
