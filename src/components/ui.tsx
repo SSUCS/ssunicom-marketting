@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { ComponentProps, ReactNode } from "react";
+import type { ComponentProps, CSSProperties, ReactNode } from "react";
 import { Icon } from "./Icon";
 
 export function cx(...classes: (string | false | null | undefined)[]) {
@@ -7,17 +7,16 @@ export function cx(...classes: (string | false | null | undefined)[]) {
 }
 
 export function Container({ className, children }: { className?: string; children: ReactNode }) {
-  return <div className={cx("mx-auto w-full max-w-[1200px] px-5 sm:px-8", className)}>{children}</div>;
+  return <div className={cx("mx-auto w-full max-w-[1280px] px-4 sm:px-6 lg:px-8", className)}>{children}</div>;
 }
 
-type Variant = "primary" | "secondary" | "light" | "ghost-dark";
+type Variant = "primary" | "secondary" | "ghost" | "ink";
 
 const variants: Record<Variant, string> = {
-  primary:
-    "bg-accent text-white hover:bg-accent-strong shadow-[0_1px_0_rgb(255_255_255/0.2)_inset,0_8px_20px_-10px_rgb(13_122_114/0.7)]",
-  secondary: "border border-ink/15 bg-white/60 text-ink hover:border-ink/40 hover:bg-white",
-  light: "bg-white text-ink hover:bg-accent-soft",
-  "ghost-dark": "border border-white/20 text-white hover:border-white/50 hover:bg-white/5",
+  primary: "bg-signal text-signal-ink hover:bg-signal-strong shadow-[0_0_0_1px_rgb(196_245_74/0.4),0_10px_30px_-12px_rgb(196_245_74/0.6)]",
+  secondary: "border border-line-strong bg-surface-2/60 text-fg hover:border-fg/40 hover:bg-surface-3",
+  ghost: "text-fg hover:text-signal",
+  ink: "bg-signal-ink text-signal hover:bg-black",
 };
 
 export function ButtonLink({
@@ -40,83 +39,88 @@ export function ButtonLink({
     >
       {children}
       {arrow && (
-        <Icon name="arrow-right" className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
+        <Icon name="arrow-up-right" className="h-4 w-4 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       )}
     </Link>
   );
 }
 
-export function Eyebrow({ children, dark = false }: { children: ReactNode; dark?: boolean }) {
+/** Monospaced label, e.g. "[ 02 ] Services". */
+export function Label({ index, children, className }: { index?: string; children: ReactNode; className?: string }) {
   return (
-    <p
-      className={cx(
-        "mb-4 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em]",
-        dark ? "text-accent-bright" : "text-accent",
-      )}
-    >
-      <span aria-hidden className={cx("h-px w-6", dark ? "bg-accent-bright" : "bg-accent")} />
-      {children}
+    <p className={cx("inline-flex items-center gap-2 font-mono text-[0.72rem] uppercase tracking-[0.18em] text-muted", className)}>
+      {index && <span className="text-signal">[ {index} ]</span>}
+      <span>{children}</span>
     </p>
   );
 }
 
 export function SectionHeading({
-  eyebrow,
+  index,
+  label,
   title,
   intro,
-  dark = false,
   className,
   as: Tag = "h2",
+  aside,
 }: {
-  eyebrow?: string;
+  index?: string;
+  label?: string;
   title: ReactNode;
   intro?: ReactNode;
-  dark?: boolean;
   className?: string;
   as?: "h1" | "h2";
+  aside?: ReactNode;
 }) {
   return (
-    <div className={cx("max-w-2xl", className)}>
-      {eyebrow && <Eyebrow dark={dark}>{eyebrow}</Eyebrow>}
-      <Tag
-        className={cx(
-          "text-3xl font-bold leading-[1.1] sm:text-4xl lg:text-[2.75rem]",
-          dark ? "text-white" : "text-ink",
-        )}
-      >
-        {title}
-      </Tag>
-      {intro && (
-        <p className={cx("mt-5 text-lg leading-relaxed", dark ? "text-mist" : "text-muted")}>{intro}</p>
-      )}
+    <div className={cx("flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between", className)}>
+      <div className="max-w-3xl">
+        {label && <Label index={index}>{label}</Label>}
+        <Tag
+          className={cx(
+            "mt-4 font-semibold leading-[1.04]",
+            Tag === "h1" ? "text-4xl sm:text-5xl lg:text-[4.25rem]" : "text-3xl sm:text-4xl lg:text-[3.1rem]",
+          )}
+        >
+          {title}
+        </Tag>
+        {intro && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{intro}</p>}
+      </div>
+      {aside && <div className="shrink-0">{aside}</div>}
     </div>
   );
 }
 
-/**
- * Marks content the company must confirm before launch.
- * Search the codebase for "<Placeholder" to find every instance.
- */
-export function Placeholder({ children }: { children: ReactNode }) {
+/** A bento tile. Spans are set by the caller with grid classes. */
+export function Tile({
+  className,
+  children,
+  as: Tag = "div",
+  delay,
+  id,
+}: {
+  className?: string;
+  children: ReactNode;
+  as?: "div" | "article" | "li" | "section";
+  delay?: number;
+  id?: string;
+}) {
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-md border border-dashed border-amber-600/50 bg-amber-50 px-2 py-0.5 text-sm text-amber-900">
-      <span className="text-[0.65rem] font-bold uppercase tracking-wider">To confirm</span>
-      <span>{children}</span>
-    </span>
-  );
-}
-
-export function DraftNotice({ children }: { children: ReactNode }) {
-  return (
-    <div
-      role="note"
-      className="flex gap-3 rounded-xl border border-dashed border-amber-600/50 bg-amber-50 p-4 text-sm leading-relaxed text-amber-950"
+    <Tag
+      id={id}
+      className={cx("tile reveal p-6 sm:p-7", className)}
+      style={delay ? ({ "--reveal-delay": `${delay}ms` } as CSSProperties) : undefined}
     >
-      <span className="mt-0.5 shrink-0 rounded bg-amber-200 px-1.5 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider">
-        Draft
-      </span>
-      <div>{children}</div>
-    </div>
+      {children}
+    </Tag>
+  );
+}
+
+export function IconBadge({ name, className }: { name: ComponentProps<typeof Icon>["name"]; className?: string }) {
+  return (
+    <span className={cx("inline-flex h-11 w-11 items-center justify-center rounded-xl border border-line-strong bg-surface-2 text-signal", className)}>
+      <Icon name={name} className="h-5 w-5" />
+    </span>
   );
 }
 
@@ -124,13 +128,34 @@ export function TextLink({ href, children, className }: { href: string; children
   return (
     <Link
       href={href}
-      className={cx(
-        "group inline-flex items-center gap-1.5 font-semibold text-accent underline-offset-4 hover:underline",
-        className,
-      )}
+      className={cx("group inline-flex items-center gap-1.5 font-semibold text-signal underline-offset-4 hover:underline", className)}
     >
       {children}
       <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
     </Link>
+  );
+}
+
+export function Bullets({ items, className }: { items: ReactNode[]; className?: string }) {
+  return (
+    <ul className={cx("space-y-2.5", className)}>
+      {items.map((item, i) => (
+        <li key={i} className="flex gap-3 text-[0.97rem] leading-relaxed text-fg/85">
+          <span aria-hidden className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-signal" />
+          <span>{item}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+export function DraftNotice({ children }: { children: ReactNode }) {
+  return (
+    <div role="note" className="flex gap-3 rounded-2xl border border-dashed border-sample/50 bg-sample/5 p-4 text-sm leading-relaxed text-fg/85">
+      <span className="mt-0.5 h-fit shrink-0 rounded bg-sample px-1.5 py-0.5 font-mono text-[0.62rem] font-bold uppercase tracking-wider text-void">
+        Draft
+      </span>
+      <div>{children}</div>
+    </div>
   );
 }

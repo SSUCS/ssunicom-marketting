@@ -1,7 +1,7 @@
 /**
- * Shared copy used on more than one page: services, workflow steps,
- * lead-journey stages and service commitments. Page-specific copy lives
- * in each page file under src/app.
+ * Shared copy used on more than one page: services, journey stages,
+ * workflow steps and commitments. Page-specific copy lives in each page
+ * file under src/app. Unconfirmed facts come from ./placeholders.ts.
  */
 
 import type { IconName } from "@/components/Icon";
@@ -9,90 +9,75 @@ import type { IconName } from "@/components/Icon";
 export type Service = {
   id: string;
   title: string;
-  market: string;
+  short: string;
   icon: IconName;
   summary: string;
-  detail: string;
-  activities: string[];
-  note?: string;
+  description: string;
+  /** Matches an entry in serviceOptions, for the "Enquire Now" link. */
+  option: string;
 };
 
 export const services: Service[] = [
   {
     id: "us-lead-generation",
     title: "US Lead Generation & Process Support",
-    market: "United States",
+    short: "US Lead Generation",
     icon: "target",
     summary:
-      "Lead intake, qualification and follow-up for US businesses, including student-loan, finance-related and document-preparation workflows.",
-    detail:
-      "We support the operational side of lead generation: capturing and organising inquiries, collecting preliminary information, checking records against the criteria you define, and keeping your pipeline documented and up to date.",
-    activities: [
-      "Lead intake and organisation",
-      "Preliminary information collection",
-      "Document-preparation workflow support",
-      "Lead qualification against client-defined criteria",
-      "Customer communication and follow-up",
-      "Data entry and process documentation",
-      "Quality checks and reporting",
-    ],
-    note:
-      "We provide process support only. SS Unicom Service does not provide legal or financial advice, approve loans, arrange loan forgiveness or guarantee financial outcomes, and has no special access to government programmes or systems.",
+      "Outbound and inbound calling, lead qualification, live transfers and document-preparation support for US businesses.",
+    description:
+      "We help US businesses reach, qualify and convert prospects, including businesses that provide document-preparation services for financial matters such as student loans. Our agents work to your scripts, your qualification criteria and your compliance rules.",
+    option: "US lead generation & process support",
   },
   {
-    id: "canadian-business-services",
-    title: "Canadian Business Services",
-    market: "Canada",
-    icon: "briefcase",
+    id: "web-apps-digital-marketing",
+    title: "Web Apps & Digital Marketing",
+    short: "Web Apps & Marketing",
+    icon: "layers",
     summary:
-      "Administrative and client-coordination support for businesses serving the Canadian market.",
-    detail:
-      "We help Canadian-market businesses keep client workflows moving: organising inquiries, gathering preliminary details, scheduling appointments and keeping CRM records current, so your authorised professionals can focus on their own work.",
-    activities: [
-      "Lead intake and organisation",
-      "Preliminary information collection",
-      "Administrative documentation support",
-      "Appointment scheduling",
-      "CRM updates and follow-up",
-      "Coordination with appropriately authorised professionals where required",
-    ],
-    note:
-      "SS Unicom Service is not an immigration law firm or a licensed immigration consultancy and does not provide immigration advice or guarantee visas, permanent residence or any immigration outcome.",
+      "Websites, web applications and campaigns that bring in enquiries — built, launched and grown by one team.",
+    description:
+      "We design, build and market websites and web applications. Because we also run a calling team, the enquiries your new site brings in are followed up — not left in an inbox.",
+    option: "Web apps & digital marketing",
   },
   {
     id: "india-edtech",
-    title: "India EdTech Solutions",
-    market: "India",
+    title: "India EdTech Support",
+    short: "India EdTech",
     icon: "graduation",
-    summary:
-      "Inquiry management, student follow-up and support operations for education-technology businesses.",
-    detail:
-      "For EdTech teams, we handle the day-to-day work around student and parent inquiries: responding, following up, keeping records organised and reporting on where each inquiry stands.",
-    activities: [
-      "Lead generation and inquiry management",
-      "Student inquiry follow-up",
-      "Customer support",
-      "Administrative process assistance",
-      "Data organisation and reporting",
-    ],
+    summary: "Enquiry handling, counselling calls and admission follow-ups for education businesses.",
+    description:
+      "Enquiry and admissions support for education businesses. Students and parents get a timely, helpful call; your team gets organised, up-to-date enquiries.",
+    option: "India EdTech support",
   },
   {
     id: "custom-solutions",
-    title: "Custom Business Process Solutions",
-    market: "Any market",
+    title: "Custom Solutions",
+    short: "Custom Solutions",
     icon: "puzzle",
-    summary:
-      "Workflows that do not fit a standard category, from customer support to data management and back-office operations.",
-    detail:
-      "Not every process fits neatly into a category. If you have a customer-interaction, data-management or back-office workflow that needs dependable support, tell us how it works today and we will propose how we could help.",
-    activities: [
-      "Customer support and interaction handling",
-      "Data management and data entry",
-      "Back-office and administrative operations",
-      "Process documentation",
-      "Technical and non-technical process support",
-    ],
+    summary: "Not every process fits a category. Tell us your workflow and we will propose a team and process for it.",
+    description:
+      "Not every process fits a category. Tell us your workflow and we will propose a team and process for it.",
+    option: "Custom solution",
   },
+];
+
+export const enquireHref = (s: Service) => `/contact?service=${encodeURIComponent(s.option)}`;
+
+export type JourneyStage = { title: string; text: string; icon: IconName };
+
+/** Copy for the homepage "From first click to qualified call" scroll scene. */
+export const journeyStages: JourneyStage[] = [
+  { title: "Build", icon: "layers", text: "We design and develop the website or web app your customers find you through." },
+  { title: "Attract", icon: "search", text: "Search, paid ads and social campaigns bring in enquiries." },
+  { title: "Contact", icon: "headset", text: "Our team reaches every new lead quickly, by phone, email or chat." },
+  { title: "Qualify", icon: "check-shield", text: "Each lead is checked against your criteria before it goes any further." },
+  {
+    title: "Hand off",
+    icon: "phone",
+    text: "Qualified prospects reach you as live call transfers, booked appointments or complete lead records.",
+  },
+  { title: "Report", icon: "chart", text: "You see what happened to every lead, and we use it to improve the next round." },
 ];
 
 export type Step = { title: string; text: string };
@@ -100,85 +85,69 @@ export type Step = { title: string; text: string };
 export const workflowSteps: Step[] = [
   {
     title: "Understand",
-    text: "We learn your goals, current workflow, requirements and constraints before proposing anything.",
+    text: "We learn your business, your customers, your current process and what a good result looks like for you.",
   },
   {
     title: "Plan",
-    text: "We define responsibilities, process steps, communication channels and the criteria that mean success for you.",
+    text: "We agree on scripts, qualification criteria, delivery format, team size, working hours and reporting before any work starts.",
   },
   {
     title: "Execute",
-    text: "Our team carries out the agreed tasks using documented procedures, so the work is consistent and traceable.",
+    text: "Trained agents, developers or marketers carry out the agreed work. Lead campaigns: contact, qualify, hand off. Web projects: design, build, launch, promote.",
   },
   {
     title: "Qualify",
-    text: "Records and outputs are checked against your requirements before they are handed over.",
+    text: "Every lead is checked against your criteria before it reaches you; every build is tested before it goes live.",
   },
   {
     title: "Report & Improve",
-    text: "We share progress, flag bottlenecks and suggest practical improvements to the process.",
+    text: "You receive regular reports. We review them with you and adjust scripts, targeting or campaigns to improve the next cycle.",
   },
 ];
 
-export type JourneyStage = {
-  title: string;
-  token: string;
-  text: string;
-  output: string;
-};
-
-/** Copy for the homepage "Journey of a Lead" animation. */
-export const journeyStages: JourneyStage[] = [
+export const whyChooseUs: { title: string; text: string; icon: IconName }[] = [
   {
-    title: "Lead Generation",
-    token: "New lead",
-    text: "Inquiries arrive from your forms, calls and campaigns. Each one is captured, logged and organised so nothing slips through.",
-    output: "Every inquiry recorded",
+    title: "Trained, dedicated teams",
+    text: "Agents learn your process, scripts and compliance rules before their first call, and every role has a trained backup who knows your workflow.",
+    icon: "users",
   },
   {
-    title: "Qualification",
-    token: "Qualifying",
-    text: "Each lead is checked against the criteria you define. Missing details are collected and unsuitable leads are flagged early.",
-    output: "Leads matched to your criteria",
-  },
-  {
-    title: "Processing",
-    token: "In process",
-    text: "Qualified leads move through your workflow: follow-up, documentation, scheduling and data entry, following agreed procedures.",
-    output: "Work done to documented steps",
-  },
-  {
-    title: "Reporting & Improvement",
-    token: "Reporting",
-    text: "You see where every lead stands. We review what is slowing things down and suggest how the process can improve.",
-    output: "Clear status and next steps",
-  },
-];
-
-export const commitments: { title: string; text: string; icon: IconName }[] = [
-  {
-    title: "Process-focused execution",
-    text: "Work follows documented steps agreed with you, not improvisation.",
-    icon: "flow",
-  },
-  {
-    title: "Clear communication",
-    text: "Named points of contact and agreed channels, so you always know who to ask.",
-    icon: "chat",
-  },
-  {
-    title: "Flexible operational support",
-    text: "Support that can be shaped around your volumes, hours and processes.",
-    icon: "sliders",
-  },
-  {
-    title: "Quality checks and reporting",
-    text: "Outputs are reviewed against your requirements and progress is reported back.",
+    title: "Quality you can check",
+    text: "Calls are monitored and scored, and every lead is verified against your criteria before handover.",
     icon: "check-shield",
   },
   {
-    title: "Tailored to your requirements",
-    text: "We start from how your business works and design the support around it.",
-    icon: "target",
+    title: "Clear reporting",
+    // The reporting frequency is filled in from placeholders where this is rendered.
+    text: "reports on leads contacted, qualified and handed over, with reasons for every rejection.",
+    icon: "chart",
   },
+  {
+    title: "One team, two capabilities",
+    text: "The people who build your channel also follow up on what it brings in, so enquiries do not go cold.",
+    icon: "flow",
+  },
+  {
+    title: "Compliance-first outreach",
+    text: "Consent-based contact lists, Do-Not-Call scrubbing, client-approved scripts, and no promises of outcomes.",
+    icon: "document",
+  },
+];
+
+export const values: { title: string; text: string }[] = [
+  { title: "Trust", text: "We earn it by showing clients exactly what we do and what it produces." },
+  { title: "Integrity", text: "We never promise outcomes we cannot deliver, to clients or their customers." },
+  { title: "Accountability", text: "We own our numbers and explain them." },
+  { title: "Quality", text: "Every lead is checked; every call can be reviewed." },
+  { title: "Growth", text: "For our clients, and for the people who work here." },
+];
+
+export const compliancePoints = [
+  "Outreach only to contacts with appropriate consent, provided or approved by the client",
+  "Do-Not-Call list scrubbing before campaigns",
+  "Scripts approved by the client before use",
+  "Agents never promise approvals, forgiveness, admissions or other outcomes, and never claim to represent a government agency",
+  // Call-recording retention is appended from placeholders where this is rendered.
+  "Calls recorded and stored",
+  "Restricted system access, confidentiality agreements for all staff, and client data used only for the agreed work",
 ];

@@ -1,149 +1,151 @@
-import { Icon, type IconName } from "@/components/Icon";
-import { CtaBand, PageHero } from "@/components/sections";
-import { Container, Placeholder, SectionHeading } from "@/components/ui";
-import { workflowSteps } from "@/lib/content";
+import { CtaStrip, PageHero } from "@/components/blocks";
+import { Icon } from "@/components/Icon";
+import { Fill } from "@/components/Sample";
+import { Bullets, Container, DraftNotice, Label, SectionHeading, Tile, cx } from "@/components/ui";
+import { compliancePoints, workflowSteps } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "How We Work",
-  description:
-    "Our five-stage way of working: Understand, Plan, Execute, Qualify, and Report & Improve. A systematic approach to dependable business process support.",
+  title: "How We Work — Process, Quality & Reporting",
+  description: "Our five-step process, quality checks, reporting and compliance practices for every engagement.",
   path: "/how-we-work",
 });
 
-/** Extra detail for each stage, in the same order as workflowSteps. */
-const stageDetail: { icon: IconName; activities: string[]; outcome: string }[] = [
-  {
-    icon: "search",
-    activities: ["Discovery conversation", "Review of your current workflow", "Requirements and constraints captured"],
-    outcome: "A shared understanding of what success looks like.",
-  },
-  {
-    icon: "compass",
-    activities: ["Roles and responsibilities", "Documented process steps", "Communication channels and contacts"],
-    outcome: "An agreed plan, with criteria we can both measure against.",
-  },
-  {
-    icon: "flow",
-    activities: ["Team briefed on your process", "Work carried out to documented procedures", "Issues raised early"],
-    outcome: "Consistent, traceable day-to-day delivery.",
-  },
-  {
-    icon: "check-shield",
-    activities: ["Records checked against your criteria", "Incomplete items followed up", "Exceptions flagged to you"],
-    outcome: "Outputs you can rely on.",
-  },
-  {
-    icon: "chart",
-    activities: ["Progress updates", "Bottlenecks identified", "Improvement suggestions"],
-    outcome: "A process that gets better over time.",
-  },
-];
-
-/**
- * Operating details that differ per client. Replace the placeholder text
- * once the company confirms its standard practices.
- */
-const operatingDetails: { icon: IconName; title: string; text: string; placeholder: string }[] = [
-  {
-    icon: "check-shield",
-    title: "Quality assurance",
-    text: "Outputs are reviewed against the criteria agreed during planning before they are handed over.",
-    placeholder: "Describe review method, e.g. sample checks or second review",
-  },
-  {
-    icon: "calendar",
-    title: "Reporting",
-    text: "Progress reports are shared at an interval agreed with each client.",
-    placeholder: "Standard reporting frequency and format",
-  },
-  {
-    icon: "database",
-    title: "CRM & communication tools",
-    text: "We can work within your existing CRM and communication tools, or agree a setup with you.",
-    placeholder: "Tools the team is experienced with",
-  },
-  {
-    icon: "refresh",
-    title: "Client feedback",
-    text: "Feedback is reviewed regularly and used to adjust procedures and training.",
-    placeholder: "How and how often feedback reviews take place",
-  },
+const reportItems = [
+  "Leads received or dialled",
+  "Contacts made",
+  "Leads qualified",
+  "Transfers or appointments delivered",
+  "Rejection reasons",
+  "Recommendations for the next period",
 ];
 
 export default function HowWeWorkPage() {
   return (
     <>
       <PageHero
-        eyebrow="How we work"
-        title="A systematic process, from first conversation to continuous improvement."
-        intro="Dependable outsourcing depends on clear structure. Every engagement follows the same five stages, so you always know what is happening and what comes next."
+        label="How we work"
+        title="Five steps, agreed before work starts."
+        intro="Outsourcing works when both sides know exactly what will happen, who does it and how results are measured. Every engagement follows the same five steps."
       />
 
-      <section className="py-20 sm:py-28" aria-label="Five-stage workflow">
-        <Container>
-          <ol className="relative">
-            <span aria-hidden className="absolute bottom-6 left-[1.6rem] top-6 w-px bg-gradient-to-b from-accent via-accent/40 to-line sm:left-[2.1rem]" />
-            {workflowSteps.map((step, i) => {
-              const detail = stageDetail[i];
-              return (
-                <li key={step.title} className="reveal relative grid gap-6 pb-14 pl-20 last:pb-0 sm:pl-28 lg:grid-cols-12 lg:gap-10">
-                  <span className="absolute left-0 top-0 flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-full border border-accent/40 bg-paper font-display text-sm font-bold text-accent sm:h-[4.2rem] sm:w-[4.2rem] sm:text-base">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="lg:col-span-5">
-                    <div className="flex items-center gap-3 text-accent">
-                      <Icon name={detail.icon} className="h-5 w-5" />
-                      <span className="text-xs font-semibold uppercase tracking-[0.16em]">Stage {i + 1}</span>
-                    </div>
-                    <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{step.title}</h2>
-                    <p className="mt-4 text-lg leading-relaxed text-muted">{step.text}</p>
-                  </div>
-                  <div className="rounded-[var(--radius-card)] border border-line bg-white p-6 lg:col-span-7">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">What happens</h3>
-                    <ul className="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-4">
-                      {detail.activities.map((a) => (
-                        <li key={a} className="flex items-start gap-2 text-[0.95rem] sm:block">
-                          <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-accent sm:mb-2" />
-                          {a}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-5 border-t border-line pt-4 text-[0.95rem]">
-                      <span className="font-semibold">Result: </span>
-                      <span className="text-muted">{detail.outcome}</span>
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </Container>
-      </section>
+      {/* Steps */}
+      <Container className="mt-3">
+        <ol className="grid gap-3 lg:grid-cols-6">
+          {workflowSteps.map((step, i) => (
+            <Tile
+              as="li"
+              key={step.title}
+              delay={i * 60}
+              className={cx("flex flex-col justify-between gap-10", i < 2 ? "lg:col-span-3" : "lg:col-span-2")}
+            >
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-sm text-signal">Step 0{i + 1}</span>
+                <span aria-hidden className="font-display text-6xl font-semibold leading-none text-surface-3">
+                  {i + 1}
+                </span>
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold">{step.title}</h2>
+                <p className="mt-3 leading-relaxed text-muted">{step.text}</p>
+              </div>
+            </Tile>
+          ))}
+        </ol>
+      </Container>
 
-      <section className="border-y border-line bg-white py-20 sm:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Operating details"
-            title="Agreed with you, written down, reviewed regularly."
-            intro="Specific tools, reporting schedules and quality checks are confirmed for each engagement during planning."
-          />
-          <ul className="mt-14 grid gap-5 sm:grid-cols-2">
-            {operatingDetails.map((d) => (
-              <li key={d.title} className="reveal rounded-[var(--radius-card)] border border-line p-7">
-                <Icon name={d.icon} className="h-6 w-6 text-accent" />
-                <h3 className="mt-4 text-xl font-bold">{d.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{d.text}</p>
-                <p className="mt-4">
-                  <Placeholder>{d.placeholder}</Placeholder>
+      {/* Quality + reporting + tools */}
+      <Container className="mt-24">
+        <SectionHeading index="02" label="Operations" title="Quality, reporting and tools." />
+        <div className="mt-10 grid gap-3 lg:grid-cols-12">
+          <Tile className="lg:col-span-5">
+            <div className="flex items-center justify-between">
+              <Label>Quality checks</Label>
+              <Icon name="check-shield" className="h-5 w-5 text-signal" />
+            </div>
+            <Bullets
+              className="mt-5"
+              items={[
+                <>
+                  Call monitoring and scoring by dedicated quality analysts (<Fill k="qaShare" /> reviewed)
+                </>,
+                "Lead verification before every handover",
+                "Regular calibration sessions with your team so our idea of a “qualified lead” matches yours",
+                "Coaching for agents based on call reviews",
+              ]}
+            />
+          </Tile>
+          <Tile delay={80} className="lg:col-span-7">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <Label>Reporting</Label>
+              <span className="rounded-full border border-line-strong px-3 py-1 text-sm">
+                Frequency: <Fill k="reportingFrequency" />
+              </span>
+            </div>
+            <p className="mt-5 text-muted">Each report covers:</p>
+            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
+              {reportItems.map((r, i) => (
+                <li key={r} className="flex items-center gap-3 rounded-xl border border-line bg-surface-2 px-4 py-3 text-[0.95rem]">
+                  <span className="font-mono text-xs text-signal">0{i + 1}</span>
+                  {r}
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 text-sm leading-relaxed text-muted">
+              Web and marketing clients also receive traffic, enquiry and campaign performance figures.
+            </p>
+          </Tile>
+          <Tile className="flex flex-col gap-4 lg:col-span-12 lg:flex-row lg:items-center lg:justify-between">
+            <div className="flex items-center gap-4">
+              <Icon name="sliders" className="h-5 w-5 text-signal" />
+              <div>
+                <Label>Tools</Label>
+                <p className="mt-1.5 text-lg font-medium">We can work inside your CRM or provide our own.</p>
+              </div>
+            </div>
+            <p className="text-muted lg:max-w-md lg:text-right">
+              <Fill k="tools" />
+            </p>
+          </Tile>
+        </div>
+      </Container>
+
+      {/* Compliance */}
+      <Container className="mt-24">
+        <div className="grid gap-3 lg:grid-cols-12">
+          <Tile className="bg-grid flex flex-col justify-between gap-8 p-7 sm:p-9 lg:col-span-5">
+            <div>
+              <Label index="03">Compliance and data handling</Label>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">Part of the process, not an afterthought.</h2>
+            </div>
+            <p className="leading-relaxed text-muted">
+              We contact consumers on behalf of US and Indian businesses, so we treat compliance as part of the process,
+              not an afterthought.
+            </p>
+          </Tile>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
+            {compliancePoints.map((point, i) => (
+              <Tile as="li" key={point} delay={(i % 2) * 60} className="p-5">
+                <Icon name="check" className="h-5 w-5 text-signal" />
+                <p className="mt-4 text-[0.95rem] leading-relaxed text-fg/85">
+                  {point === "Calls recorded and stored" ? (
+                    <>
+                      Calls recorded and stored: <Fill k="retention" />
+                    </>
+                  ) : (
+                    point
+                  )}
                 </p>
-              </li>
+              </Tile>
             ))}
           </ul>
-        </Container>
-      </section>
+        </div>
+        <div className="mt-3">
+          <DraftNotice>The company must confirm each compliance point above is accurate before publishing.</DraftNotice>
+        </div>
+      </Container>
 
-      <CtaBand title="Let's map out your process together." />
+      <CtaStrip />
     </>
   );
 }

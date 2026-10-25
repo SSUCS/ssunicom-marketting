@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { nav, site } from "@/lib/site";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
-import { ButtonLink, Container, cx } from "./ui";
+import { ButtonLink, cx } from "./ui";
 
 export function Header() {
   const pathname = usePathname();
@@ -43,39 +43,36 @@ export function Header() {
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header
-      className={cx(
-        "sticky top-0 z-50 border-b transition-[background-color,border-color] duration-300",
-        scrolled || open ? "border-line bg-paper/90 backdrop-blur-md" : "border-transparent bg-paper",
-      )}
-    >
+    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-white"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-signal focus:px-4 focus:py-2 focus:text-signal-ink"
       >
         Skip to content
       </a>
-      <Container className="flex h-16 items-center justify-between gap-6">
+      <div
+        className={cx(
+          "mx-auto flex h-14 max-w-[1280px] items-center justify-between gap-4 rounded-full border pl-4 pr-2 transition-[background-color,border-color] duration-300 sm:pl-5",
+          scrolled || open ? "border-line-strong bg-surface/85 backdrop-blur-xl" : "border-line bg-surface/50 backdrop-blur-md",
+        )}
+      >
         <Link href="/" aria-label={`${site.name} home`} className="shrink-0">
           <Logo />
         </Link>
 
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+          <ul className="flex items-center gap-0.5">
             {nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   aria-current={isActive(item.href) ? "page" : undefined}
                   className={cx(
-                    "relative rounded-full px-3.5 py-2 text-[0.93rem] font-medium transition-colors",
-                    isActive(item.href) ? "text-ink" : "text-muted hover:text-ink",
+                    "rounded-full px-3.5 py-2 text-[0.9rem] font-medium transition-colors",
+                    isActive(item.href) ? "bg-surface-3 text-fg" : "text-muted hover:text-fg",
                   )}
                 >
                   {item.label}
-                  {isActive(item.href) && (
-                    <span aria-hidden className="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-accent" />
-                  )}
                 </Link>
               </li>
             ))}
@@ -84,14 +81,14 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <div className="hidden sm:block">
-            <ButtonLink href="/contact" arrow>
-              Free Consultation
+            <ButtonLink href="/contact" arrow className="min-h-10 py-2">
+              Contact Us
             </ButtonLink>
           </div>
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong lg:hidden"
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
@@ -100,45 +97,43 @@ export function Header() {
             <Icon name={open ? "close" : "menu"} />
           </button>
         </div>
-      </Container>
+      </div>
 
       <div
         id="mobile-menu"
         hidden={!open}
-        className="h-[calc(100svh-4rem)] overflow-y-auto border-t border-line bg-paper lg:hidden"
+        className="mx-auto mt-2 max-h-[calc(100svh-5.5rem)] max-w-[1280px] overflow-y-auto rounded-3xl border border-line-strong bg-surface/95 p-5 backdrop-blur-xl lg:hidden"
       >
-        <Container className="py-6">
-          <nav aria-label="Mobile">
-            <ul className="divide-y divide-line">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    className={cx(
-                      "flex items-center justify-between py-4 font-display text-2xl font-semibold",
-                      isActive(item.href) ? "text-accent" : "text-ink",
-                    )}
-                  >
-                    {item.label}
-                    <Icon name="arrow-right" className="h-5 w-5 opacity-50" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-          <div className="mt-8 grid gap-3">
-            <ButtonLink href="/contact" arrow>
-              Free Consultation
-            </ButtonLink>
-            <a href={site.contact.phoneHref} className="inline-flex items-center gap-2 py-2 text-muted">
-              <Icon name="phone" className="h-4 w-4" /> {site.contact.phoneDisplay}
-            </a>
-            <a href={site.contact.emailHref} className="inline-flex items-center gap-2 py-2 text-muted">
-              <Icon name="mail" className="h-4 w-4" /> {site.contact.email}
-            </a>
-          </div>
-        </Container>
+        <nav aria-label="Mobile">
+          <ul className="grid grid-cols-2 gap-2">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cx(
+                    "flex min-h-14 items-center justify-between rounded-2xl border px-4 font-display text-lg font-medium",
+                    isActive(item.href) ? "border-signal/50 bg-signal/10 text-signal" : "border-line bg-surface-2 text-fg",
+                  )}
+                >
+                  {item.label}
+                  <Icon name="arrow-up-right" className="h-4 w-4 opacity-50" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="mt-4 grid gap-2">
+          <ButtonLink href="/contact" arrow>
+            Free Consultation
+          </ButtonLink>
+          <a href={site.contact.phoneHref} className="inline-flex items-center gap-2 px-1 py-2 text-muted">
+            <Icon name="phone" className="h-4 w-4" /> {site.contact.phoneDisplay}
+          </a>
+          <a href={site.contact.emailHref} className="inline-flex items-center gap-2 px-1 py-2 text-muted">
+            <Icon name="mail" className="h-4 w-4" /> {site.contact.email}
+          </a>
+        </div>
       </div>
     </header>
   );

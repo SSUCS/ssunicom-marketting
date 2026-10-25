@@ -1,168 +1,193 @@
-import { Icon, type IconName } from "@/components/Icon";
-import { CtaBand, PageHero } from "@/components/sections";
-import { ButtonLink, Container, Eyebrow, SectionHeading } from "@/components/ui";
+import { CtaStrip, PageHero, PhotoSlot } from "@/components/blocks";
+import { Fill, SampleMark, SampleTag } from "@/components/Sample";
+import { Container, Label, SectionHeading, TextLink, Tile, cx } from "@/components/ui";
+import { values } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
-import { site } from "@/lib/site";
+import { facts, sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
-  title: "About Us",
-  description:
-    "SS Unicom Service is an India-based BPO and lead generation company with over 10 years of industry experience supporting technical and non-technical business processes.",
+  title: "About SS Unicom Service — Kanpur BPO",
+  description: "Who we are, our mission and values, and how we train the team behind every call and project.",
   path: "/about",
 });
 
-const values: { icon: IconName; title: string; text: string }[] = [
-  {
-    icon: "check-shield",
-    title: "Quality",
-    text: "We check our work against your requirements before it leaves our hands.",
-  },
-  {
-    icon: "chat",
-    title: "Communication",
-    text: "Clear updates, agreed channels and honest answers when something needs attention.",
-  },
-  {
-    icon: "refresh",
-    title: "Continuous improvement",
-    text: "We look for bottlenecks and suggest better ways of working as we learn your process.",
-  },
-  {
-    icon: "users",
-    title: "Client focus",
-    text: "Your goals and constraints shape how we work, not a one-size-fits-all template.",
-  },
+const training = [
+  { title: "Process and product training", text: "On the client's workflow, scripts and qualification criteria." },
+  { title: "Voice and accent coaching", text: "For international calls, led by dedicated trainers." },
+  { title: "Compliance training", text: "On consent, Do-Not-Call rules and what agents may and may not say." },
+  { title: "Ongoing quality feedback", text: "From quality analysts who review calls and coach agents every week." },
 ];
 
 export default function AboutPage() {
+  const leaders = sampleLists.leaders;
+  const photos = sampleLists.photos;
+
   return (
     <>
       <PageHero
-        eyebrow="About us"
-        title="A dependable partner for the work behind your growth."
-        intro="SS Unicom Service is a business process outsourcing company based in India. We support lead generation, customer interactions and back-office operations for businesses that need reliable, well-run processes."
+        label="About us"
+        title="An extension of your team, based in Kanpur."
+        intro={
+          <>
+            SS Unicom Service is an outsourcing company in Kanpur, India, serving businesses in the United States and
+            India. Our team brings over <Fill k="combinedExperience" /> years of combined experience in business process
+            outsourcing, across both technical and non-technical processes.
+          </>
+        }
+        aside={
+          <>
+            <div className="tile flex flex-col justify-between gap-6 p-6">
+              <Label>Established</Label>
+              <p className="font-display text-5xl font-semibold">
+                <Fill k="yearStarted" />
+              </p>
+            </div>
+            <div className="tile flex flex-col justify-between gap-6 p-6">
+              <Label>Operated by</Label>
+              <p className="font-display text-xl font-semibold leading-snug">
+                <Fill k="legalEntity" />
+              </p>
+            </div>
+          </>
+        }
       />
 
-      {/* Introduction */}
-      <section className="py-20 sm:py-28">
-        <Container className="grid gap-14 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <Eyebrow>Our background</Eyebrow>
-            <p className="font-display text-7xl font-extrabold tracking-tight text-accent sm:text-8xl">{site.experience}</p>
-            <p className="mt-3 max-w-xs text-muted">
-              of experience in the business process outsourcing industry.
+      {/* Who we are + story */}
+      <Container className="mt-3">
+        <div className="grid gap-3 lg:grid-cols-12">
+          <Tile className="p-7 sm:p-10 lg:col-span-7">
+            <Label index="01">Who we are</Label>
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-fg/85">
+              <p>
+                We specialise in lead generation and process support for finance-related businesses, especially those
+                working on student-loan matters. We also design, build and market web applications for companies that
+                want more customers online.
+              </p>
+              <p className="text-muted">
+                Whether the work is reaching new prospects, supporting customer conversations or managing back-office
+                tasks, our aim is the same: help clients grow with confidence.
+              </p>
+            </div>
+          </Tile>
+          <Tile delay={80} className="p-7 sm:p-10 lg:col-span-5">
+            <div className="flex items-center justify-between gap-3">
+              <Label>Our story</Label>
+              <SampleTag show={!facts.story.confirmed} />
+            </div>
+            <p className="mt-6 leading-relaxed text-fg/85">
+              <Fill k="story" />
             </p>
-          </div>
-          <div className="space-y-6 text-lg leading-relaxed text-muted lg:col-span-7">
-            <p className="reveal font-display text-2xl font-semibold leading-snug text-ink">
-              Over the past decade our team has built its expertise across both technical and non-technical processes,
-              providing solutions tailored to the diverse needs of our clients.
-            </p>
-            <p className="reveal">
-              We specialise in lead generation, particularly for student-loan and finance-related processes, and in the
-              operational work that surrounds it: collecting information, qualifying leads, following up and keeping
-              records accurate. Alongside lead generation, we support customer interactions, data management and
-              back-end operations.
-            </p>
-            <p className="reveal">
-              We use practical tools and well-documented procedures to streamline operations, while keeping a strong
-              focus on client satisfaction. Whether you need help with customer interactions, qualified leads or
-              back-office work, our aim is the same: to help you reach your goals with confidence.
-            </p>
-          </div>
-        </Container>
-      </section>
+          </Tile>
+        </div>
+      </Container>
 
-      {/* Mission */}
-      <section className="on-dark relative overflow-hidden bg-ink py-20 text-white sm:py-28">
-        <div className="bg-grid-dark absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_70%)]" aria-hidden />
-        <Container className="relative">
-          <Eyebrow dark>Our mission</Eyebrow>
-          <blockquote className="reveal max-w-4xl font-display text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-            To help businesses operate more efficiently through dependable process support, thoughtful execution and a
-            commitment to continuous improvement.
-          </blockquote>
-          {/* PLACEHOLDER: draft mission statement. Replace with the company's approved wording. */}
-          <p className="mt-6 text-sm text-mist">Draft mission statement, pending company approval.</p>
-        </Container>
-      </section>
-
-      {/* Values */}
-      <section className="py-20 sm:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="What we value"
-            title="The principles behind every engagement."
-          />
-          <ul className="mt-14 grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+      {/* Mission, vision, values */}
+      <Container className="mt-24">
+        <SectionHeading index="02" label="Mission, vision & values" title="What we work towards." />
+        <div className="mt-10 grid gap-3 lg:grid-cols-12">
+          <Tile className="bg-grid border-signal/25 p-7 sm:p-9 lg:col-span-6">
+            <Label>Mission</Label>
+            <p className="mt-6 font-display text-2xl font-medium leading-snug sm:text-3xl">
+              To help businesses grow by bringing them better enquiries and following up on every one with care,
+              consistency and honesty.
+            </p>
+          </Tile>
+          <Tile delay={80} className="p-7 sm:p-9 lg:col-span-6">
+            <Label>Vision</Label>
+            <p className="mt-6 font-display text-2xl font-medium leading-snug sm:text-3xl">
+              To be the outsourcing partner businesses keep for years, known for the quality of our people and the
+              transparency of our work.
+            </p>
+          </Tile>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-12 lg:grid-cols-5">
             {values.map((v, i) => (
-              <li
-                key={v.title}
-                className="reveal border-t-2 border-ink pt-6"
-                style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
-              >
-                <Icon name={v.icon} className="h-6 w-6 text-accent" />
-                <h3 className="mt-4 text-xl font-bold">{v.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{v.text}</p>
-              </li>
+              <Tile as="li" key={v.title} delay={i * 60} className="p-6">
+                <span className="font-mono text-xs text-signal">0{i + 1}</span>
+                <h3 className="mt-6 text-xl font-semibold">{v.title}</h3>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-muted">{v.text}</p>
+              </Tile>
             ))}
           </ul>
-        </Container>
-      </section>
+        </div>
+      </Container>
 
-      {/* Team */}
-      <section className="border-t border-line bg-white py-20 sm:py-28">
-        <Container className="grid items-center gap-14 lg:grid-cols-2">
-          <div>
-            <SectionHeading
-              eyebrow="Our team"
-              title="People trained on your process, not just a script."
-              intro="Before our team works on a client process, they are briefed on its goals, steps and quality expectations. Procedures are documented so that work stays consistent as volumes change."
-            />
-            <ul className="mt-8 space-y-3">
-              {[
-                "Process training before work begins",
-                "Documented procedures for each workflow",
-                "Regular review of quality and feedback",
-                "Experience across technical and non-technical processes",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3">
-                  <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10">
-              <ButtonLink href="/how-we-work" variant="secondary" arrow>
-                How we work
-              </ButtonLink>
+      {/* Team and training */}
+      <Container className="mt-24">
+        <div className="grid gap-3 lg:grid-cols-12">
+          <Tile className="flex flex-col justify-between gap-10 p-7 sm:p-9 lg:col-span-4">
+            <div>
+              <Label index="03">Our team</Label>
+              <h2 className="mt-5 text-3xl font-semibold leading-tight">How we train</h2>
             </div>
-          </div>
-          {/* PLACEHOLDER: replace with an approved founder or team photograph (next/image, with descriptive alt text). */}
-          <div
-            className="relative flex aspect-[4/3] items-center justify-center overflow-hidden rounded-[1.75rem] border border-dashed border-ink/20 bg-paper"
-            role="img"
-            aria-label="Placeholder for a team or founder photograph"
-          >
-            <div className="bg-grid absolute inset-0 opacity-60" aria-hidden />
-            <svg viewBox="0 0 320 200" className="relative w-3/4 text-accent" fill="none" aria-hidden>
-              <path d="M60 140 C110 140 110 60 160 60 S 210 140 260 140" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 6" />
-              {[60, 160, 260].map((x, i) => (
-                <g key={x} transform={`translate(${x} ${i === 1 ? 60 : 140})`}>
-                  <circle r="26" className="fill-white" stroke="currentColor" strokeWidth="1.5" />
-                  <circle cy="-6" r="8" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M-13 14a13 13 0 0 1 26 0" stroke="currentColor" strokeWidth="1.5" />
-                </g>
-              ))}
-            </svg>
-            <span className="absolute bottom-4 left-4 rounded-md bg-white px-2 py-1 text-xs text-muted">
-              Team photo placeholder
-            </span>
-          </div>
-        </Container>
-      </section>
+            <div>
+              <p className="font-display text-6xl font-semibold text-signal">
+                <Fill k="teamSize" />
+              </p>
+              <p className="mt-3 leading-relaxed text-muted">
+                people across calling, quality, training, development and marketing.
+              </p>
+            </div>
+          </Tile>
+          <ol className="grid gap-3 sm:grid-cols-2 lg:col-span-8">
+            {training.map((t, i) => (
+              <Tile as="li" key={t.title} delay={i * 60}>
+                <span className="font-mono text-xs text-signal">Step 0{i + 1}</span>
+                <h3 className="mt-5 text-xl font-semibold">{t.title}</h3>
+                <p className="mt-2 leading-relaxed text-muted">{t.text}</p>
+              </Tile>
+            ))}
+          </ol>
+        </div>
+        <p className="mt-4 px-1 text-sm text-muted">Every agent goes through all four steps.</p>
+      </Container>
 
-      <CtaBand title="Looking for a process partner you can rely on?" />
+      {/* Leadership + founder */}
+      <Container className="mt-24">
+        <SectionHeading
+          index="04"
+          label="Leadership"
+          title="The people accountable for your work."
+          aside={<SampleTag show={!leaders.confirmed}>Sample names</SampleTag>}
+        />
+        <div className="mt-10 grid gap-3 lg:grid-cols-12">
+          {leaders.items.map((l, i) => (
+            <Tile key={l.role} delay={i * 60} className="p-5 lg:col-span-3">
+              <PhotoSlot label="Headshot" className="min-h-48" />
+              <p className="mt-5 font-display text-lg font-semibold">
+                {leaders.confirmed ? l.name : <SampleMark>{l.name}</SampleMark>}
+              </p>
+              <p className="text-sm text-muted">{l.role}</p>
+            </Tile>
+          ))}
+          <Tile delay={180} className="flex flex-col justify-between gap-8 p-7 lg:col-span-3">
+            <div className="flex items-center justify-between gap-3">
+              <Label>From the founder</Label>
+              <SampleTag show={!facts.founderMessage.confirmed} />
+            </div>
+            <blockquote className="font-display text-lg leading-snug">
+              &ldquo;<Fill k="founderMessage" />&rdquo;
+            </blockquote>
+          </Tile>
+        </div>
+      </Container>
+
+      {/* Office */}
+      <Container className="mt-24">
+        <SectionHeading
+          index="05"
+          label="Inside our office"
+          title="Real photos only."
+          intro="Office and team photos will appear here. No stock photography."
+          aside={<TextLink href="/infrastructure">See our infrastructure</TextLink>}
+        />
+        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {photos.items.map((p, i) => (
+            <PhotoSlot key={p} label={p} className={cx(i === 0 && "sm:col-span-2 sm:row-span-2 sm:min-h-[360px]", i === 1 && "lg:col-span-2")} />
+          ))}
+        </div>
+      </Container>
+
+      <CtaStrip />
     </>
   );
 }

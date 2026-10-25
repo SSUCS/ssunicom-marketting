@@ -1,102 +1,260 @@
-import Link from "next/link";
+import type { ReactNode } from "react";
+import { CtaStrip, PageHero, PhotoSlot } from "@/components/blocks";
 import { Icon } from "@/components/Icon";
-import { CtaBand, PageHero } from "@/components/sections";
-import { ButtonLink, Container, cx } from "@/components/ui";
-import { services } from "@/lib/content";
+import { Fill, SampleMark, SampleTag } from "@/components/Sample";
+import { Bullets, ButtonLink, Container, IconBadge, Label, Tile } from "@/components/ui";
+import { enquireHref, services, type Service } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
+import { facts, sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
-  title: "Services",
+  title: "US Lead Generation, Web Apps & EdTech Support",
   description:
-    "US lead generation and process support, Canadian business services, India EdTech solutions and custom business process support from SS Unicom Service.",
+    "US lead generation services, document-preparation support, web app development, digital marketing and EdTech enquiry handling.",
   path: "/services",
 });
 
+const [usLeads, web, edtech, custom] = services;
+
 export default function ServicesPage() {
+  const projects = sampleLists.projects;
+
   return (
     <>
       <PageHero
-        eyebrow="Services"
-        title="Process support shaped around how your business works."
-        intro="We support the operational side of lead generation, client coordination and customer support. Every engagement starts from your requirements, and the activities below are agreed with you before work begins."
-      >
-        <nav aria-label="Services on this page">
-          <ul className="flex flex-wrap gap-2">
-            {services.map((s) => (
-              <li key={s.id}>
-                <Link
-                  href={`#${s.id}`}
-                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
-                >
-                  <Icon name={s.icon} className="h-4 w-4" />
-                  {s.title}
-                </Link>
+        label="Services"
+        title="Four service lines, one team."
+        intro="Choose one, or combine them so the channel that brings in your enquiries and the people who follow them up work as a single process."
+        aside={
+          <nav aria-label="Services on this page" className="tile p-5">
+            <Label>Jump to</Label>
+            <ul className="mt-4 space-y-1.5">
+              {services.map((s, i) => (
+                <li key={s.id}>
+                  <a
+                    href={`#${s.id}`}
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-line bg-surface-2 px-4 py-3 transition-colors hover:border-signal/50"
+                  >
+                    <span className="flex items-center gap-3">
+                      <span className="font-mono text-xs text-signal">0{i + 1}</span>
+                      <span className="font-medium">{s.short}</span>
+                    </span>
+                    <Icon name="arrow-right" className="h-4 w-4 rotate-90 text-muted group-hover:text-signal" />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        }
+      />
+
+      {/* 3.1 US Lead Generation */}
+      <ServiceBlock service={usLeads} index="01">
+        <Tile className="lg:col-span-7">
+          <Label>What we do</Label>
+          <Bullets
+            className="mt-5"
+            items={[
+              "Outbound lead generation and prospecting",
+              "Live call transfers: qualified prospects transferred to your team while still on the line",
+              "Appointment setting for your sales or advisory staff",
+              "Inbound call handling and enquiry response",
+              "Lead qualification against your criteria",
+              "Document collection and preparation support: gathering and organising customer information and paperwork for your team to review",
+              "Data entry, CRM updates and follow-up calls",
+              "Customer surveys and feedback calls",
+            ]}
+          />
+        </Tile>
+        <Tile delay={80} className="lg:col-span-5">
+          <Label>What you get</Label>
+          <Bullets
+            className="mt-5"
+            items={[
+              <>
+                <Fill k="deliveryType" /> in an agreed format
+              </>,
+              "Written qualification criteria agreed before launch",
+              "Call recordings available for review",
+              <>
+                <Fill k="reportingFrequency" /> performance reports
+              </>,
+            ]}
+          />
+        </Tile>
+        <div role="note" className="tile reveal flex gap-4 border-signal/25 p-6 lg:col-span-12">
+          <Icon name="check-shield" className="mt-0.5 h-5 w-5 shrink-0 text-signal" />
+          <p className="leading-relaxed text-fg/85">
+            <strong className="font-semibold text-fg">Important:</strong> We work on behalf of our clients. We do not
+            provide legal or financial advice, approve loans or loan forgiveness, or represent any government agency.
+          </p>
+        </div>
+      </ServiceBlock>
+
+      {/* 3.2 Web Apps & Digital Marketing */}
+      <ServiceBlock service={web} index="02">
+        <Tile className="lg:col-span-4">
+          <div className="flex items-center justify-between">
+            <Label>Build</Label>
+            <Icon name="layers" className="h-5 w-5 text-signal" />
+          </div>
+          <Bullets
+            className="mt-5"
+            items={[
+              "Business websites and landing pages",
+              "Custom web applications and customer portals",
+              "Dashboards and internal tools",
+              <>
+                Built with <Fill k="techStack" />
+              </>,
+            ]}
+          />
+        </Tile>
+        <Tile delay={60} className="lg:col-span-4">
+          <div className="flex items-center justify-between">
+            <Label>Market</Label>
+            <Icon name="search" className="h-5 w-5 text-signal" />
+          </div>
+          <Bullets
+            className="mt-5"
+            items={[
+              "Search engine optimisation (SEO)",
+              "Google and Meta advertising",
+              "Social media management",
+              "Email campaigns",
+              "Analytics and conversion tracking",
+            ]}
+          />
+        </Tile>
+        <Tile delay={120} className="flex flex-col justify-between gap-6 lg:col-span-4">
+          <div>
+            <Label>What you get</Label>
+            <p className="mt-5 leading-relaxed text-fg/85">
+              A launched website or app that you own, campaign reports showing where enquiries come from, and the option
+              to route new leads straight to our calling team.
+            </p>
+          </div>
+          <div className="rounded-xl border border-line bg-surface-2 p-4">
+            <p className="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-muted">Engagement</p>
+            <p className="mt-1.5 font-medium">
+              <Fill k="engagement" />
+            </p>
+          </div>
+        </Tile>
+        <Tile className="lg:col-span-12">
+          <Label>How a project runs</Label>
+          <ol className="mt-5 grid gap-2 sm:grid-cols-5">
+            {["Discover", "Design", "Build", "Launch", "Grow"].map((step, i) => (
+              <li key={step} className="flex items-center gap-3 rounded-xl border border-line bg-surface-2 px-4 py-3.5">
+                <span className="font-mono text-xs text-signal">0{i + 1}</span>
+                <span className="font-display text-lg font-semibold">{step}</span>
+              </li>
+            ))}
+          </ol>
+        </Tile>
+        <div className="lg:col-span-12">
+          <div className="mb-3 mt-3 flex items-center gap-3 px-1">
+            <Label>Recent work</Label>
+            <SampleTag show={!projects.confirmed}>Sample projects</SampleTag>
+          </div>
+          <ul className="grid gap-3 md:grid-cols-3">
+            {projects.items.map((p, i) => (
+              <Tile as="li" key={p.client} delay={i * 60} className="p-5">
+                <PhotoSlot label="Project screenshot" className="min-h-40" />
+                <p className="mt-5 font-mono text-[0.68rem] uppercase tracking-[0.16em] text-muted">{p.type}</p>
+                <p className="mt-1 font-display text-lg font-semibold">
+                  {projects.confirmed ? p.client : <SampleMark>{p.client}</SampleMark>}
+                </p>
+                <p className="mt-2 text-[0.95rem] leading-relaxed text-muted">{p.outcome}</p>
+              </Tile>
+            ))}
+          </ul>
+        </div>
+      </ServiceBlock>
+
+      {/* 3.3 India EdTech Support */}
+      <ServiceBlock service={edtech} index="03">
+        <Tile className="lg:col-span-7">
+          <Label>What we do</Label>
+          <Bullets
+            className="mt-5"
+            items={[
+              "Handling incoming course and admission enquiries",
+              "Counselling calls to understand each student's needs",
+              "Scheduling demo classes and counsellor appointments",
+              "Application and enrolment follow-ups",
+              "CRM updates and enquiry status tracking",
+            ]}
+          />
+        </Tile>
+        <div className="grid gap-3 lg:col-span-5">
+          <Tile delay={80}>
+            <Label>What you get</Label>
+            <p className="mt-5 leading-relaxed text-fg/85">
+              Every enquiry contacted and recorded, clear status for each student, and regular reports on enquiries,
+              demos and enrolments.
+            </p>
+          </Tile>
+          <Tile delay={140} className="flex items-center justify-between gap-4">
+            <div>
+              <Label>Partner</Label>
+              <p className="mt-2 font-display text-lg font-semibold">
+                <Fill k="edtechPartner" />
+              </p>
+            </div>
+            {!facts.edtechPartner.confirmed && <span className="text-right text-xs text-muted">Named only if permitted</span>}
+          </Tile>
+        </div>
+      </ServiceBlock>
+
+      {/* 3.4 Custom Solutions */}
+      <ServiceBlock service={custom} index="04">
+        <Tile className="lg:col-span-12">
+          <Label>Examples</Label>
+          <ul className="mt-5 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              { t: "Back-office processing and data entry", i: "document" as const },
+              { t: "Data management, cleansing and validation", i: "database" as const },
+              { t: "Customer support by voice, email and chat", i: "chat" as const },
+              { t: "Research and market surveys", i: "compass" as const },
+            ].map(({ t, i }) => (
+              <li key={t} className="flex min-h-28 flex-col justify-between gap-4 rounded-xl border border-line bg-surface-2 p-4">
+                <Icon name={i} className="h-5 w-5 text-signal" />
+                <span className="font-medium leading-snug">{t}</span>
               </li>
             ))}
           </ul>
-        </nav>
-      </PageHero>
+        </Tile>
+      </ServiceBlock>
 
-      {services.map((s, i) => (
-        <section
-          key={s.id}
-          id={s.id}
-          aria-labelledby={`${s.id}-title`}
-          className={cx("scroll-mt-20 py-20 sm:py-24", i % 2 === 1 && "border-y border-line bg-white")}
-        >
-          <Container className="grid gap-12 lg:grid-cols-12">
-            <div className="lg:col-span-5">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-ink text-accent-bright">
-                  <Icon name={s.icon} className="h-6 w-6" />
-                </span>
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-                  {String.fromCharCode(65 + i)} · {s.market}
-                </span>
-              </div>
-              <h2 id={`${s.id}-title`} className="mt-6 text-3xl font-bold leading-tight sm:text-4xl">
-                {s.title}
-              </h2>
-              <p className="mt-5 text-lg leading-relaxed text-muted">{s.detail}</p>
-              <div className="mt-8">
-                <ButtonLink href={`/contact?service=${encodeURIComponent(s.title)}`} arrow>
-                  Enquire about this service
-                </ButtonLink>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7">
-              <div className="reveal rounded-[var(--radius-card)] border border-line bg-paper p-6 sm:p-8">
-                <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-muted">
-                  Typical activities <span className="font-normal normal-case tracking-normal">(agreed per client)</span>
-                </h3>
-                <ul className="mt-5 grid gap-x-8 sm:grid-cols-2">
-                  {s.activities.map((a) => (
-                    <li key={a} className="flex items-start gap-3 border-b border-line py-3.5">
-                      <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
-                      <span>{a}</span>
-                    </li>
-                  ))}
-                </ul>
-                {s.note && (
-                  <p className="mt-6 flex gap-3 rounded-xl bg-white p-4 text-sm leading-relaxed text-muted">
-                    <Icon name="check-shield" className="mt-0.5 h-5 w-5 shrink-0 text-ink/50" />
-                    <span>
-                      <strong className="font-semibold text-ink">Scope note: </strong>
-                      {s.note}
-                    </span>
-                  </p>
-                )}
-              </div>
-            </div>
-          </Container>
-        </section>
-      ))}
-
-      <CtaBand
-        title="Not sure which service fits?"
-        text="Describe the process you need help with. We'll tell you honestly whether and how we can support it."
-      />
+      <CtaStrip />
     </>
+  );
+}
+
+function ServiceBlock({ service, index, children }: { service: Service; index: string; children: ReactNode }) {
+  return (
+    <section id={service.id} aria-labelledby={`${service.id}-title`} className="scroll-mt-24">
+      <Container className="mt-24">
+        <div className="grid gap-3 lg:grid-cols-12">
+          <Tile className="bg-grid flex flex-col justify-between gap-8 p-7 sm:p-10 lg:col-span-12 lg:flex-row lg:items-end">
+            <div className="max-w-3xl">
+              <div className="flex items-center gap-4">
+                <IconBadge name={service.icon} />
+                <Label index={index}>Service</Label>
+              </div>
+              <h2 id={`${service.id}-title`} className="mt-6 text-3xl font-semibold leading-[1.05] sm:text-5xl">
+                {service.title}
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted">{service.description}</p>
+            </div>
+            <ButtonLink href={enquireHref(service)} arrow className="shrink-0 self-start lg:self-end">
+              Enquire Now
+            </ButtonLink>
+          </Tile>
+          {children}
+        </div>
+      </Container>
+    </section>
   );
 }

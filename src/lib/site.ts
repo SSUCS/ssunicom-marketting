@@ -1,31 +1,28 @@
 /**
  * Central company details and site-wide settings.
  *
- * Edit this file to change contact details, navigation and placeholders.
- * Values set to `null` are unconfirmed and are hidden on the site until
- * they are filled in. Never add facts here that the company has not confirmed.
+ * Confirmed details (name, phone, email, domain) live here. Anything the
+ * company still has to confirm lives in ./placeholders.ts.
  */
 
 export const site = {
   name: "SS Unicom Service",
   shortName: "SS Unicom",
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://ssunicomservice.com",
+  tagline: "Digital reach. Human follow-through.",
   description:
-    "Business process support for lead generation, customer operations and back-office workflows, delivered from India for clients in the United States, Canada and India.",
+    "Outsourced lead generation, live transfers, web apps and digital marketing from Kanpur, India. Digital reach with human follow-through.",
+  positioning:
+    "SS Unicom Service builds the websites and campaigns that bring businesses new enquiries, and runs the trained calling team that turns those enquiries into qualified, sales-ready conversations.",
+  about:
+    "Outsourced lead generation, process support, web apps and digital marketing — delivered from Kanpur, India.",
 
   contact: {
     phoneDisplay: "+91 97947 74773",
     phoneHref: "tel:+919794774773",
     email: "info@ssunicomservice.com",
     emailHref: "mailto:info@ssunicomservice.com",
-    // PLACEHOLDER: add the confirmed registered/office address, e.g. "Street, City, State PIN, India".
-    address: null as string | null,
-    // PLACEHOLDER: add confirmed business hours including time zone, e.g. "Mon–Sat, 10:00–19:00 IST".
-    hours: null as string | null,
   },
-
-  // Company-provided positioning. Do not turn this into a founding date.
-  experience: "10+ years",
 } as const;
 
 export const nav = [
@@ -34,18 +31,27 @@ export const nav = [
   { href: "/services", label: "Services" },
   { href: "/how-we-work", label: "How We Work" },
   { href: "/industries", label: "Industries" },
+  { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
+] as const;
+
+export const companyNav = [
+  { href: "/about", label: "About" },
+  { href: "/how-we-work", label: "How We Work" },
+  { href: "/industries", label: "Industries" },
+  { href: "/infrastructure", label: "Infrastructure" },
+  { href: "/careers", label: "Careers" },
 ] as const;
 
 export const legalNav = [
   { href: "/privacy-policy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/terms", label: "Terms of Use" },
 ] as const;
 
 export const serviceOptions = [
-  "US Lead Generation & Process Support",
-  "Canadian Business Services",
-  "India EdTech Solutions",
-  "Custom Business Process Solutions",
-  "Not sure yet",
+  "US lead generation & process support",
+  "Web apps & digital marketing",
+  "India EdTech support",
+  "Custom solution",
+  "Something else",
 ] as const;

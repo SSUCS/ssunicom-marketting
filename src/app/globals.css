@@ -1,37 +1,47 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Change colours, fonts and radii here; Tailwind utilities
- * such as bg-ink, text-accent and border-line are generated from them.
+ * Design tokens for the bento-grid variation. Change colours, fonts and
+ * radii here; Tailwind utilities such as bg-surface, text-signal and
+ * border-line are generated from them.
  */
 @theme {
-  --color-ink: #0a1626;
-  --color-ink-2: #12233a;
-  --color-ink-3: #1d3352;
-  --color-paper: #f6f4ef;
-  --color-paper-2: #ece8df;
-  --color-line: #ddd8cc;
-  --color-muted: #566173;
-  --color-accent: #0d7a72;
-  --color-accent-strong: #0a625c;
-  --color-accent-soft: #d6ede9;
-  --color-accent-bright: #45d6c4;
-  --color-mist: #a9b6c8;
+  --color-void: #060708;
+  --color-surface: #0d0f12;
+  --color-surface-2: #14171c;
+  --color-surface-3: #1c2027;
+  --color-line: #1f242b;
+  --color-line-strong: #2e353f;
+  --color-fg: #f2f4f5;
+  --color-muted: #8b939e;
+  --color-dim: #5c6570;
+  --color-signal: #c4f54a;
+  --color-signal-strong: #a9dc2c;
+  --color-signal-ink: #10140a;
+  --color-teal: #45d6c4;
+  --color-sample: #f5b94a;
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-heading), var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-code), ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --radius-card: 1.25rem;
+  --radius-tile: 1.5rem;
 
+  --animate-marquee: marquee 38s linear infinite;
   --animate-flow: flow 2.4s linear infinite;
-  --animate-pulse-soft: pulse-soft 3s ease-in-out infinite;
+  --animate-blink: blink 2.2s ease-in-out infinite;
 
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
   @keyframes flow {
     to {
       stroke-dashoffset: -24;
     }
   }
-  @keyframes pulse-soft {
+  @keyframes blink {
     0%,
     100% {
       opacity: 0.35;
@@ -45,11 +55,12 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 5rem;
+    scroll-padding-top: 5.5rem;
+    color-scheme: dark;
   }
 
   body {
-    @apply bg-paper text-ink font-sans antialiased;
+    @apply bg-void text-fg font-sans antialiased;
     text-rendering: optimizeLegibility;
   }
 
@@ -58,7 +69,7 @@
   h3,
   h4 {
     @apply font-display text-balance;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
 
   p {
@@ -66,40 +77,68 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid var(--color-signal);
     outline-offset: 3px;
     border-radius: 6px;
   }
 
-  .on-dark :focus-visible {
-    outline-color: var(--color-accent-bright);
-  }
-
   ::selection {
-    background: var(--color-accent-soft);
-    color: var(--color-ink);
+    background: var(--color-signal);
+    color: var(--color-signal-ink);
   }
 }
 
 @layer components {
-  /* Fine technical grid used sparingly as a background texture. */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, rgb(10 22 38 / 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(10 22 38 / 0.06) 1px, transparent 1px);
-    background-size: 48px 48px;
+  /*
+   * Bento tile. A soft spotlight follows the pointer (position set by
+   * components/Spotlight.tsx through --mx / --my).
+   */
+  .tile {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-radius: var(--radius-tile);
+    border: 1px solid var(--color-line);
+    background: var(--color-surface);
+    transition: border-color 0.3s ease;
   }
-  .bg-grid-dark {
-    background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.05) 1px, transparent 1px);
-    background-size: 48px 48px;
+  .tile::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    background: radial-gradient(
+      420px circle at var(--mx, 50%) var(--my, 50%),
+      rgb(196 245 74 / 0.09),
+      transparent 65%
+    );
+  }
+  .tile:hover {
+    border-color: var(--color-line-strong);
+  }
+  .tile:hover::before {
+    opacity: 1;
   }
 
-  /* Viewport reveal (see components/Reveal.tsx). Content stays visible without JS. */
+  /* Faint blueprint grid used behind heroes and large tiles. */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+  .bg-dots {
+    background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  /* Viewport reveal (see components/RevealObserver.tsx). Content stays visible without JS. */
   .js .reveal {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(18px) scale(0.985);
     transition:
       opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
       transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -108,6 +147,11 @@
   .js .reveal.is-visible {
     opacity: 1;
     transform: none;
+  }
+
+  /* Edge fade for marquees. */
+  .fade-x {
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
   }
 }
 
@@ -126,29 +170,13 @@
   }
 }
 
-/* Hero illustration: dots travelling along connectors (CSS motion path). */
-.hero-traveller {
-  offset-rotate: 0deg;
-  offset-distance: 0%;
-  opacity: 0;
-  animation: travel 3.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
-}
-@keyframes travel {
-  0% {
-    offset-distance: 0%;
+@keyframes fade-up {
+  from {
     opacity: 0;
+    transform: translateY(10px);
   }
-  12%,
-  85% {
+  to {
     opacity: 1;
-  }
-  100% {
-    offset-distance: 100%;
-    opacity: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-traveller {
-    display: none;
+    transform: none;
   }
 }

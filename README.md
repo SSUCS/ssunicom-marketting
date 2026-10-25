@@ -1,4 +1,6 @@
-# SS Unicom Service: marketing website
+# SS Unicom Service: marketing website (bento-grid variation)
+
+This branch is a second design variation: a dark, modular bento-grid layout with the October 2026 content doc. The original design stays on `main`.
 
 Sample marketing website for SS Unicom Service, an India-based BPO, lead generation and business support company.
 Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. The only runtime dependencies are Next.js and React: icons, illustrations and the scroll animation are hand-written SVG, CSS and React.
@@ -22,16 +24,23 @@ Deploys as a standard Next.js app (Vercel, Netlify, or any Node host). Set the e
 
 | Route | Page |
 | --- | --- |
-| `/` | Home, including the "Journey of a Lead" scroll animation |
+| `/` | Home, including the "From first click to qualified call" scroll scene |
 | `/about` | About Us |
-| `/services` | Services (each service has an anchor, e.g. `/services#india-edtech`) |
-| `/how-we-work` | Five-stage workflow and operating details |
+| `/services` | Services (anchors: `#us-lead-generation`, `#web-apps-digital-marketing`, `#india-edtech`, `#custom-solutions`) |
+| `/how-we-work` | Five steps, quality, reporting, tools, compliance |
 | `/industries` | Industries & Markets |
-| `/contact` | Contact details and inquiry form |
-| `/privacy-policy`, `/terms` | Legal drafts (flagged for review) |
+| `/infrastructure` | Operations centre (linked from the footer) |
+| `/careers` | Careers |
+| `/contact` | Contact details, enquiry form and map |
+| `/privacy-policy`, `/terms` | Legal outlines for the company's legal adviser |
+| `/placeholders` | Internal checklist of every sample value (not indexed) |
 | `/api/contact` | Server endpoint for the form |
 
-`sitemap.xml`, `robots.txt`, the favicon (`src/app/icon.svg`) and the default social image (`src/app/opengraph-image.tsx`) are generated automatically.
+## Placeholders (sample content)
+
+Every unconfirmed fact (the bracketed items in the content doc, plus sample client names, leaders, projects and benefits) lives in **`src/lib/placeholders.ts`**. On the site, sample values have a dashed amber outline, and a banner at the top links to `/placeholders`, which lists them all.
+
+To replace one, change its `value` (or list items) and set `confirmed: true`. When everything is confirmed, set `SHOW_SAMPLE_MARKERS = false` to remove the banner. Do not launch with sample values.
 
 ## Environment variables
 
@@ -57,42 +66,20 @@ Secrets are only read on the server (`src/app/api/contact/route.ts`); never pref
 
 | What | Where |
 | --- | --- |
-| Company name, phone, email, address, hours, navigation, form service options | `src/lib/site.ts` |
-| Service descriptions, workflow steps, animation stage copy, "why choose us" commitments | `src/lib/content.ts` |
+| Sample / unconfirmed facts | `src/lib/placeholders.ts` |
+| Company name, phone, email, navigation, form options | `src/lib/site.ts` |
+| Services, journey stages, workflow steps, values, compliance points | `src/lib/content.ts` |
 | Page-specific copy | `src/app/<route>/page.tsx` |
-| Colours, fonts, radii (design tokens) | `@theme` block in `src/app/globals.css`; fonts in `src/app/layout.tsx` |
-| Logo (temporary wordmark) | `src/components/Logo.tsx` and `src/app/icon.svg` |
-| Shared buttons, headings, containers, placeholders | `src/components/ui.tsx` |
-| Page hero, service cards, process steps, CTA band | `src/components/sections.tsx` |
-| Header / footer | `src/components/Header.tsx`, `src/components/Footer.tsx` |
-| Analytics | `src/components/Analytics.tsx` |
+| Colours, fonts, radii, tile styles | `src/app/globals.css`; fonts in `src/app/layout.tsx` |
+| Buttons, labels, tiles, headings | `src/components/ui.tsx` |
+| Page hero, CTA strip, marquee, photo slots | `src/components/blocks.tsx` |
+| Scroll scene | `src/components/LeadJourney.tsx` |
 
-## The lead-journey animation
+## Motion
 
-`src/components/LeadJourney.tsx` is the only scroll-driven animation on the site.
-
-- A tall track (`TRACK_VH`) holds a `position: sticky` panel, so normal page scrolling drives it. No scroll hijacking.
-- Scroll progress is read once per animation frame and written directly to the SVG (path stroke offset, token position). React only re-renders when the active stage changes.
-- `STAGE_SHARE` sets how much of the scroll the four stages use; the remainder completes the path and reveals the CTA.
-- Path and node geometry are the `PATH` and `NODES` constants. Stage visuals are in `StageVisual` at the bottom of the file. Stage text comes from `journeyStages` in `src/lib/content.ts`.
-- With `prefers-reduced-motion`, without JavaScript, and on first server render, a static version shows the completed workflow with all four stages explained.
-
-Elsewhere, motion is limited to a subtle reveal-on-scroll (`.reveal` class plus `src/components/RevealObserver.tsx`) and the hero illustration's flowing connectors. Both switch off under reduced motion.
-
-## Placeholders to resolve before launch
-
-Search the code for `PLACEHOLDER` and `<Placeholder` to find each one.
-
-1. **Address and business hours.** `site.contact.address` and `site.contact.hours` in `src/lib/site.ts` are `null` and hidden until filled in.
-2. **Form delivery.** Configure Resend or a webhook and decide which inbox receives inquiries.
-3. **Privacy Policy and Terms.** Structured drafts only. Data practices, providers, retention, rights, liability, governing law and jurisdiction need company input and legal review. Remove the draft notice in `src/components/LegalPage.tsx` once approved.
-4. **Mission statement** on `/about` is draft wording pending approval.
-5. **Team photo** placeholder on `/about`. Replace with an approved image using `next/image` and descriptive alt text.
-6. **Operating details** on `/how-we-work`: QA method, reporting frequency, tools and feedback process.
-7. **Logo.** The wordmark and icon are temporary.
-8. **Service scope.** Confirm the activity lists in `src/lib/content.ts` match what the company actually offers, especially for the US and Canadian services.
-9. **Analytics.** If enabled, update the privacy policy and consider whether a consent banner is needed.
+- The scroll scene uses a sticky panel inside a tall track (`TRACK_VH`), so normal scrolling drives it. Reduced-motion and no-JS visitors get a static version with every stage.
+- Tiles reveal on scroll and show a soft spotlight under the pointer (`src/components/Spotlight.tsx`). The client strip scrolls as a marquee. All motion switches off under `prefers-reduced-motion`.
 
 ## Content principles
 
-The copy deliberately avoids invented facts: no client names, testimonials, ratings, metrics, certifications, founding dates or headcounts. "10+ years" is presented as company-provided industry experience. Service copy states that the company provides process support only, not legal, financial, lending or immigration advice. Keep to these rules when editing.
+No invented testimonials, ratings, awards or guaranteed results. Client names, figures and dates on this branch are clearly marked samples, kept in one file, and must be replaced or removed before launch. Service copy states the company does not provide legal or financial advice, approve loans or represent any government agency. Keep to these rules when editing.
