@@ -11,9 +11,9 @@ const settle = (p: Promise<unknown>, ms: number) =>
 
 /**
  * Hero funnel: lead sources dropping in and swirling down, drawn on a canvas
- * by funnelCanvas.ts (a still under reduced motion), loaded after the page and
- * faded in. The SVG funnel shows without JavaScript, or if the canvas version
- * fails. Fill a relatively positioned cell with this component.
+ * by funnelCanvas.ts, loaded after the page and faded in. The SVG funnel shows
+ * without JavaScript, or if the canvas version fails. Fill a relatively
+ * positioned cell with this component.
  */
 export function HeroFunnel() {
   const wrap = useRef<HTMLDivElement>(null);
@@ -47,7 +47,6 @@ export function HeroFunnel() {
           canvas: c,
           container: w,
           measure: b,
-          animate: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
           fontFamily: family,
           onReady: () => {
             if (!done) setReady(true);

@@ -4,9 +4,6 @@ import { useEffect, useRef, useState, type ElementType } from "react";
 import { Icon } from "./Icon";
 import { cx } from "./ui";
 
-const reducedMotion = () =>
-  typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
 /**
  * Adds the "in" class to [data-reveal] elements and split headings when they
  * scroll into view. Watches the DOM so content from client-side navigation
@@ -56,7 +53,6 @@ const frames = new WeakMap<HTMLElement, number>();
 
 /** Briefly shows random characters, then resolves to `text` from left to right. */
 export function scrambleText(el: HTMLElement, text: string, duration = 520) {
-  if (reducedMotion()) return;
   const start = performance.now();
   cancelAnimationFrame(frames.get(el) ?? 0);
   const tick = (now: number) => {
@@ -153,7 +149,7 @@ export function SliderButtons({ target, className }: { target: string; className
     if (!el) return;
     const first = el.firstElementChild as HTMLElement | null;
     const step = first ? first.getBoundingClientRect().width : el.clientWidth * 0.8;
-    el.scrollBy({ left: dir * step, behavior: reducedMotion() ? "auto" : "smooth" });
+    el.scrollBy({ left: dir * step, behavior: "smooth" });
   };
 
   return (

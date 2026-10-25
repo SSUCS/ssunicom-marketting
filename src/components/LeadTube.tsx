@@ -172,7 +172,6 @@ export function TubeShowcase({ className }: { className?: string }) {
   const [stage, setStage] = useState(0);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const id = window.setInterval(() => setStage((s) => (s + 1) % tubeStages.length), 2200);
     return () => clearInterval(id);
   }, []);

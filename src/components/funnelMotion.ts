@@ -263,11 +263,8 @@ const normalAt = (theta: number, out: Vec3) =>
   out.set(-Math.cos(WALL) * Math.cos(theta), Math.sin(WALL), -Math.cos(WALL) * Math.sin(theta));
 const lift = (r: number) => CHIP_T / 2 + 0.004 + ((0.55 * CHIP_W * CHIP_W) / (8 * r)) * Math.cos(WALL);
 
-/**
- * The chips, rings and band pulse over time. With `animate` off it holds a
- * still: four chips spread over the visible back wall.
- */
-export function createFlow(animate: boolean) {
+/** The chips, rings and band pulse over time. */
+export function createFlow() {
   const flights: Flight[] = Array.from({ length: CHIPS }, (_, i) => ({
     label: i % funnelSources.length,
     visible: false,
@@ -437,29 +434,15 @@ export function createFlow(animate: boolean) {
     f.tumble.setFromAxisAngle(tmpA.set(rand() - 0.5, rand() - 0.5, rand() - 0.5).normalize(), 0.6 + rand() * 1.1);
   };
 
+  // Start mid-flow, with chips already on their way down.
   let time = LIFE + 0.01;
-  if (animate) {
-    // Start mid-flow, with chips already on their way down.
-    const warm = Math.min(CHIPS, Math.ceil(LIFE / INTERVAL));
-    lastLaunch = time - INTERVAL * warm;
-    for (let k = 0; k < warm; k++) {
-      launch(flights[k], lastLaunch + k * INTERVAL);
-      flights[k].fired = time - flights[k].born > FALL + SPIN;
-    }
-    next = warm % CHIPS;
-  } else {
-    lastLaunch = Infinity;
-    [
-      [0.04, -0.7],
-      [0.18, -0.28],
-      [0.34, -0.5],
-      [0.5, -0.8],
-    ].forEach(([u, at], k) => {
-      const f = flights[k];
-      f.born = time - FALL - u * SPIN;
-      f.theta0 = Math.PI * at - TURN * Math.pow(u, 1.7);
-    });
+  const warm = Math.min(CHIPS, Math.ceil(LIFE / INTERVAL));
+  lastLaunch = time - INTERVAL * warm;
+  for (let k = 0; k < warm; k++) {
+    launch(flights[k], lastLaunch + k * INTERVAL);
+    flights[k].fired = time - flights[k].born > FALL + SPIN;
   }
+  next = warm % CHIPS;
 
   return {
     chips: flights as Chip[],

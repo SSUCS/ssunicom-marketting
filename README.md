@@ -84,8 +84,9 @@ Secrets are only read on the server (`src/app/api/contact/route.ts`); never pref
 
 - The page sits on four columns (two on tablets, one on phones). The fixed vertical lines come from `src/components/GridLines.tsx`; each page root is a size container (`@container`), so widths such as `25cqw` land exactly on the lines. Any cell whose text spans two columns gets `bg-bg` so the lines never run through words.
 - Effects: preloader with a pixel cover (first visit per session), pixel page transitions (`src/app/template.tsx`), letter-by-letter headings, scramble text on hover, a marquee, scroll-snap sliders, Lenis smooth scrolling, the hero funnel (lead sources drop in, swirl down and pulse the orange band) and the lead tube whose card changes status as it passes each collar.
-- The hero funnel is a picture rendered in 3D with the chips drawn over it on a 2D canvas, so it runs in every browser without WebGL. It only animates while it is on screen, shows a still with reduced motion, and falls back to the SVG funnel without JavaScript.
-- Everything switches off or goes static under `prefers-reduced-motion`, and content stays readable without JavaScript (the preloader is skipped, reveals are disabled, the FAQ uses native `<details>`).
+- The hero funnel is a picture rendered in 3D with the chips drawn over it on a 2D canvas, so it runs in every browser without WebGL. It only animates while it is on screen, and falls back to the SVG funnel without JavaScript.
+- Like the reference site, the animations run even when the visitor's device asks for reduced motion (the client wants them seen). Only Lenis smooth scrolling still turns off under `prefers-reduced-motion`.
+- Content stays readable without JavaScript (the preloader is skipped, reveals are disabled, the FAQ uses native `<details>`).
 
 ## Fonts and licences
 

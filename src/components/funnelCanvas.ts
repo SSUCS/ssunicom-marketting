@@ -36,7 +36,6 @@ type FunnelOptions = {
   container: HTMLElement;
   /** Box the SVG funnel sits in: the spout is 53% of its width. */
   measure: HTMLElement;
-  animate: boolean;
   fontFamily: string;
   /** Called after the first frame is drawn. */
   onReady: () => void;
@@ -161,7 +160,6 @@ export function createFunnelCanvas({
   canvas,
   container,
   measure,
-  animate,
   fontFamily,
   onReady,
   onFail,
@@ -170,7 +168,7 @@ export function createFunnelCanvas({
   if (!ctx) return null;
   const bg = document.createElement("canvas");
   const labels = chipLabels(fontFamily);
-  const flow = createFlow(animate);
+  const flow = createFlow();
   const img = new Image();
 
   let view: View = { scale: 100, topU: 1, lookY: 0 };
@@ -437,7 +435,7 @@ export function createFunnelCanvas({
   };
 
   const sync = () => {
-    const should = !dead && loaded && animate && visible && document.visibilityState === "visible";
+    const should = !dead && loaded && visible && document.visibilityState === "visible";
     if (should && !running) {
       running = true;
       last = performance.now();

@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 /**
  * First-visit loading screen. It is server-rendered so it covers the page from
  * the first paint; PreloaderController counts it up and dissolves it. An inline
- * script in <head> hides it on repeat visits and for reduced-motion users.
+ * script in <head> hides it on repeat visits.
  */
 export function Preloader() {
   return (

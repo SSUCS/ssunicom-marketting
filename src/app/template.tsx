@@ -8,9 +8,7 @@ let navigated = false;
 
 /** Re-mounts on every navigation and dissolves a pixel cover over the new page. */
 export default function Template({ children }: { children: ReactNode }) {
-  const [cover, setCover] = useState(
-    () => navigated && !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
-  );
+  const [cover, setCover] = useState(navigated);
 
   useEffect(() => {
     navigated = true;

@@ -675,7 +675,7 @@
     }
   }
 
-  /* Preloader: hidden when already seen this session, under reduced motion, or without JS. */
+  /* Preloader: hidden when already seen this session, or without JS. */
   #preloader {
     z-index: 200;
     pointer-events: auto;
@@ -706,28 +706,5 @@
     text-decoration-thickness: 2px;
     text-underline-offset: 0.22em;
     text-decoration-skip-ink: none;
-  }
-}
-
-/* ---------- Reduced motion ---------- */
-
-@media (prefers-reduced-motion: reduce) {
-  html.js [data-reveal="up"],
-  html.js .split .c,
-  html.js .bars .bar {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-  .marquee-track,
-  .spin-y,
-  .spin-x,
-  .float,
-  .bubble,
-  .rail-dot {
-    animation: none !important;
-  }
-  .faq::details-content {
-    transition: none;
   }
 }

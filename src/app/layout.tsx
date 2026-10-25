@@ -17,7 +17,7 @@ const mono = Roboto_Mono({ subsets: ["latin"], variable: "--font-roboto-mono", d
 
 // Runs before first paint: enables JS-only styles and skips the preloader on repeat visits.
 const HEAD_SCRIPT =
-  "(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('ssu-pl')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pl-skip')}catch(e){d.classList.add('pl-skip')}})();";
+  "(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('ssu-pl'))d.classList.add('pl-skip')}catch(e){d.classList.add('pl-skip')}})();";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
