@@ -12,12 +12,12 @@
  *   3. To drop an item the company can't confirm, set `hidden: true`
  *      (supported where noted).
  *
- * The /placeholders page lists every entry and its status. Set
- * SHOW_SAMPLE_MARKERS to false only for a private screenshot; never
- * publish with sample values.
+ * The /placeholders page lists every entry and its status. Markers are
+ * off for now at the company's request, so sample values read as real
+ * copy: replace them before launch.
  */
 
-export const SHOW_SAMPLE_MARKERS = true;
+export const SHOW_SAMPLE_MARKERS = false;
 
 export type Fact = {
   /** The text shown on the site. */
@@ -32,7 +32,7 @@ const sample = (value: string, ask: string): Fact => ({ value, ask, confirmed: f
 
 export const facts = {
   // Company
-  legalEntity: sample("SS Unicom Service Pvt. Ltd.", "Legal entity name (footer, legal pages)"),
+  legalEntity: { value: "SS Universal Communication Services Pvt Ltd.", ask: "Legal entity name (footer, legal pages)", confirmed: true },
   yearStarted: sample("2016", "Year operations started"),
   combinedExperience: sample("10+", "Years of combined BPO experience in the team"),
   teamSize: sample("60+", "Team size"),
@@ -41,11 +41,11 @@ export const facts = {
   launchTime: sample("two weeks", "Typical time from sign-off to a live campaign"),
 
   // Contact
-  address: sample("2nd Floor, Sample Tower, Civil Lines, Kanpur, Uttar Pradesh 208001", "Office address, Kanpur"),
+  address: sample("2nd Floor, Unicom House, Civil Lines, Kanpur, Uttar Pradesh 208001", "Office address, Kanpur"),
   hours: sample("Mon–Sat, 10:00–19:00 IST. US campaigns run on US hours.", "Office hours, including time zone"),
   replyTime: sample("one business day", "Reply-time promise for enquiries"),
   hrEmail: sample("careers@ssunicomservice.com", "HR email for job applications"),
-  hrPhone: sample("+91 00000 00000", "HR phone number"),
+  hrPhone: sample("+91 97947 74773", "HR phone number"),
   linkedin: sample("https://www.linkedin.com/company/ssunicomservice", "LinkedIn company page URL"),
   mapEmbed: sample("Civil Lines, Kanpur, Uttar Pradesh, India", "Google Maps search for the office address"),
 
@@ -63,7 +63,7 @@ export const facts = {
   retention: sample("90 days", "Call-recording retention period"),
   techStack: sample("Next.js, React, Node.js and WordPress", "Web technology used for client projects"),
   engagement: sample("Fixed-price projects or monthly retainers", "How web and marketing work is priced"),
-  edtechPartner: sample("Example Learning Co.", "EdTech partner name, only if permitted"),
+  edtechPartner: sample("BrightPath Learning", "EdTech partner name, only if permitted"),
   hiringWeb: sample("Hiring now", "Whether web developers and digital marketers are being hired"),
   otherIndustries: sample(
     "Healthcare administration, insurance and real estate",

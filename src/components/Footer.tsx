@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { services } from "@/lib/content";
-import { fact } from "@/lib/placeholders";
+import { SHOW_SAMPLE_MARKERS, fact } from "@/lib/placeholders";
 import { companyNav, legalNav, site } from "@/lib/site";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
@@ -82,11 +82,13 @@ export function Footer() {
                   </Link>
                 </li>
               ))}
-              <li>
-                <Link href="/placeholders" className={linkCls}>
-                  Placeholder checklist
-                </Link>
-              </li>
+              {SHOW_SAMPLE_MARKERS && (
+                <li>
+                  <Link href="/placeholders" className={linkCls}>
+                    Placeholder checklist
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
           <div className="p-6 pb-10 lg:text-right">

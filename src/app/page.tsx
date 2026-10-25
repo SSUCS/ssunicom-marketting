@@ -147,7 +147,7 @@ function ClientsRow() {
   return (
     <div className="relative z-[2] border-t border-line">
       <ClientsBar className="lg:hidden" />
-      <Slider id="clients" label="Sample client logos" className="bleed-r">
+      <Slider id="clients" label="Client logos" className="bleed-r">
         {clients.items.map((c) => (
           <div
             key={c.name}
