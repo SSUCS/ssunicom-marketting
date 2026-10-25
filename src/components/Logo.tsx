@@ -34,8 +34,8 @@ export function Logo({ className, compact = false }: { className?: string; compa
     <span className={cx("flex items-center gap-3", className)}>
       <LogoMark className={cx("shrink-0", compact ? "size-9" : "size-10")} />
       <span aria-hidden className="flex flex-col leading-none">
-        <span className={cx("display tracking-[0.02em]", compact ? "text-[1.15rem]" : "text-[1.32rem]")}>SS Unicom</span>
-        <span className="mt-[5px] font-mono text-[0.6rem] uppercase tracking-[0.46em] text-mute">Service</span>
+        <span className={cx("display tracking-[0.02em]", compact ? "text-[1.15rem]" : "text-[1.32rem]")}>SS Universal</span>
+        <span className="mt-[5px] font-mono text-[0.6rem] uppercase tracking-[0.16em] text-mute">Communication Services</span>
       </span>
     </span>
   );

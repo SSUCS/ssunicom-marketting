@@ -4,8 +4,8 @@ import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Privacy Policy — SS Unicom Service",
-  description: "How SS Unicom Service handles personal information submitted through this website. Outline pending legal review.",
+  title: "Privacy Policy — SS Universal Communication Services",
+  description: "How SS Universal Communication Services handles personal information submitted through this website. Outline pending legal review.",
   path: "/privacy-policy",
 });
 

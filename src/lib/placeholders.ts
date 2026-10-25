@@ -41,7 +41,7 @@ export const facts = {
   launchTime: sample("two weeks", "Typical time from sign-off to a live campaign"),
 
   // Contact
-  address: sample("2nd Floor, Unicom House, Civil Lines, Kanpur, Uttar Pradesh 208001", "Office address, Kanpur"),
+  address: sample("2nd Floor, Universal House, Civil Lines, Kanpur, Uttar Pradesh 208001", "Office address, Kanpur"),
   hours: sample("Mon–Sat, 10:00–19:00 IST. US campaigns run on US hours.", "Office hours, including time zone"),
   replyTime: sample("one business day", "Reply-time promise for enquiries"),
   hrEmail: sample("careers@ssunicomservice.com", "HR email for job applications"),
@@ -200,7 +200,7 @@ export const sampleLists = {
       {
         name: "Rohit Verma",
         role: "Founder & Director",
-        bio: "Started SS Unicom with a small calling team and one US client. Still signs off every new campaign plan.",
+        bio: "Started SS Universal with a small calling team and one US client. Still signs off every new campaign plan.",
       },
       {
         name: "Neha Gupta",

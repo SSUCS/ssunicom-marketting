@@ -10,7 +10,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { facts, sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
-  title: "About SS Unicom Service — Kanpur BPO",
+  title: "About SS Universal Communication Services — Kanpur BPO",
   description:
     "A Kanpur team that builds the campaigns, makes the calls and owns the numbers. Our story, values, training and the people on your account.",
   path: "/about",
@@ -55,7 +55,7 @@ export default function AboutPage() {
       />
 
       {/* Facts */}
-      <section aria-label="SS Unicom in numbers">
+      <section aria-label="SS Universal in numbers">
         <Spacer />
         <Row as="dl" className="max-md:grid-cols-2">
           {stats.map((s) => (

@@ -151,7 +151,7 @@ export default function CareersPage() {
           {[
             { icon: "mail" as IconName, label: "Email your CV", value: <Fill k="hrEmail" />, href: applyHref("General application") },
             { icon: "phone" as IconName, label: "Call HR", value: <Fill k="hrPhone" />, href: `tel:${fact("hrPhone").replace(/\s/g, "")}` },
-            { icon: "linkedin" as IconName, label: "Openings on LinkedIn", value: "SS Unicom Service", href: fact("linkedin"), external: true },
+            { icon: "linkedin" as IconName, label: "Openings on LinkedIn", value: "SS Universal Communication Services", href: fact("linkedin"), external: true },
           ].map((c) => (
             <a
               key={c.label}

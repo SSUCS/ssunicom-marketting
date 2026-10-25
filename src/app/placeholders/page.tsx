@@ -4,7 +4,7 @@ import { Row, cx } from "@/components/ui";
 import { SHOW_SAMPLE_MARKERS, facts, sampleLists, type Fact } from "@/lib/placeholders";
 
 export const metadata: Metadata = {
-  title: "Placeholder checklist — SS Unicom Service",
+  title: "Placeholder checklist — SS Universal Communication Services",
   robots: { index: false, follow: false },
 };
 

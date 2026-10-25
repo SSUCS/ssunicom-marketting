@@ -31,7 +31,7 @@ export function SocialRail({ className }: { className?: string }) {
   const items: { href: string; label: string; icon: IconName; external?: boolean }[] = [
     { href: site.contact.phoneHref, label: `Call ${site.contact.phoneDisplay}`, icon: "phone" },
     { href: site.contact.emailHref, label: `Email ${site.contact.email}`, icon: "mail" },
-    { href: fact("linkedin"), label: "SS Unicom Service on LinkedIn", icon: "linkedin", external: true },
+    { href: fact("linkedin"), label: "SS Universal Communication Services on LinkedIn", icon: "linkedin", external: true },
   ];
   return (
     <div className={cx("flex-col", className)}>
@@ -91,7 +91,7 @@ export function PageHero({
           )}
         />
         <Micro className="absolute bottom-4 left-4 md:bottom-5 md:left-5">
-          SS Unicom <span className="text-mute">/</span> {label}
+          SS Universal <span className="text-mute">/</span> {label}
         </Micro>
       </div>
       <Row className="lg:min-h-[19rem]">

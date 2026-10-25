@@ -20,7 +20,7 @@ import { pageMetadata } from "@/lib/metadata";
 import { sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
-  title: "SS Unicom Service — Lead Generation & Web Apps, India",
+  title: "SS Universal Communication Services — Lead Generation & Web Apps, India",
   description:
     "We build the websites and campaigns that bring in leads, then our Kanpur team calls, qualifies and hands every one to your sales team. Serving the US and India.",
   path: "/",

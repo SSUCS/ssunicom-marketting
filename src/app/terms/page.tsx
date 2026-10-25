@@ -4,8 +4,8 @@ import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Terms of Use — SS Unicom Service",
-  description: "Terms for using the SS Unicom Service website. Outline pending legal review.",
+  title: "Terms of Use — SS Universal Communication Services",
+  description: "Terms for using the SS Universal Communication Services website. Outline pending legal review.",
   path: "/terms",
 });
 

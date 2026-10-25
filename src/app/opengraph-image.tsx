@@ -49,10 +49,10 @@ export default async function OpengraphImage() {
           </svg>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "flex", fontFamily: "Turret Road", fontSize: 34, lineHeight: 1, textTransform: "uppercase" }}>
-              SS Unicom
+              SS Universal
             </div>
-            <div style={{ display: "flex", marginTop: 6, fontSize: 15, letterSpacing: 9, color: "#636363", textTransform: "uppercase" }}>
-              Service
+            <div style={{ display: "flex", marginTop: 6, fontSize: 15, letterSpacing: 3, color: "#636363", textTransform: "uppercase" }}>
+              Communication Services
             </div>
           </div>
         </div>

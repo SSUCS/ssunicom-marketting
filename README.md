@@ -1,4 +1,4 @@
-# SS Unicom Service: marketing website (grid variation)
+# SS Universal Communication Services: marketing website (grid variation)
 
 This branch is a design variation modelled on the layout and motion of labs.chaingpt.org: a light grey page on a fixed four-column grid, oversized display type, chamfered orange buttons, isometric illustrations and a glass "lead tube" that carries a lead down the home page. All artwork, fonts and copy are original or openly licensed; nothing is copied from the reference site. The original design stays on `main`.
 

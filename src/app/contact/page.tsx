@@ -10,7 +10,7 @@ import { fact, facts } from "@/lib/placeholders";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Contact SS Unicom Service",
+  title: "Contact SS Universal Communication Services",
   description:
     "Ask for a free consultation on lead generation, web apps, digital marketing or EdTech support. Call +91 97947 74773 or email info@ssunicomservice.com.",
   path: "/contact",

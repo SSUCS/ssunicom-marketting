@@ -6,8 +6,8 @@
  */
 
 export const site = {
-  name: "SS Unicom Service",
-  shortName: "SS Unicom",
+  name: "SS Universal Communication Services",
+  shortName: "SS Universal",
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://ssunicomservice.com",
   tagline: "Digital reach. Human follow-through.",
   description:

@@ -133,9 +133,9 @@ export function Footer() {
           <CornerSquares />
           <p
             aria-hidden
-            className="display select-none whitespace-nowrap px-4 pb-9 pt-24 text-center text-[13.5vw] leading-[0.8] text-transparent [-webkit-text-stroke:1px_var(--color-line)] md:pb-4 md:pt-40 md:text-[15vw]"
+            className="display select-none whitespace-nowrap px-4 pb-9 pt-24 text-center text-[10.5vw] leading-[0.8] text-transparent [-webkit-text-stroke:1px_var(--color-line)] md:pb-4 md:pt-40 md:text-[11.5vw]"
           >
-            SS Unicom
+            SS Universal
           </p>
         </div>
       </Wrap>

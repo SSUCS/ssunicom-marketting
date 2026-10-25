@@ -22,7 +22,7 @@ const HEAD_SCRIPT =
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: "SS Unicom Service — Lead Generation & Web Apps, India",
+    default: "SS Universal Communication Services — Lead Generation & Web Apps, India",
     template: "%s",
   },
   description: site.description,
