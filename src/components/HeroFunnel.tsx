@@ -1,14 +1,19 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type { FunnelScene } from "./funnel3d";
+import type { FunnelScene } from "./funnelCanvas";
 import { cx } from "./ui";
 import { Funnel } from "./visuals";
 
+/** Resolves when the promise settles or after `ms`, whichever comes first. */
+const settle = (p: Promise<unknown>, ms: number) =>
+  Promise.race([p.catch(() => undefined), new Promise((r) => setTimeout(r, ms))]);
+
 /**
- * Hero funnel: the 3D scene in funnel3d.ts, loaded after the page and faded
- * in. The SVG funnel is shown instead without JavaScript or WebGL. Fill a
- * relatively positioned cell with this component.
+ * Hero funnel: lead sources dropping in and swirling down, drawn on a canvas
+ * by funnelCanvas.ts (a still under reduced motion), loaded after the page and
+ * faded in. The SVG funnel shows without JavaScript, or if the canvas version
+ * fails. Fill a relatively positioned cell with this component.
  */
 export function HeroFunnel() {
   const wrap = useRef<HTMLDivElement>(null);
@@ -23,29 +28,38 @@ export function HeroFunnel() {
     const b = box.current;
     if (!c || !w || !b) return;
     let scene: FunnelScene | null = null;
-    let cancelled = false;
+    let done = false;
+    const fail = () => {
+      if (done) return;
+      done = true;
+      scene?.dispose();
+      scene = null;
+      setReady(false);
+      setFailed(true);
+    };
     const family = getComputedStyle(w).getPropertyValue("--font-roboto-mono").trim() || "monospace";
-    const animate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    Promise.all([import("./funnel3d"), document.fonts.load(`500 40px ${family}`).catch(() => [])])
-      .then(([{ createFunnelScene }]) => {
-        if (cancelled) return;
-        scene = createFunnelScene({
+    // Labels look best in the site font, but never hold the funnel back for it.
+    Promise.all([import("./funnelCanvas"), settle(document.fonts.load(`500 40px ${family}`), 1500)])
+      .then(([{ createFunnelCanvas }]) => {
+        if (done) return;
+        scene = createFunnelCanvas({
           canvas: c,
           container: w,
           measure: b,
-          animate,
+          animate: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
           fontFamily: family,
-          onReady: () => setReady(true),
+          onReady: () => {
+            if (!done) setReady(true);
+          },
+          onFail: fail,
         });
-        if (!scene) setFailed(true);
+        if (!scene) fail();
       })
-      .catch(() => {
-        if (!cancelled) setFailed(true);
-      });
+      .catch(fail);
 
     return () => {
-      cancelled = true;
+      done = true;
       scene?.dispose();
     };
   }, []);
