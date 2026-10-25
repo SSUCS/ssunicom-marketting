@@ -2,7 +2,7 @@
 
 This branch is a design variation modelled on the layout and motion of labs.chaingpt.org: a light grey page on a fixed four-column grid, oversized display type, chamfered orange buttons, isometric illustrations and a glass "lead tube" that carries a lead down the home page. All artwork, fonts and copy are original or openly licensed; nothing is copied from the reference site. The original design stays on `main`.
 
-Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. Runtime dependencies: Next.js, React and [Lenis](https://github.com/darkroomengineering/lenis) for smooth scrolling. Icons and illustrations are hand-written SVG and CSS.
+Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. Runtime dependencies: Next.js, React, [Lenis](https://github.com/darkroomengineering/lenis) for smooth scrolling and [three.js](https://threejs.org) for the 3D hero funnel (loaded after the page, so it does not slow the first paint). Icons and other illustrations are hand-written SVG and CSS.
 
 ## Quick start
 
@@ -76,11 +76,13 @@ Secrets are only read on the server (`src/app/api/contact/route.ts`); never pref
 | Cards | `src/components/cards.tsx` |
 | Illustrations (cubes, spheres, isometric icons, portraits, funnel, charts) | `src/components/visuals.tsx` |
 | Lead tube on the home page | `src/components/LeadTube.tsx` |
+| 3D hero funnel (shape, chips, timing, lighting) | `src/components/funnel3d.ts`; loaded by `src/components/HeroFunnel.tsx` |
 
 ## Grid and motion
 
 - The page sits on four columns (two on tablets, one on phones). The fixed vertical lines come from `src/components/GridLines.tsx`; each page root is a size container (`@container`), so widths such as `25cqw` land exactly on the lines. Any cell whose text spans two columns gets `bg-bg` so the lines never run through words.
-- Effects: preloader with a pixel cover (first visit per session), pixel page transitions (`src/app/template.tsx`), letter-by-letter headings, scramble text on hover, a marquee, scroll-snap sliders, Lenis smooth scrolling and the lead tube whose card changes status as it passes each collar.
+- Effects: preloader with a pixel cover (first visit per session), pixel page transitions (`src/app/template.tsx`), letter-by-letter headings, scramble text on hover, a marquee, scroll-snap sliders, Lenis smooth scrolling, the 3D hero funnel (lead sources drop in, swirl down and pulse the orange band) and the lead tube whose card changes status as it passes each collar.
+- The 3D funnel only renders while it is on screen. With reduced motion it shows a still frame; without JavaScript or WebGL the SVG funnel is shown instead.
 - Everything switches off or goes static under `prefers-reduced-motion`, and content stays readable without JavaScript (the preloader is skipped, reveals are disabled, the FAQ uses native `<details>`).
 
 ## Fonts and licences

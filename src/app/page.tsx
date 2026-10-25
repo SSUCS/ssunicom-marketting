@@ -1,6 +1,5 @@
-import type { CSSProperties } from "react";
 import { NumberCard } from "@/components/cards";
-import { Icon, type IconName } from "@/components/Icon";
+import { HeroFunnel } from "@/components/HeroFunnel";
 import { LeadTube, TubeBase, TubeCollar, TubeShowcase } from "@/components/LeadTube";
 import { SliderButtons } from "@/components/motion";
 import { SampleTag } from "@/components/Sample";
@@ -14,7 +13,7 @@ import {
   TestimonialsSection,
 } from "@/components/sections";
 import { ButtonLink, Crosshair, HeadingPanel, Lead, RadioDot, Row, Slider, Tick, cx } from "@/components/ui";
-import { ClientLogo, CubeTile, Funnel, SphereTile } from "@/components/visuals";
+import { ClientLogo, CubeTile, SphereTile } from "@/components/visuals";
 import { capabilities, services } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { sampleLists } from "@/lib/placeholders";
@@ -48,13 +47,6 @@ export default function HomePage() {
 }
 
 /* ---------- Hero ---------- */
-
-const chips: { label: string; icon: IconName; style: CSSProperties }[] = [
-  { label: "Search", icon: "search", style: { "--x0": "-150px", "--x1": "-26px", "--d": "0s", "--r": "-10deg" } as CSSProperties },
-  { label: "Ads", icon: "megaphone", style: { "--x0": "130px", "--x1": "22px", "--d": "-1.4s", "--r": "9deg" } as CSSProperties },
-  { label: "Web form", icon: "browser", style: { "--x0": "-60px", "--x1": "-6px", "--d": "-2.8s", "--r": "6deg" } as CSSProperties },
-  { label: "Social", icon: "users", style: { "--x0": "190px", "--x1": "30px", "--d": "-4.2s", "--r": "-7deg" } as CSSProperties },
-];
 
 function Hero() {
   const sq = "absolute size-3 bg-orange";
@@ -94,7 +86,7 @@ function Hero() {
       </div>
 
       {/* Intro, funnel and side tile */}
-      <div className="grid grid-cols-1 border-t border-line md:grid-cols-2 lg:h-[max(19rem,23cqw)] lg:grid-cols-4">
+      <div className="grid grid-cols-1 border-t border-line md:grid-cols-2 lg:h-[max(22rem,28cqw)] lg:grid-cols-4">
         <div className="flex flex-col justify-between gap-8 p-6 md:p-7 lg:py-9">
           <p className="text-[1.0625rem] leading-[1.5] md:text-lg">
             We build the websites and ads that bring in leads. Then our team calls every one, qualifies it and hands you
@@ -104,21 +96,8 @@ function Hero() {
             <ButtonLink href="/contact">Free consultation</ButtonLink>
           </div>
         </div>
-        <div className="relative h-[16rem] overflow-hidden sm:h-[19rem] lg:col-span-2 lg:h-auto">
-          <div aria-hidden="true" className="absolute bottom-0 left-1/2 w-[min(94%,30rem)] -translate-x-1/2 lg:w-[42.5cqw]">
-            <Funnel className="block h-auto w-full" />
-            {chips.map((c) => (
-              <span key={c.label} className="absolute left-1/2 top-[-6%] -ml-12">
-                <span
-                  className="drop flex w-24 items-center justify-center gap-1.5 border border-line bg-panel py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.08em] shadow-[0_8px_16px_-10px_rgb(0_0_0/0.5)]"
-                  style={c.style}
-                >
-                  <Icon name={c.icon} className="h-3 w-3" strokeWidth={2} />
-                  {c.label}
-                </span>
-              </span>
-            ))}
-          </div>
+        <div className="relative h-[17rem] overflow-hidden sm:h-[21rem] lg:col-span-2 lg:h-auto">
+          <HeroFunnel />
         </div>
         <div className="relative hidden flex-col justify-between lg:flex">
           <CubeTile className="size-[11.25rem]" />

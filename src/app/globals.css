@@ -640,30 +640,6 @@
     }
   }
 
-  /* Funnel "reach" chips dropping into the hero funnel. */
-  .drop {
-    animation: drop var(--t, 5.6s) cubic-bezier(0.45, 0, 0.6, 1) var(--d, 0s) infinite;
-    opacity: 0;
-  }
-  @keyframes drop {
-    0% {
-      transform: translate(var(--x0), -40px) rotate(var(--r, -8deg));
-      opacity: 0;
-    }
-    12% {
-      opacity: 1;
-    }
-    62% {
-      transform: translate(var(--x1), 92px) rotate(0deg) scale(0.82);
-      opacity: 1;
-    }
-    74%,
-    100% {
-      transform: translate(var(--x1), 128px) rotate(0deg) scale(0.6);
-      opacity: 0;
-    }
-  }
-
   /* ---------- Pixel cover (page transitions and preloader) ---------- */
 
   .px-cover {
@@ -747,13 +723,9 @@
   .spin-y,
   .spin-x,
   .float,
-  .drop,
   .bubble,
   .rail-dot {
     animation: none !important;
-  }
-  .drop {
-    opacity: 0 !important;
   }
   .faq::details-content {
     transition: none;
