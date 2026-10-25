@@ -6,135 +6,151 @@ import { useEffect, useRef, useState } from "react";
 import { nav, site } from "@/lib/site";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
+import { Scramble } from "./motion";
+import { lockScroll } from "./site-effects";
 import { ButtonLink, cx } from "./ui";
+
+// Bottom corners are cut diagonally; --hc is the size of the cut.
+const CLIP =
+  "polygon(0 0, 100% 0, 100% calc(100% - var(--hc)), calc(100% - var(--hc)) 100%, var(--hc) 100%, 0 calc(100% - var(--hc)))";
+
+function Dots({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 12 12" aria-hidden className={cx("size-3 text-orange", className)} fill="currentColor">
+      <rect x="0" y="0" width="4" height="4" />
+      <rect x="8" y="0" width="4" height="4" />
+      <rect x="0" y="8" width="4" height="4" />
+      <rect x="8" y="8" width="4" height="4" />
+    </svg>
+  );
+}
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const toggleRef = useRef<HTMLButtonElement>(null);
+  const firstLink = useRef<HTMLAnchorElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Close the mobile menu on navigation.
   useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
+    lockScroll(open);
     if (!open) return;
+    firstLink.current?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setOpen(false);
-        toggleRef.current?.focus();
-      }
+      if (e.key === "Escape") setOpen(false);
     };
-    document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 px-3 pt-3 sm:px-5">
-      <a
-        href="#main"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-signal focus:px-4 focus:py-2 focus:text-signal-ink"
-      >
-        Skip to content
-      </a>
-      <div
-        className={cx(
-          "mx-auto flex h-14 max-w-[1280px] items-center justify-between gap-4 rounded-full border pl-4 pr-2 transition-[background-color,border-color] duration-300 sm:pl-5",
-          scrolled || open ? "border-line-strong bg-surface/85 backdrop-blur-xl" : "border-line bg-surface/50 backdrop-blur-md",
-        )}
-      >
-        <Link href="/" aria-label={`${site.name} home`} className="shrink-0">
-          <Logo />
-        </Link>
+    <header className="sticky top-0 z-50 h-[var(--header-h)] [--hc:1.42rem] max-sm:[--hc:1.2rem]">
+      <div className="relative h-full bg-bg" style={{ clipPath: CLIP }}>
+        <span aria-hidden className="absolute bottom-0 h-px bg-line" style={{ left: "var(--hc)", right: "var(--hc)" }} />
+        <svg aria-hidden className="absolute bottom-0 left-0 size-[var(--hc)] text-line" preserveAspectRatio="none">
+          <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" />
+        </svg>
+        <svg aria-hidden className="absolute bottom-0 right-0 size-[var(--hc)] text-line" preserveAspectRatio="none">
+          <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" />
+        </svg>
+        {[0.25, 0.75].map((f) => (
+          <span
+            key={f}
+            aria-hidden
+            className="absolute inset-y-0 hidden w-px bg-line xl:block"
+            style={{ left: `calc(var(--gutter) + (100% - 2 * var(--gutter)) * ${f})` }}
+          />
+        ))}
 
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-0.5">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cx(
-                    "rounded-full px-3.5 py-2 text-[0.9rem] font-medium transition-colors",
-                    isActive(item.href) ? "bg-surface-3 text-fg" : "text-muted hover:text-fg",
-                  )}
-                >
-                  {item.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="relative flex h-full items-center justify-between gap-6 px-[max(1rem,calc(var(--gutter)/2))]">
+          <Link href="/" aria-label={`${site.name}, home`} className="shrink-0">
+            <Logo compact />
+          </Link>
 
-        <div className="flex items-center gap-2">
-          <div className="hidden sm:block">
-            <ButtonLink href="/contact" arrow className="min-h-10 py-2">
-              Contact Us
+          <nav aria-label="Main" className="hidden xl:block">
+            <ul className="flex items-center gap-2 2xl:gap-5">
+              {nav.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="nav-link text-[0.9375rem]"
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                  >
+                    <Scramble text={item.label} trigger="hover" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="flex items-center gap-5">
+            <a
+              href={site.contact.phoneHref}
+              className="hidden items-center gap-2.5 text-[0.9375rem] transition-colors hover:text-orange-deep 2xl:flex"
+            >
+              <Dots />
+              {site.contact.phoneDisplay}
+            </a>
+            <ButtonLink href="/contact" className="max-md:hidden">
+              Free consultation
             </ButtonLink>
+            <button
+              type="button"
+              className="flex h-11 items-center gap-2.5 border border-line bg-panel px-3 font-mono text-xs uppercase tracking-wide xl:hidden"
+              aria-expanded={open}
+              aria-controls="mobile-menu"
+              onClick={() => setOpen((o) => !o)}
+            >
+              <Icon name={open ? "close" : "menu"} className="h-5 w-5" strokeWidth={2} />
+              {open ? "Close" : "Menu"}
+            </button>
           </div>
-          <button
-            ref={toggleRef}
-            type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-line-strong lg:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            aria-label={open ? "Close menu" : "Open menu"}
-            onClick={() => setOpen((v) => !v)}
-          >
-            <Icon name={open ? "close" : "menu"} />
-          </button>
         </div>
       </div>
 
-      <div
-        id="mobile-menu"
-        hidden={!open}
-        className="mx-auto mt-2 max-h-[calc(100svh-5.5rem)] max-w-[1280px] overflow-y-auto rounded-3xl border border-line-strong bg-surface/95 p-5 backdrop-blur-xl lg:hidden"
-      >
-        <nav aria-label="Mobile">
-          <ul className="grid grid-cols-2 gap-2">
-            {nav.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  aria-current={isActive(item.href) ? "page" : undefined}
-                  className={cx(
-                    "flex min-h-14 items-center justify-between rounded-2xl border px-4 font-display text-lg font-medium",
-                    isActive(item.href) ? "border-signal/50 bg-signal/10 text-signal" : "border-line bg-surface-2 text-fg",
-                  )}
-                >
-                  {item.label}
-                  <Icon name="arrow-up-right" className="h-4 w-4 opacity-50" />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <div className="mt-4 grid gap-2">
-          <ButtonLink href="/contact" arrow>
-            Free Consultation
-          </ButtonLink>
-          <a href={site.contact.phoneHref} className="inline-flex items-center gap-2 px-1 py-2 text-muted">
-            <Icon name="phone" className="h-4 w-4" /> {site.contact.phoneDisplay}
-          </a>
-          <a href={site.contact.emailHref} className="inline-flex items-center gap-2 px-1 py-2 text-muted">
-            <Icon name="mail" className="h-4 w-4" /> {site.contact.email}
-          </a>
+      {open && (
+        <div
+          id="mobile-menu"
+          data-lenis-prevent
+          className="fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto overscroll-contain bg-bg xl:hidden"
+        >
+          <nav aria-label="Main" className="wrap pb-10">
+            <ul className="border-x border-line">
+              {nav.map((item, i) => (
+                <li key={item.href} className="border-b border-line">
+                  <Link
+                    ref={i === 0 ? firstLink : undefined}
+                    href={item.href}
+                    aria-current={isActive(item.href) ? "page" : undefined}
+                    className="group flex items-center justify-between px-4 py-4 aria-[current=page]:bg-panel"
+                  >
+                    <span className="display text-[2.4rem] sm:text-5xl">{item.label}</span>
+                    <span className="flex items-center gap-2 font-mono text-xs text-mute">
+                      {String(i + 1).padStart(2, "0")}
+                      <span aria-hidden className="size-2 bg-orange opacity-0 group-aria-[current=page]:opacity-100" />
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <div className="grid gap-px border-x border-b border-line bg-line sm:grid-cols-2">
+              <a href={site.contact.phoneHref} className="flex items-center gap-3 bg-bg p-4">
+                <Icon name="phone" className="h-5 w-5" />
+                {site.contact.phoneDisplay}
+              </a>
+              <a href={site.contact.emailHref} className="flex items-center gap-3 break-all bg-bg p-4">
+                <Icon name="mail" className="h-5 w-5" />
+                {site.contact.email}
+              </a>
+            </div>
+            <ButtonLink href="/contact" arrow className="mt-6 w-full">
+              Free consultation
+            </ButtonLink>
+          </nav>
         </div>
-      </div>
+      )}
     </header>
   );
 }

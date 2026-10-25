@@ -1,193 +1,206 @@
-import { CtaStrip, PageHero, PhotoSlot } from "@/components/blocks";
+import type { ReactNode } from "react";
+import { NumberCard } from "@/components/cards";
+import { type IconName } from "@/components/Icon";
 import { Fill, SampleMark, SampleTag } from "@/components/Sample";
-import { Container, Label, SectionHeading, TextLink, Tile, cx } from "@/components/ui";
-import { values } from "@/lib/content";
+import { CtaBand, PageHero, Spacer, TeamSection } from "@/components/sections";
+import { ArrowBox, ButtonLink, Crosshair, HeadingPanel, Lead, Micro, Row } from "@/components/ui";
+import { CubeCluster, PhotoSlot, PixelPortrait, SphereTile } from "@/components/visuals";
+import { mission, training, values, vision } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { facts, sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
   title: "About SS Unicom Service — Kanpur BPO",
-  description: "Who we are, our mission and values, and how we train the team behind every call and project.",
+  description:
+    "A Kanpur team that builds the campaigns, makes the calls and owns the numbers. Our story, values, training and the people on your account.",
   path: "/about",
 });
 
-const training = [
-  { title: "Process and product training", text: "On the client's workflow, scripts and qualification criteria." },
-  { title: "Voice and accent coaching", text: "For international calls, led by dedicated trainers." },
-  { title: "Compliance training", text: "On consent, Do-Not-Call rules and what agents may and may not say." },
-  { title: "Ongoing quality feedback", text: "From quality analysts who review calls and coach agents every week." },
+const stats: { value: ReactNode; label: string }[] = [
+  { value: <Fill k="yearStarted" />, label: "Started in Kanpur" },
+  { value: <Fill k="teamSize" />, label: "People on the team" },
+  { value: <Fill k="seatCount" />, label: "Seats on the floor" },
+  { value: <Fill k="combinedExperience" />, label: "Years of BPO experience" },
 ];
 
+const trainingIcons: IconName[] = ["flow", "chat", "check-shield", "users"];
+
 export default function AboutPage() {
-  const leaders = sampleLists.leaders;
+  const founder = sampleLists.team.items[0];
   const photos = sampleLists.photos;
 
   return (
-    <>
+    <div className="wrap @container">
       <PageHero
         label="About us"
-        title="An extension of your team, based in Kanpur."
-        intro={
+        title="About us"
+        intro="A Kanpur team that builds the campaigns, makes the calls and owns the numbers, for businesses in the US and India."
+        actions={
           <>
-            SS Unicom Service is an outsourcing company in Kanpur, India, serving businesses in the United States and
-            India. Our team brings over <Fill k="combinedExperience" /> years of combined experience in business process
-            outsourcing, across both technical and non-technical processes.
+            <ButtonLink href="#our-team" arrow>
+              Meet the team
+            </ButtonLink>
           </>
         }
+        visual={<CubeCluster size={46} className="absolute inset-0" />}
         aside={
-          <>
-            <div className="tile flex flex-col justify-between gap-6 p-6">
-              <Label>Established</Label>
-              <p className="font-display text-5xl font-semibold">
-                <Fill k="yearStarted" />
-              </p>
-            </div>
-            <div className="tile flex flex-col justify-between gap-6 p-6">
-              <Label>Operated by</Label>
-              <p className="font-display text-xl font-semibold leading-snug">
-                <Fill k="legalEntity" />
-              </p>
-            </div>
-          </>
+          <div className="flex h-full flex-col justify-end gap-3 p-6 md:p-7 lg:py-9">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">Operated by</p>
+            <p className="text-lg leading-snug">
+              <Fill k="legalEntity" />
+            </p>
+            <p className="text-sm text-mute">Kanpur, Uttar Pradesh, India</p>
+          </div>
         }
       />
 
-      {/* Who we are + story */}
-      <Container className="mt-3">
-        <div className="grid gap-3 lg:grid-cols-12">
-          <Tile className="p-7 sm:p-10 lg:col-span-7">
-            <Label index="01">Who we are</Label>
-            <div className="mt-6 space-y-5 text-lg leading-relaxed text-fg/85">
-              <p>
-                We specialise in lead generation and process support for finance-related businesses, especially those
-                working on student-loan matters. We also design, build and market web applications for companies that
-                want more customers online.
-              </p>
-              <p className="text-muted">
-                Whether the work is reaching new prospects, supporting customer conversations or managing back-office
-                tasks, our aim is the same: help clients grow with confidence.
-              </p>
+      {/* Facts */}
+      <section aria-label="SS Unicom in numbers">
+        <Spacer />
+        <Row as="dl" className="max-md:grid-cols-2">
+          {stats.map((s) => (
+            <div key={s.label} className="panel flex min-h-48 flex-col justify-between gap-8 p-5 md:p-7">
+              <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">{s.label}</dt>
+              <dd className="display text-[clamp(2.6rem,6cqw,4.5rem)] leading-none">{s.value}</dd>
             </div>
-          </Tile>
-          <Tile delay={80} className="p-7 sm:p-10 lg:col-span-5">
-            <div className="flex items-center justify-between gap-3">
-              <Label>Our story</Label>
-              <SampleTag show={!facts.story.confirmed} />
-            </div>
-            <p className="mt-6 leading-relaxed text-fg/85">
+          ))}
+        </Row>
+      </section>
+
+      {/* Story */}
+      <section aria-labelledby="story-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="story-title" text="Our story" className="md:col-span-2" />
+          <div className="flex flex-col justify-center gap-4 p-6 md:p-8">
+            <Lead title="From one client to two countries" />
+            <SampleTag show={!facts.story.confirmed} className="self-start" />
+          </div>
+          <div className="relative max-lg:hidden">
+            <Crosshair className="absolute right-0 top-0" />
+          </div>
+        </Row>
+        <Row>
+          <div className="bg-bg p-6 md:col-span-2 md:p-8 lg:col-span-3 lg:py-12">
+            <p className="max-w-4xl text-xl leading-relaxed md:text-2xl">
               <Fill k="story" />
             </p>
-          </Tile>
-        </div>
-      </Container>
+          </div>
+          <SphereTile className="min-h-64 md:max-lg:col-span-2" />
+        </Row>
+      </section>
 
-      {/* Mission, vision, values */}
-      <Container className="mt-24">
-        <SectionHeading index="02" label="Mission, vision & values" title="What we work towards." />
-        <div className="mt-10 grid gap-3 lg:grid-cols-12">
-          <Tile className="bg-grid border-signal/25 p-7 sm:p-9 lg:col-span-6">
-            <Label>Mission</Label>
-            <p className="mt-6 font-display text-2xl font-medium leading-snug sm:text-3xl">
-              To help businesses grow by bringing them better enquiries and following up on every one with care,
-              consistency and honesty.
-            </p>
-          </Tile>
-          <Tile delay={80} className="p-7 sm:p-9 lg:col-span-6">
-            <Label>Vision</Label>
-            <p className="mt-6 font-display text-2xl font-medium leading-snug sm:text-3xl">
-              To be the outsourcing partner businesses keep for years, known for the quality of our people and the
-              transparency of our work.
-            </p>
-          </Tile>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-12 lg:grid-cols-5">
-            {values.map((v, i) => (
-              <Tile as="li" key={v.title} delay={i * 60} className="p-6">
-                <span className="font-mono text-xs text-signal">0{i + 1}</span>
-                <h3 className="mt-6 text-xl font-semibold">{v.title}</h3>
-                <p className="mt-2 text-[0.95rem] leading-relaxed text-muted">{v.text}</p>
-              </Tile>
-            ))}
-          </ul>
-        </div>
-      </Container>
-
-      {/* Team and training */}
-      <Container className="mt-24">
-        <div className="grid gap-3 lg:grid-cols-12">
-          <Tile className="flex flex-col justify-between gap-10 p-7 sm:p-9 lg:col-span-4">
-            <div>
-              <Label index="03">Our team</Label>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight">How we train</h2>
+      {/* Mission and vision */}
+      <section aria-label="Mission and vision">
+        <Spacer />
+        <Row>
+          {[
+            { label: "Mission", text: mission },
+            { label: "Vision", text: vision },
+          ].map((m) => (
+            <div key={m.label} className="panel flex min-h-72 flex-col justify-between gap-10 p-6 md:p-10 lg:col-span-2">
+              <Micro>{m.label}</Micro>
+              <p className="display text-[clamp(1.9rem,3.4cqw,3rem)] leading-[1.02]">{m.text}</p>
             </div>
-            <div>
-              <p className="font-display text-6xl font-semibold text-signal">
-                <Fill k="teamSize" />
-              </p>
-              <p className="mt-3 leading-relaxed text-muted">
-                people across calling, quality, training, development and marketing.
-              </p>
-            </div>
-          </Tile>
-          <ol className="grid gap-3 sm:grid-cols-2 lg:col-span-8">
-            {training.map((t, i) => (
-              <Tile as="li" key={t.title} delay={i * 60}>
-                <span className="font-mono text-xs text-signal">Step 0{i + 1}</span>
-                <h3 className="mt-5 text-xl font-semibold">{t.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{t.text}</p>
-              </Tile>
-            ))}
-          </ol>
-        </div>
-        <p className="mt-4 px-1 text-sm text-muted">Every agent goes through all four steps.</p>
-      </Container>
-
-      {/* Leadership + founder */}
-      <Container className="mt-24">
-        <SectionHeading
-          index="04"
-          label="Leadership"
-          title="The people accountable for your work."
-          aside={<SampleTag show={!leaders.confirmed}>Sample names</SampleTag>}
-        />
-        <div className="mt-10 grid gap-3 lg:grid-cols-12">
-          {leaders.items.map((l, i) => (
-            <Tile key={l.role} delay={i * 60} className="p-5 lg:col-span-3">
-              <PhotoSlot label="Headshot" className="min-h-48" />
-              <p className="mt-5 font-display text-lg font-semibold">
-                {leaders.confirmed ? l.name : <SampleMark>{l.name}</SampleMark>}
-              </p>
-              <p className="text-sm text-muted">{l.role}</p>
-            </Tile>
           ))}
-          <Tile delay={180} className="flex flex-col justify-between gap-8 p-7 lg:col-span-3">
-            <div className="flex items-center justify-between gap-3">
-              <Label>From the founder</Label>
+        </Row>
+      </section>
+
+      {/* Values */}
+      <section aria-labelledby="values-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="values-title" text="Values" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="How we work with you" sub="Five rules we hold ourselves to" />
+          </div>
+        </Row>
+        <ol>
+          {values.map((v, i) => (
+            <li key={v.title}>
+              <Row>
+                <div className="flex items-center gap-5 bg-bg p-6 md:p-8 lg:col-span-2">
+                  <span className="font-mono text-sm text-orange-deep">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="display text-[1.75rem] leading-none md:text-[2rem] lg:text-[2.5rem]">{v.title}</h3>
+                </div>
+                <p className="flex items-center bg-bg p-6 text-lg leading-relaxed text-mute max-md:pt-0 md:p-8 lg:col-span-2">
+                  {v.text}
+                </p>
+              </Row>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      {/* Training */}
+      <section aria-labelledby="training-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="training-title" text="Training" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Before the first call, and every week after" sub="No one talks to your customers untrained" />
+          </div>
+        </Row>
+        <Row className="max-md:grid-cols-2">
+          {training.map((t, i) => (
+            <NumberCard key={t.title} n={i + 1} icon={trainingIcons[i] ?? "users"} title={t.title} text={t.text} className="min-h-[20rem]" />
+          ))}
+        </Row>
+      </section>
+
+      <TeamSection />
+
+      {/* Founder's note */}
+      <section aria-labelledby="founder-title">
+        <Spacer />
+        <Row>
+          <figure className="panel relative z-[2] flex flex-col justify-between gap-10 p-6 md:col-span-2 md:p-10 lg:col-span-3">
+            <div className="flex items-center justify-between gap-4">
+              <h2 id="founder-title" className="font-mono text-[0.8125rem] uppercase tracking-[0.04em]">
+                A note from the founder
+              </h2>
               <SampleTag show={!facts.founderMessage.confirmed} />
             </div>
-            <blockquote className="font-display text-lg leading-snug">
-              &ldquo;<Fill k="founderMessage" />&rdquo;
+            <blockquote className="max-w-4xl text-[clamp(1.4rem,2.3cqw,2.1rem)] leading-[1.35]">
+              <p>“{facts.founderMessage.value}”</p>
             </blockquote>
-          </Tile>
-        </div>
-      </Container>
+            <figcaption className="flex items-center gap-4">
+              <PixelPortrait seed={3} className="size-14 shrink-0" />
+              <span>
+                <span className="block">
+                  {sampleLists.team.confirmed ? founder.name : <SampleMark>{founder.name}</SampleMark>}
+                </span>
+                <span className="font-mono text-[0.6875rem] uppercase tracking-[0.06em] text-mute">{founder.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+          <div className="relative min-h-64 bg-ink md:max-lg:col-span-2">
+            <CubeCluster size={30} className="absolute inset-0" />
+          </div>
+        </Row>
+      </section>
 
-      {/* Office */}
-      <Container className="mt-24">
-        <SectionHeading
-          index="05"
-          label="Inside our office"
-          title="Real photos only."
-          intro="Office and team photos will appear here. No stock photography."
-          aside={<TextLink href="/infrastructure">See our infrastructure</TextLink>}
-        />
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {photos.items.map((p, i) => (
-            <PhotoSlot key={p} label={p} className={cx(i === 0 && "sm:col-span-2 sm:row-span-2 sm:min-h-[360px]", i === 1 && "lg:col-span-2")} />
+      {/* Photos */}
+      <section aria-labelledby="photos-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="photos-title" text="The office" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:p-8">
+            <Lead title="Real photos, coming soon" sub="No stock photos, ever" />
+          </div>
+          <div className="flex items-center justify-between gap-4 p-6 md:p-8">
+            <span className="text-sm">See the operations centre</span>
+            <ArrowBox href="/infrastructure" label="See the operations centre" />
+          </div>
+        </Row>
+        <Row className="max-md:grid-cols-2">
+          {photos.items.map((p) => (
+            <PhotoSlot key={p} label={p} confirmed={photos.confirmed} />
           ))}
-        </div>
-      </Container>
+        </Row>
+      </section>
 
-      <CtaStrip />
-    </>
+      <CtaBand />
+    </div>
   );
 }

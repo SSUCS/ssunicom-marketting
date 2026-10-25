@@ -1,151 +1,229 @@
-import { CtaStrip, PageHero } from "@/components/blocks";
+import { NumberCard } from "@/components/cards";
 import { Icon } from "@/components/Icon";
-import { Fill } from "@/components/Sample";
-import { Bullets, Container, DraftNotice, Label, SectionHeading, Tile, cx } from "@/components/ui";
-import { compliancePoints, workflowSteps } from "@/lib/content";
+import { Fill, SampleTag } from "@/components/Sample";
+import { CtaBand, PageHero, Spacer } from "@/components/sections";
+import { ButtonLink, HeadingPanel, Lead, RadioDot, Row, Tick } from "@/components/ui";
+import { Bars3D, IsoIcon, ProcessRail, SphereTile } from "@/components/visuals";
+import { compliance, disclaimer, steps } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   title: "How We Work — Process, Quality & Reporting",
-  description: "Our five-step process, quality checks, reporting and compliance practices for every engagement.",
+  description:
+    "Five steps agreed in writing before day one, recorded and reviewed calls, plain daily reporting and strict calling rules.",
   path: "/how-we-work",
 });
 
-const reportItems = [
-  "Leads received or dialled",
-  "Contacts made",
-  "Leads qualified",
-  "Transfers or appointments delivered",
-  "Rejection reasons",
-  "Recommendations for the next period",
+/** An illustrative report, so visitors can see the shape of what they receive. */
+const exampleReport = [
+  { label: "Leads dialled", value: "412" },
+  { label: "Conversations", value: "156" },
+  { label: "Qualified", value: "61" },
+  { label: "Handed to your team", value: "48" },
+  { label: "Rejected, with reasons", value: "13" },
 ];
+
+const mono = "font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute";
 
 export default function HowWeWorkPage() {
   return (
-    <>
+    <div className="wrap @container">
       <PageHero
         label="How we work"
-        title="Five steps, agreed before work starts."
-        intro="Outsourcing works when both sides know exactly what will happen, who does it and how results are measured. Every engagement follows the same five steps."
+        title="How we |work"
+        intro="Five steps, agreed in writing before day one. Then daily numbers, recorded calls and a team that tunes the work every week."
+        actions={
+          <ButtonLink href="/contact" arrow>
+            Plan a campaign
+          </ButtonLink>
+        }
+        visual={<ProcessRail items={steps} className="absolute inset-x-[2cqw] top-1/2 -translate-y-1/2" />}
+        aside={
+          <dl className="flex h-full flex-col justify-end">
+            {[
+              { label: "Live in", value: <Fill k="launchTime" /> },
+              { label: "Calls reviewed", value: <Fill k="qaShare" /> },
+              { label: "Reports", value: <Fill k="reportingFrequency" /> },
+            ].map((d) => (
+              <div key={d.label} className="border-t border-line px-6 py-4 md:px-7">
+                <dt className={mono}>{d.label}</dt>
+                <dd className="mt-1">{d.value}</dd>
+              </div>
+            ))}
+          </dl>
+        }
       />
 
-      {/* Steps */}
-      <Container className="mt-3">
-        <ol className="grid gap-3 lg:grid-cols-6">
-          {workflowSteps.map((step, i) => (
-            <Tile
-              as="li"
-              key={step.title}
-              delay={i * 60}
-              className={cx("flex flex-col justify-between gap-10", i < 2 ? "lg:col-span-3" : "lg:col-span-2")}
-            >
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-sm text-signal">Step 0{i + 1}</span>
-                <span aria-hidden className="font-display text-6xl font-semibold leading-none text-surface-3">
-                  {i + 1}
-                </span>
-              </div>
-              <div>
-                <h2 className="text-2xl font-semibold">{step.title}</h2>
-                <p className="mt-3 leading-relaxed text-muted">{step.text}</p>
-              </div>
-            </Tile>
+      {/* The five steps */}
+      <section aria-labelledby="steps-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="steps-title" text="The process" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Five steps, every time" sub="For a calling team, a website or an ad campaign" />
+          </div>
+        </Row>
+        <ol>
+          {steps.map((s, i) => (
+            <li key={s.title}>
+              <Row>
+                <div className="flex flex-col justify-between gap-6 p-6 md:p-8">
+                  <span className="display text-[3.5rem] leading-none md:text-[4.5rem]">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="flex items-center gap-3 text-xl md:text-2xl">
+                    <span aria-hidden className="size-2.5 shrink-0 bg-orange" />
+                    {s.title}
+                  </h3>
+                </div>
+                <div className="grid place-items-center p-6 max-lg:hidden">
+                  <IsoIcon name={s.icon} className="w-full max-w-[8.5rem]" />
+                </div>
+                <p className="flex items-center bg-bg p-6 leading-relaxed text-mute md:p-8 md:text-lg lg:col-span-2">
+                  {s.text}
+                </p>
+              </Row>
+            </li>
           ))}
         </ol>
-      </Container>
+      </section>
 
-      {/* Quality + reporting + tools */}
-      <Container className="mt-24">
-        <SectionHeading index="02" label="Operations" title="Quality, reporting and tools." />
-        <div className="mt-10 grid gap-3 lg:grid-cols-12">
-          <Tile className="lg:col-span-5">
-            <div className="flex items-center justify-between">
-              <Label>Quality checks</Label>
-              <Icon name="check-shield" className="h-5 w-5 text-signal" />
-            </div>
-            <Bullets
-              className="mt-5"
-              items={[
+      {/* Quality */}
+      <section aria-labelledby="quality-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.25rem]">
+          <div className="flex items-start max-lg:hidden">
+            <SphereTile className="size-[11.25rem]" />
+            <RadioDot />
+          </div>
+          <div className="max-lg:hidden" />
+          <HeadingPanel id="quality-title" text="Quality" className="justify-center md:col-span-2" />
+        </Row>
+        <Row className="max-md:grid-cols-2">
+          <NumberCard
+            n={1}
+            icon="check-shield"
+            title="Calls reviewed"
+            text={
+              <>
+                <Fill k="qaShare" /> scored by quality analysts.
+              </>
+            }
+            className="min-h-[20rem]"
+          />
+          <NumberCard
+            n={2}
+            icon="database"
+            title="Every call recorded"
+            text={
+              <>
+                Recordings kept for <Fill k="retention" />.
+              </>
+            }
+            className="min-h-[20rem]"
+          />
+          <NumberCard
+            n={3}
+            icon="document"
+            title="Written criteria"
+            text="Your definition of a qualified lead, agreed before the first call."
+            className="min-h-[20rem]"
+          />
+          <NumberCard
+            n={4}
+            icon="users"
+            title="Weekly coaching"
+            text="Agents coached on their own recorded calls."
+            className="min-h-[20rem]"
+          />
+        </Row>
+      </section>
+
+      {/* Reporting */}
+      <section aria-labelledby="reporting-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="reporting-title" text="Reporting" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead
+              title={
                 <>
-                  Call monitoring and scoring by dedicated quality analysts (<Fill k="qaShare" /> reviewed)
-                </>,
-                "Lead verification before every handover",
-                "Regular calibration sessions with your team so our idea of a “qualified lead” matches yours",
-                "Coaching for agents based on call reviews",
-              ]}
+                  <Fill k="reportingFrequency" /> reports
+                </>
+              }
+              sub="Plain numbers, with a reason for every rejected lead"
             />
-          </Tile>
-          <Tile delay={80} className="lg:col-span-7">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Label>Reporting</Label>
-              <span className="rounded-full border border-line-strong px-3 py-1 text-sm">
-                Frequency: <Fill k="reportingFrequency" />
-              </span>
+          </div>
+        </Row>
+        <Row>
+          <div className="panel relative z-[2] p-6 md:p-8">
+            <div className="flex items-center justify-between gap-3">
+              <p className={mono}>Example daily report</p>
+              <SampleTag>Example</SampleTag>
             </div>
-            <p className="mt-5 text-muted">Each report covers:</p>
-            <ul className="mt-4 grid gap-2 sm:grid-cols-2">
-              {reportItems.map((r, i) => (
-                <li key={r} className="flex items-center gap-3 rounded-xl border border-line bg-surface-2 px-4 py-3 text-[0.95rem]">
-                  <span className="font-mono text-xs text-signal">0{i + 1}</span>
-                  {r}
-                </li>
+            <dl className="mt-6">
+              {exampleReport.map((r) => (
+                <div key={r.label} className="flex items-baseline justify-between gap-4 border-t border-line py-3">
+                  <dt className="text-sm">{r.label}</dt>
+                  <dd className="display text-2xl">{r.value}</dd>
+                </div>
               ))}
-            </ul>
-            <p className="mt-4 text-sm leading-relaxed text-muted">
-              Web and marketing clients also receive traffic, enquiry and campaign performance figures.
+            </dl>
+          </div>
+          <div className="relative min-h-72 max-md:hidden">
+            <Bars3D className="absolute inset-0 m-auto h-[78%] w-[86%]" />
+          </div>
+          <div className="flex flex-col justify-between gap-8 bg-bg p-6 md:col-span-2 md:p-8">
+            <p className="text-lg leading-relaxed md:text-xl">
+              You see what we see: every lead dialled, reached, qualified and handed over, plus the reason behind every
+              rejection. Recordings are there when you want to listen.
             </p>
-          </Tile>
-          <Tile className="flex flex-col gap-4 lg:col-span-12 lg:flex-row lg:items-center lg:justify-between">
-            <div className="flex items-center gap-4">
-              <Icon name="sliders" className="h-5 w-5 text-signal" />
-              <div>
-                <Label>Tools</Label>
-                <p className="mt-1.5 text-lg font-medium">We can work inside your CRM or provide our own.</p>
-              </div>
+            <div>
+              <p className={mono}>Tools</p>
+              <p className="mt-1.5 leading-relaxed">
+                <Fill k="tools" />
+              </p>
             </div>
-            <p className="text-muted lg:max-w-md lg:text-right">
-              <Fill k="tools" />
-            </p>
-          </Tile>
-        </div>
-      </Container>
+          </div>
+        </Row>
+      </section>
 
       {/* Compliance */}
-      <Container className="mt-24">
-        <div className="grid gap-3 lg:grid-cols-12">
-          <Tile className="bg-grid flex flex-col justify-between gap-8 p-7 sm:p-9 lg:col-span-5">
-            <div>
-              <Label index="03">Compliance and data handling</Label>
-              <h2 className="mt-5 text-3xl font-semibold leading-tight sm:text-4xl">Part of the process, not an afterthought.</h2>
-            </div>
-            <p className="leading-relaxed text-muted">
-              We contact consumers on behalf of US and Indian businesses, so we treat compliance as part of the process,
-              not an afterthought.
+      <section aria-labelledby="compliance-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="compliance-title" text="Compliance" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Rules we don’t bend" sub={disclaimer} />
+          </div>
+        </Row>
+        <Row as="ul">
+          {compliance.map((c, i) => (
+            <li
+              key={i}
+              className="brackets relative flex items-center gap-4 border-b border-line bg-bg px-6 py-6 [--b-inset:0.6rem] md:px-8 lg:col-span-2"
+            >
+              <Tick />
+              <span className="leading-relaxed">{c}</span>
+            </li>
+          ))}
+        </Row>
+        <Row>
+          <div className="flex flex-col justify-center gap-4 p-6 md:col-span-2 md:p-8 lg:col-span-3">
+            <p className="flex items-center gap-3 leading-relaxed">
+              <Icon name="document" className="h-5 w-5 shrink-0" />
+              Need it in writing for your compliance team? We’ll walk them through our process before you sign.
             </p>
-          </Tile>
-          <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-7">
-            {compliancePoints.map((point, i) => (
-              <Tile as="li" key={point} delay={(i % 2) * 60} className="p-5">
-                <Icon name="check" className="h-5 w-5 text-signal" />
-                <p className="mt-4 text-[0.95rem] leading-relaxed text-fg/85">
-                  {point === "Calls recorded and stored" ? (
-                    <>
-                      Calls recorded and stored: <Fill k="retention" />
-                    </>
-                  ) : (
-                    point
-                  )}
-                </p>
-              </Tile>
-            ))}
-          </ul>
-        </div>
-        <div className="mt-3">
-          <DraftNotice>The company must confirm each compliance point above is accurate before publishing.</DraftNotice>
-        </div>
-      </Container>
+          </div>
+          <div className="flex items-center p-6 md:col-span-2 md:p-8 lg:col-span-1">
+            <ButtonLink href="/contact" variant="line" arrow className="w-full">
+              Ask about compliance
+            </ButtonLink>
+          </div>
+        </Row>
+      </section>
 
-      <CtaStrip />
-    </>
+      <CtaBand />
+    </div>
   );
 }

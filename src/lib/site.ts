@@ -11,11 +11,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://ssunicomservice.com",
   tagline: "Digital reach. Human follow-through.",
   description:
-    "Outsourced lead generation, live transfers, web apps and digital marketing from Kanpur, India. Digital reach with human follow-through.",
-  positioning:
-    "SS Unicom Service builds the websites and campaigns that bring businesses new enquiries, and runs the trained calling team that turns those enquiries into qualified, sales-ready conversations.",
-  about:
-    "Outsourced lead generation, process support, web apps and digital marketing — delivered from Kanpur, India.",
+    "Lead generation, live call transfers, web apps and digital marketing from Kanpur, India. We bring in the leads, then call every one.",
 
   contact: {
     phoneDisplay: "+91 97947 74773",
@@ -25,12 +21,12 @@ export const site = {
   },
 } as const;
 
+/** Main navigation, in header order. */
 export const nav = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
   { href: "/services", label: "Services" },
   { href: "/how-we-work", label: "How We Work" },
   { href: "/industries", label: "Industries" },
+  { href: "/about", label: "About" },
   { href: "/careers", label: "Careers" },
   { href: "/contact", label: "Contact" },
 ] as const;

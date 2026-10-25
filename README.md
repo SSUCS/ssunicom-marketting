@@ -1,9 +1,8 @@
-# SS Unicom Service: marketing website (bento-grid variation)
+# SS Unicom Service: marketing website (grid variation)
 
-This branch is a second design variation: a dark, modular bento-grid layout with the October 2026 content doc. The original design stays on `main`.
+This branch is a design variation modelled on the layout and motion of labs.chaingpt.org: a light grey page on a fixed four-column grid, oversized display type, chamfered orange buttons, isometric illustrations and a glass "lead tube" that carries a lead down the home page. All artwork, fonts and copy are original or openly licensed; nothing is copied from the reference site. The original design stays on `main`.
 
-Sample marketing website for SS Unicom Service, an India-based BPO, lead generation and business support company.
-Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. The only runtime dependencies are Next.js and React: icons, illustrations and the scroll animation are hand-written SVG, CSS and React.
+Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. Runtime dependencies: Next.js, React and [Lenis](https://github.com/darkroomengineering/lenis) for smooth scrolling. Icons and illustrations are hand-written SVG and CSS.
 
 ## Quick start
 
@@ -24,23 +23,23 @@ Deploys as a standard Next.js app (Vercel, Netlify, or any Node host). Set the e
 
 | Route | Page |
 | --- | --- |
-| `/` | Home, including the "From first click to qualified call" scroll scene |
-| `/about` | About Us |
-| `/services` | Services (anchors: `#us-lead-generation`, `#web-apps-digital-marketing`, `#india-edtech`, `#custom-solutions`) |
-| `/how-we-work` | Five steps, quality, reporting, tools, compliance |
-| `/industries` | Industries & Markets |
+| `/` | Home: hero funnel, the lead tube, services, case studies, industries, testimonials, team, FAQ, hiring |
+| `/services` | Four service lines (anchors: `#us-lead-generation`, `#web-apps-digital-marketing`, `#india-edtech`, `#custom-solutions`) |
+| `/how-we-work` | Five steps, quality, reporting, compliance |
+| `/industries` | Industries and markets, with live Kanpur and New York clocks |
+| `/about` | Story, mission, values, training, team, founder's note, office photos |
 | `/infrastructure` | Operations centre (linked from the footer) |
-| `/careers` | Careers |
-| `/contact` | Contact details, enquiry form and map |
+| `/careers` | Open roles, what you get, how to apply, no-fee notice |
+| `/contact` | Enquiry form, contact details and map |
 | `/privacy-policy`, `/terms` | Legal outlines for the company's legal adviser |
 | `/placeholders` | Internal checklist of every sample value (not indexed) |
 | `/api/contact` | Server endpoint for the form |
 
 ## Placeholders (sample content)
 
-Every unconfirmed fact (the bracketed items in the content doc, plus sample client names, leaders, projects and benefits) lives in **`src/lib/placeholders.ts`**. On the site, sample values have a dashed amber outline, and a banner at the top links to `/placeholders`, which lists them all.
+Every unconfirmed fact (address, hours, team size, client names, case studies, testimonials, team, benefits, photos and so on) lives in **`src/lib/placeholders.ts`**. On the site, sample values have a dotted orange underline, whole sample cards carry a small "Sample" tag, and a dismissible notice links to `/placeholders`, which lists every item and its status.
 
-To replace one, change its `value` (or list items) and set `confirmed: true`. When everything is confirmed, set `SHOW_SAMPLE_MARKERS = false` to remove the banner. Do not launch with sample values.
+To replace one, change its `value` (or list items) and set `confirmed: true`. When everything is confirmed, set `SHOW_SAMPLE_MARKERS = false` to remove the notice. Do not launch with sample values.
 
 ## Environment variables
 
@@ -60,6 +59,7 @@ Secrets are only read on the server (`src/app/api/contact/route.ts`); never pref
 - Validation rules live in `src/lib/contact.ts` and run in the browser and on the server.
 - Delivery is in `src/app/api/contact/route.ts`. Resend is used if configured, otherwise the webhook.
 - **If neither is configured, the form does not pretend to send.** The visitor is told the message was not sent and is shown the email address and phone number instead.
+- The footer's "Get a call back" field opens `/contact?email=…` with the email filled in; "Enquire" buttons pre-select a service with `?service=…`.
 - Includes a hidden honeypot field for basic spam protection. Add rate limiting or a CAPTCHA if spam becomes a problem.
 
 ## Where to change things
@@ -68,17 +68,25 @@ Secrets are only read on the server (`src/app/api/contact/route.ts`); never pref
 | --- | --- |
 | Sample / unconfirmed facts | `src/lib/placeholders.ts` |
 | Company name, phone, email, navigation, form options | `src/lib/site.ts` |
-| Services, journey stages, workflow steps, values, compliance points | `src/lib/content.ts` |
+| Shared copy: services, capabilities, steps, industries, values, roles, FAQ | `src/lib/content.tsx` |
 | Page-specific copy | `src/app/<route>/page.tsx` |
-| Colours, fonts, radii, tile styles | `src/app/globals.css`; fonts in `src/app/layout.tsx` |
-| Buttons, labels, tiles, headings | `src/components/ui.tsx` |
-| Page hero, CTA strip, marquee, photo slots | `src/components/blocks.tsx` |
-| Scroll scene | `src/components/LeadJourney.tsx` |
+| Colours, fonts, grid, buttons, effects | `src/app/globals.css`; fonts in `src/app/layout.tsx` |
+| Grid rows, buttons, headings, labels | `src/components/ui.tsx` |
+| Page hero, section blocks (case studies, FAQ, team, CTA) | `src/components/sections.tsx` |
+| Cards | `src/components/cards.tsx` |
+| Illustrations (cubes, spheres, isometric icons, portraits, funnel, charts) | `src/components/visuals.tsx` |
+| Lead tube on the home page | `src/components/LeadTube.tsx` |
 
-## Motion
+## Grid and motion
 
-- The scroll scene uses a sticky panel inside a tall track (`TRACK_VH`), so normal scrolling drives it. Reduced-motion and no-JS visitors get a static version with every stage.
-- Tiles reveal on scroll and show a soft spotlight under the pointer (`src/components/Spotlight.tsx`). The client strip scrolls as a marquee. All motion switches off under `prefers-reduced-motion`.
+- The page sits on four columns (two on tablets, one on phones). The fixed vertical lines come from `src/components/GridLines.tsx`; each page root is a size container (`@container`), so widths such as `25cqw` land exactly on the lines. Any cell whose text spans two columns gets `bg-bg` so the lines never run through words.
+- Effects: preloader with a pixel cover (first visit per session), pixel page transitions (`src/app/template.tsx`), letter-by-letter headings, scramble text on hover, a marquee, scroll-snap sliders, Lenis smooth scrolling and the lead tube whose card changes status as it passes each collar.
+- Everything switches off or goes static under `prefers-reduced-motion`, and content stays readable without JavaScript (the preloader is skipped, reveals are disabled, the FAQ uses native `<details>`).
+
+## Fonts and licences
+
+- Turret Road (display) and Roboto Mono (text) load through `next/font/google`.
+- The social image (`src/app/opengraph-image.tsx`) embeds Turret Road from `src/app/_og/`, under the SIL Open Font License (`src/app/_og/TurretRoad-OFL.txt`).
 
 ## Content principles
 

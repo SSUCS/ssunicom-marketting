@@ -1,266 +1,287 @@
-import Link from "next/link";
-import { CtaStrip, Marquee } from "@/components/blocks";
-import { Icon } from "@/components/Icon";
-import { LeadJourney } from "@/components/LeadJourney";
-import { Fill, SampleMark, SampleTag } from "@/components/Sample";
-import { ButtonLink, Container, IconBadge, Label, SectionHeading, TextLink, Tile, cx } from "@/components/ui";
-import { PipelineCard, ReachMap } from "@/components/visuals";
-import { enquireHref, services, whyChooseUs, workflowSteps } from "@/lib/content";
+import type { CSSProperties } from "react";
+import { NumberCard } from "@/components/cards";
+import { Icon, type IconName } from "@/components/Icon";
+import { LeadTube, TubeBase, TubeCollar, TubeShowcase } from "@/components/LeadTube";
+import { SliderButtons } from "@/components/motion";
+import { SampleTag } from "@/components/Sample";
+import {
+  CaseStudiesSection,
+  FaqSection,
+  HiringSection,
+  IndustriesSection,
+  SocialRail,
+  TeamSection,
+  TestimonialsSection,
+} from "@/components/sections";
+import { ButtonLink, Crosshair, HeadingPanel, Lead, RadioDot, Row, Slider, Tick, cx } from "@/components/ui";
+import { ClientLogo, CubeTile, Funnel, SphereTile } from "@/components/visuals";
+import { capabilities, services } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
   title: "SS Unicom Service — Lead Generation & Web Apps, India",
   description:
-    "Outsourced lead generation, live transfers, web apps and digital marketing from Kanpur, India. Digital reach with human follow-through.",
+    "We build the websites and campaigns that bring in leads, then our Kanpur team calls, qualifies and hands every one to your sales team. Serving the US and India.",
   path: "/",
 });
 
 export default function HomePage() {
-  const [usLeads, web, edtech] = services;
-  const clients = sampleLists.clients;
-
   return (
-    <>
-      {/* Hero */}
-      <Container className="pt-6 sm:pt-10">
-        <div className="grid gap-3 lg:grid-cols-12 lg:grid-rows-[auto_auto]">
-          <div className="tile bg-grid relative flex flex-col justify-between p-7 sm:p-10 lg:col-span-8 lg:row-span-2 lg:min-h-[560px] lg:p-12">
-            <div aria-hidden className="pointer-events-none absolute -bottom-40 -left-24 h-96 w-96 rounded-full bg-signal/15 blur-[110px]" />
-            <div aria-hidden className="pointer-events-none absolute -right-20 -top-28 h-80 w-80 rounded-full bg-teal/10 blur-[100px]" />
-            <Label>Lead generation · Web apps · Digital marketing</Label>
-            <div className="relative mt-12 lg:mt-0">
-              <h1 className="max-w-3xl text-[2.7rem] font-semibold leading-[0.98] sm:text-6xl lg:text-[4.1rem] xl:text-[4.6rem]">
-                Digital reach. <span className="text-signal sm:whitespace-nowrap">Human follow-through.</span>
-              </h1>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
-                We build the websites and campaigns that bring you new enquiries — and run the trained team that calls,
-                qualifies and hands them to your sales team, ready to talk.
-              </p>
-              <div className="mt-9 flex flex-wrap gap-3">
-                <ButtonLink href="/contact" arrow>
-                  Free Consultation
-                </ButtonLink>
-                <ButtonLink href="/services" variant="secondary">
-                  Our Services
-                </ButtonLink>
-              </div>
-            </div>
-          </div>
-
-          <div className="tile p-6 lg:col-span-4">
-            <PipelineCard />
-          </div>
-          <div className="tile flex flex-col p-6 lg:col-span-4">
-            <div className="flex items-center justify-between">
-              <Label>Markets</Label>
-              <span className="text-sm text-muted">Serving the US and India</span>
-            </div>
-            <ReachMap className="mt-3 h-auto w-full" />
-          </div>
-        </div>
-
-        {/* Proof strip */}
-        <ul className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-4" aria-label="At a glance">
-          {[
-            { k: "yearsOperating" as const, suffix: "years" },
-            { k: "seatCount" as const, suffix: "seats" },
-            { k: "coverage" as const, suffix: "coverage" },
-          ].map(({ k, suffix }, i) => (
-            <Tile key={k} as="li" delay={i * 60} className="p-5 sm:p-6">
-              <p className="font-display text-3xl font-semibold sm:text-4xl">
-                <Fill k={k} className={k === "coverage" ? "text-xl sm:text-[1.6rem]" : undefined} />
-              </p>
-              <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted">{suffix}</p>
-            </Tile>
-          ))}
-          <Tile as="li" delay={180} className="p-5 sm:p-6">
-            <p className="font-display text-3xl font-semibold sm:text-4xl">US + IN</p>
-            <p className="mt-2 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-muted">Serving the US and India</p>
-          </Tile>
-        </ul>
-
-        {/* Sample client strip */}
-        <div className="tile reveal mt-3 flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:gap-6 sm:p-6">
-          <div className="flex shrink-0 items-center gap-3">
-            <Label>Working with</Label>
-            <SampleTag show={!clients.confirmed}>Sample clients</SampleTag>
-          </div>
-          <Marquee
-            className="min-w-0 flex-1"
-            items={clients.items.map((name) => (
-              <span key={name} className="inline-flex items-center gap-2 rounded-full border border-line bg-surface-2 px-4 py-2 font-display text-[0.95rem] font-medium text-fg/80">
-                <span aria-hidden className="h-2 w-2 rounded-sm bg-signal/70" />
-                {clients.confirmed ? name : <SampleMark title={`Sample: ${clients.ask}`}>{name}</SampleMark>}
-              </span>
-            ))}
-          />
-        </div>
-      </Container>
-
-      {/* Who we are */}
-      <Container className="mt-24">
-        <div className="grid gap-3 lg:grid-cols-12">
-          <Tile className="p-7 sm:p-10 lg:col-span-8">
-            <Label index="01">Who we are</Label>
-            <p className="mt-6 font-display text-2xl font-medium leading-snug sm:text-[2rem]">
-              SS Unicom Service is a business process outsourcing company based in Kanpur, India.{" "}
-              <span className="text-muted">
-                We work as an extension of our clients&apos; teams: generating and qualifying leads, supporting customer
-                and document workflows, and building the digital channels that keep new enquiries coming in.
-              </span>
-            </p>
-            <div className="mt-8">
-              <TextLink href="/about">More about us</TextLink>
-            </div>
-          </Tile>
-          <Tile delay={80} className="flex flex-col justify-between gap-10 p-7 lg:col-span-4">
-            <div className="flex items-center justify-between">
-              <Label>Operations</Label>
-              <Icon name="headset" className="h-5 w-5 text-signal" />
-            </div>
-            <div>
-              <p className="font-display text-5xl font-semibold">
-                <Fill k="teamSize" />
-              </p>
-              <p className="mt-2 text-muted">people across calling, quality, training, development and marketing.</p>
-            </div>
-            <TextLink href="/infrastructure">Inside our operations centre</TextLink>
-          </Tile>
-        </div>
-      </Container>
-
-      <LeadJourney />
-
-      {/* Services */}
-      <Container className="mt-24">
-        <SectionHeading
-          index="04"
-          label="Our services"
-          title="Four service lines, one team."
-          aside={<ButtonLink href="/services" variant="secondary" arrow>All services</ButtonLink>}
-        />
-        <div className="mt-10 grid gap-3 lg:grid-cols-12">
-          <ServiceTile service={usLeads} className="lg:col-span-7 lg:row-span-2" large />
-          <ServiceTile service={web} className="lg:col-span-5" delay={80} />
-          <ServiceTile service={edtech} className="lg:col-span-5" delay={160} />
-          <Link
-            href="/services#custom-solutions"
-            className="tile reveal group flex items-center justify-between gap-4 p-6 lg:col-span-12"
-          >
-            <span className="flex items-center gap-4">
-              <IconBadge name="puzzle" />
-              <span className="font-display text-lg font-medium sm:text-xl">
-                Need something different? <span className="text-muted">See our custom solutions</span>
-              </span>
-            </span>
-            <Icon name="arrow-up-right" className="h-5 w-5 shrink-0 text-muted transition-colors group-hover:text-signal" />
-          </Link>
-        </div>
-      </Container>
-
-      {/* Why choose us */}
-      <Container className="mt-24">
-        <div className="grid gap-3 lg:grid-cols-12">
-          <Tile className="bg-grid flex flex-col justify-between gap-8 p-7 sm:p-9 lg:col-span-4 lg:row-span-2">
-            <div>
-              <Label index="05">Why choose us</Label>
-              <h2 className="mt-5 text-3xl font-semibold leading-[1.05] sm:text-4xl">What to look for in an outsourcing partner</h2>
-            </div>
-            <p className="leading-relaxed text-muted">
-              Ask any outsourcing provider three things: do they have experience in your kind of work, trained people to
-              do it, and the setup to deliver it every day? Here is how we answer.
-            </p>
-          </Tile>
-          {whyChooseUs.map((item, i) => (
-            <Tile key={item.title} delay={(i % 2) * 80} className={cx("flex flex-col", i === 4 ? "lg:col-span-12" : "lg:col-span-4")}>
-              <div className={cx(i === 4 && "lg:flex lg:items-center lg:gap-8")}>
-                <div className="flex items-center justify-between lg:shrink-0">
-                  <IconBadge name={item.icon} />
-                  <span className="font-mono text-xs text-dim lg:hidden">0{i + 1}</span>
-                </div>
-                <div className={cx(i === 4 ? "mt-6 lg:mt-0" : "mt-6")}>
-                  <h3 className="text-xl font-semibold">{item.title}</h3>
-                  <p className="mt-2 leading-relaxed text-muted">
-                    {item.title === "Clear reporting" ? (
-                      <>
-                        <Fill k="reportingFrequency" /> {item.text}
-                      </>
-                    ) : (
-                      item.text
-                    )}
-                  </p>
-                </div>
-              </div>
-            </Tile>
-          ))}
-        </div>
-      </Container>
-
-      {/* How we work preview */}
-      <Container className="mt-24">
-        <Tile className="p-7 sm:p-10">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <Label index="06">How we work</Label>
-              <h2 className="mt-4 text-3xl font-semibold sm:text-4xl">A structured five-step process</h2>
-              <p className="mt-3 max-w-xl leading-relaxed text-muted">
-                From understanding your goals to improving results every reporting cycle.
-              </p>
-            </div>
-            <TextLink href="/how-we-work">See how we work</TextLink>
-          </div>
-          <ol className="mt-10 grid gap-2 sm:grid-cols-5">
-            {workflowSteps.map((step, i) => (
-              <li key={step.title} className="relative rounded-2xl border border-line bg-surface-2 p-5">
-                <span className="font-mono text-xs text-signal">0{i + 1}</span>
-                <p className="mt-6 font-display text-lg font-semibold">{step.title}</p>
-                {i < workflowSteps.length - 1 && (
-                  <Icon
-                    name="arrow-right"
-                    className="absolute -right-[13px] top-1/2 z-10 hidden h-5 w-5 -translate-y-1/2 rounded-full bg-void p-0.5 text-signal sm:block"
-                  />
-                )}
-              </li>
-            ))}
-          </ol>
-        </Tile>
-      </Container>
-
-      <CtaStrip />
-    </>
+    <div className="wrap @container [--collar-w:27.5cqw] [--tube-w:22.5cqw]">
+      <Hero />
+      {/* The lead tube runs behind everything from the client strip to the hand-off platform. */}
+      <div className="relative">
+        <LeadTube />
+        <ClientsRow />
+        <BeyondTheClick />
+        <FullFunnel />
+      </div>
+      <CaseStudiesSection />
+      <IndustriesSection />
+      <TestimonialsSection />
+      <TeamSection />
+      <FaqSection />
+      <HiringSection />
+    </div>
   );
 }
 
-function ServiceTile({
-  service,
-  className,
-  large = false,
-  delay,
-}: {
-  service: (typeof services)[number];
-  className?: string;
-  large?: boolean;
-  delay?: number;
-}) {
+/* ---------- Hero ---------- */
+
+const chips: { label: string; icon: IconName; style: CSSProperties }[] = [
+  { label: "Search", icon: "search", style: { "--x0": "-150px", "--x1": "-26px", "--d": "0s", "--r": "-10deg" } as CSSProperties },
+  { label: "Ads", icon: "megaphone", style: { "--x0": "130px", "--x1": "22px", "--d": "-1.4s", "--r": "9deg" } as CSSProperties },
+  { label: "Web form", icon: "browser", style: { "--x0": "-60px", "--x1": "-6px", "--d": "-2.8s", "--r": "6deg" } as CSSProperties },
+  { label: "Social", icon: "users", style: { "--x0": "190px", "--x1": "30px", "--d": "-4.2s", "--r": "-7deg" } as CSSProperties },
+];
+
+function Hero() {
+  const sq = "absolute size-3 bg-orange";
   return (
-    <Tile as="article" delay={delay} className={cx("flex flex-col justify-between gap-10", large && "bg-grid sm:p-10", className)}>
-      {large && <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-signal/10 blur-3xl" />}
-      <div className="flex items-start justify-between">
-        <IconBadge name={service.icon} className={large ? "h-14 w-14" : undefined} />
-        <Label>{service.short}</Label>
+    <section aria-labelledby="hero-title" className="relative">
+      <div className="relative h-10 md:h-[3.9rem]">
+        <Crosshair className="absolute right-full top-5 hidden lg:block" />
+        <SocialRail className="absolute left-full top-5 z-[3] hidden lg:flex" />
       </div>
-      <div>
-        <h3 className={cx("font-semibold leading-tight", large ? "text-3xl sm:text-[2.6rem]" : "text-2xl")}>{service.title}</h3>
-        <p className={cx("mt-3 leading-relaxed text-muted", large && "max-w-lg text-lg")}>{service.summary}</p>
-        <Link
-          href={enquireHref(service)}
-          className="group mt-6 inline-flex items-center gap-1.5 font-semibold text-signal underline-offset-4 hover:underline"
-        >
-          Enquire Now <Icon name="arrow-right" className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-          <span className="sr-only"> about {service.title}</span>
-        </Link>
+
+      {/* Marquee */}
+      <div className="relative overflow-hidden border-t border-line pb-16 pt-10 md:pb-20 md:pt-14">
+        <span aria-hidden className={cx(sq, "left-4 top-4 md:left-5 md:top-5")} />
+        <span aria-hidden className={cx(sq, "right-4 top-4 md:right-5 md:top-5")} />
+        <span aria-hidden className={cx(sq, "bottom-4 right-4 md:bottom-5 md:right-5")} />
+        <h1 id="hero-title" className="sr-only">
+          Digital reach. Human follow-through. Lead generation, web apps and digital marketing from Kanpur, India.
+        </h1>
+        <div aria-hidden="true" className="marquee-track flex w-max">
+          {[0, 1].map((k) => (
+            <span
+              key={k}
+              className="display flex shrink-0 items-center whitespace-nowrap text-[clamp(5.6rem,min(21vh,24vw),14.5rem)] leading-[0.8]"
+            >
+              Digital reach
+              <span className="mx-[0.32em] inline-block size-[0.15em] bg-orange" />
+              Human follow-through
+              <span className="mx-[0.32em] inline-block size-[0.15em] bg-orange" />
+            </span>
+          ))}
+        </div>
+        <p aria-hidden="true" className="absolute bottom-4 left-4 flex items-center gap-3 font-mono text-[0.8125rem] uppercase md:bottom-5 md:left-5">
+          <span className="size-3 bg-orange" />
+          <span>Digital reach</span>
+          <span className="ml-3 max-sm:hidden">Human follow-through</span>
+        </p>
       </div>
-    </Tile>
+
+      {/* Intro, funnel and side tile */}
+      <div className="grid grid-cols-1 border-t border-line md:grid-cols-2 lg:h-[max(19rem,23cqw)] lg:grid-cols-4">
+        <div className="flex flex-col justify-between gap-8 p-6 md:p-7 lg:py-9">
+          <p className="text-[1.0625rem] leading-[1.5] md:text-lg">
+            We build the websites and ads that bring in leads. Then our team calls every one, qualifies it and hands you
+            the ones ready to buy.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <ButtonLink href="/contact">Free consultation</ButtonLink>
+          </div>
+        </div>
+        <div className="relative h-[16rem] overflow-hidden sm:h-[19rem] lg:col-span-2 lg:h-auto">
+          <div aria-hidden="true" className="absolute bottom-0 left-1/2 w-[min(94%,30rem)] -translate-x-1/2 lg:w-[42.5cqw]">
+            <Funnel className="block h-auto w-full" />
+            {chips.map((c) => (
+              <span key={c.label} className="absolute left-1/2 top-[-6%] -ml-12">
+                <span
+                  className="drop flex w-24 items-center justify-center gap-1.5 border border-line bg-panel py-1.5 font-mono text-[0.625rem] uppercase tracking-[0.08em] shadow-[0_8px_16px_-10px_rgb(0_0_0/0.5)]"
+                  style={c.style}
+                >
+                  <Icon name={c.icon} className="h-3 w-3" strokeWidth={2} />
+                  {c.label}
+                </span>
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="relative hidden flex-col justify-between lg:flex">
+          <CubeTile className="size-[11.25rem]" />
+          <ClientsBar />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ClientsBar({ className }: { className?: string }) {
+  const clients = sampleLists.clients;
+  return (
+    <div className={cx("panel relative z-[2] flex items-stretch justify-between", className)}>
+      <p className="flex flex-1 items-center gap-3 px-5 py-3 font-mono text-[0.8125rem] uppercase">
+        Our clients:
+        <SampleTag show={!clients.confirmed} />
+      </p>
+      <SliderButtons target="clients" className="border-l border-line" />
+    </div>
+  );
+}
+
+function ClientsRow() {
+  const clients = sampleLists.clients;
+  return (
+    <div className="relative z-[2] border-t border-line">
+      <ClientsBar className="lg:hidden" />
+      <Slider id="clients" label="Sample client logos" className="bleed-r">
+        {clients.items.map((c) => (
+          <div
+            key={c.name}
+            className="panel brackets group relative grid h-[6.7rem] w-[70cqw] shrink-0 snap-start place-items-center px-4 transition-colors duration-300 [--b-color:transparent] [--b-inset:1.4rem] hover:bg-ink hover:text-panel hover:[--b-color:var(--color-orange)] hover:[--b-inset:0.6rem] sm:w-[50cqw] md:w-[33.333cqw] lg:w-[25cqw]"
+          >
+            <ClientLogo name={c.name} glyph={c.glyph} font={c.font} className="max-sm:scale-[0.82]" />
+          </div>
+        ))}
+      </Slider>
+    </div>
+  );
+}
+
+/* ---------- Beyond the click ---------- */
+
+function BeyondTheClick() {
+  return (
+    <section aria-labelledby="beyond-title">
+      <Row className="mt-16 lg:mt-24">
+        <HeadingPanel
+          id="beyond-title"
+          text="Beyond the click"
+          className="md:col-span-2 lg:col-span-4 lg:justify-end lg:pr-16"
+        />
+      </Row>
+      <Row>
+        <div className="p-6 md:p-8 lg:py-12">
+          <Lead title="What we run" sub="For businesses in the US and India" as="h3" />
+        </div>
+        <div className="max-lg:hidden lg:col-span-2" />
+        <div className="p-6 md:p-8 lg:py-12">
+          <Lead title="One team" sub="Two capabilities" as="h3" />
+        </div>
+      </Row>
+      <Row className="relative">
+        <TubeCollar className="top-[30%]" />
+        <div className="flex flex-col">
+          <ul>
+            {services.map((s) => (
+              <li
+                key={s.id}
+                className="brackets relative flex h-[4.5rem] items-center justify-center gap-3 border-b border-line text-[1.0625rem] [--b-inset:0.75rem]"
+              >
+                <Tick />
+                {s.short}
+              </li>
+            ))}
+          </ul>
+          <div className="p-6 md:p-8">
+            <ButtonLink href="/services" className="w-full" arrow>
+              Explore services
+            </ButtonLink>
+          </div>
+        </div>
+        <div className="lg:col-span-2">
+          <TubeShowcase className="my-10" />
+        </div>
+        <div className="grid grid-cols-2 self-start md:max-lg:col-span-2">
+          <NumberCard n={1} icon="globe" title="Digital reach" text="Websites, SEO and ads that bring in enquiries." className="min-h-[19rem]" />
+          <NumberCard
+            n={2}
+            icon="headset"
+            title="Human follow-through"
+            text="Trained callers who reach every lead, fast."
+            className="min-h-[19rem]"
+          />
+        </div>
+      </Row>
+    </section>
+  );
+}
+
+/* ---------- Full funnel ---------- */
+
+function FullFunnel() {
+  return (
+    <section aria-labelledby="funnel-title">
+      <Row className="relative mt-16 lg:mt-24">
+        <TubeCollar marker={false} className="top-[38%]" />
+        <div className="flex items-start max-lg:hidden">
+          <SphereTile className="size-[11.25rem]" />
+          <RadioDot />
+        </div>
+        <div className="max-lg:hidden" />
+        <HeadingPanel id="funnel-title" text="Full funnel" className="justify-center md:col-span-2 lg:min-h-[11.25rem]" />
+      </Row>
+      <Row>
+        <div className="p-6 md:p-8 lg:py-12">
+          <Lead title="End-to-end" sub="From first click to qualified call" as="h3" />
+        </div>
+        <div className="max-lg:hidden lg:col-span-2" />
+        <div className="p-6 md:p-8 lg:py-12">
+          <Lead title="No hand-offs" sub="One team owns the whole funnel" as="h3" />
+        </div>
+      </Row>
+      <Row className="relative">
+        <TubeCollar band className="top-[22%]" />
+        <TubeCollar className="bottom-[4%]" />
+        <div className="min-w-0 md:col-span-2 lg:col-span-1">
+          <Slider id="capabilities" label="What we do" className="border-b border-line">
+            {capabilities.map((c, i) => (
+              <NumberCard
+                key={c.title}
+                n={i + 1}
+                icon={c.icon}
+                title={c.title}
+                text={c.text}
+                className="min-h-[21rem] w-[46cqw] shrink-0 snap-start md:w-[25cqw] lg:w-[12.5cqw]"
+              />
+            ))}
+          </Slider>
+          <SliderButtons target="capabilities" className="panel w-fit" />
+        </div>
+        <div className="max-lg:hidden lg:col-span-2" />
+        <div className="flex items-center p-6 md:col-span-2 md:p-8 lg:col-span-1">
+          <p className="text-[1.0625rem] leading-[1.6]">
+            Most agencies stop at the click. Most call centres start cold. We run both halves, the campaign that creates
+            the enquiry and the call that qualifies it, so no lead goes cold in between.
+          </p>
+        </div>
+      </Row>
+      <Row>
+        <div className="flex flex-col justify-end p-6 md:p-8">
+          <ButtonLink href="/how-we-work" variant="line" arrow className="self-start">
+            How we work
+          </ButtonLink>
+        </div>
+        <div className="max-lg:hidden lg:col-span-2">
+          <TubeBase />
+        </div>
+        <div className="flex flex-col justify-end p-6 md:p-8">
+          <Lead title="Your team" sub="Live transfers, booked calls or full lead records" size="md" />
+        </div>
+      </Row>
+    </section>
   );
 }

@@ -1,49 +1,67 @@
-import { PageHero } from "@/components/blocks";
-import { Icon } from "@/components/Icon";
-import type { IconName } from "@/components/Icon";
+import type { ReactNode } from "react";
+import { NumberCard } from "@/components/cards";
+import { Icon, type IconName } from "@/components/Icon";
 import { Fill, SampleMark, SampleTag } from "@/components/Sample";
-import { Bullets, Container, IconBadge, Label, SectionHeading, Tile, cx } from "@/components/ui";
+import { CtaBand, PageHero, Spacer } from "@/components/sections";
+import { ButtonLink, HeadingPanel, Lead, Row } from "@/components/ui";
+import { IsoIcon, PixelPortrait } from "@/components/visuals";
+import { roles } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { fact, facts, sampleLists } from "@/lib/placeholders";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
   title: "Careers — International BPO Jobs in Kanpur",
-  description: "Voice process, trainer, quality and EdTech counsellor roles in Kanpur. We never charge candidates a fee.",
+  description:
+    "Voice process, trainer, quality, EdTech, web and marketing roles in Kanpur. Full training before your first call. We never charge candidates a fee.",
   path: "/careers",
 });
 
-const roles: { title: string; text: string; icon: IconName; tag?: string }[] = [
-  {
-    title: "International voice process associates",
-    text: "Outbound and inbound calls for US clients.",
-    icon: "headset",
-    tag: "Night shift",
-  },
-  { title: "Voice and accent trainers", text: "Coach agents on clarity, tone and international communication.", icon: "chat" },
-  { title: "Quality analysts", text: "Review calls, score quality and give agents feedback.", icon: "check-shield" },
-  { title: "EdTech counsellors", text: "Handle student enquiries and admission follow-ups.", icon: "graduation" },
+const mono = "font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute";
+const applyHref = (role: string) => `mailto:${fact("hrEmail")}?subject=${encodeURIComponent(`Application: ${role}`)}`;
+
+const offers: { icon: IconName; title: string; text: ReactNode }[] = [
+  { icon: "graduation", title: "Training first", text: "Structured training before you start on any process." },
+  { icon: "chart", title: "Incentives", text: "Performance-based incentives on top of your salary." },
+  { icon: "users", title: "Room to grow", text: "A clear path to team lead, trainer and quality roles." },
 ];
 
 export default function CareersPage() {
   const benefits = sampleLists.benefits;
 
   return (
-    <>
+    <div className="wrap @container">
       <PageHero
         label="Careers"
-        title="Build your career with us."
-        intro="We are growing our team in Kanpur. If you communicate well, like working with people and want to learn international business processes or digital work, we want to hear from you."
+        title="Careers"
+        intro="Start a career in international BPO or digital work. Full training before your first call, steady shifts and coaching every week."
+        actions={
+          <>
+            <ButtonLink href="#roles" arrow>
+              See open roles
+            </ButtonLink>
+            <ButtonLink href={applyHref("General application")} variant="line" icon="mail">
+              Email your CV
+            </ButtonLink>
+          </>
+        }
+        visual={
+          <div aria-hidden="true" className="absolute inset-0 grid grid-cols-3 content-center gap-[1.5cqw] px-[4cqw]">
+            {[5, 12, 19, 26, 33, 40].map((seed) => (
+              <PixelPortrait key={seed} seed={seed} res={36} className="aspect-square w-full chamfer [--cut:12px]" />
+            ))}
+          </div>
+        }
         aside={
-          <div role="note" className="tile flex flex-col justify-between gap-6 border-sample/40 p-6">
-            <div className="flex items-center gap-3">
-              <Icon name="check-shield" className="h-5 w-5 text-sample" />
-              <Label className="text-sample">No fees, ever</Label>
-            </div>
-            <p className="leading-relaxed text-fg/90">
-              SS Unicom Service never charges candidates any fee for jobs, interviews or training. If anyone asks you for
-              money in our name, do not pay and contact us at{" "}
-              <a href={site.contact.emailHref} className="font-semibold text-signal underline underline-offset-2">
+          <div role="note" aria-labelledby="no-fee-title" className="flex h-full flex-col justify-between gap-6 bg-ink p-6 text-panel md:p-7">
+            <p id="no-fee-title" className="flex items-center gap-3 font-mono text-[0.8125rem] uppercase tracking-[0.04em]">
+              <span aria-hidden className="size-3 bg-orange" />
+              No fees, ever
+            </p>
+            <p className="text-sm leading-relaxed">
+              We never charge a fee for jobs, interviews or training. If anyone asks you for money in our name, don’t
+              pay. Email{" "}
+              <a href={site.contact.emailHref} className="underline decoration-orange underline-offset-4 hover:text-orange">
                 {site.contact.email}
               </a>
               .
@@ -52,82 +70,118 @@ export default function CareersPage() {
         }
       />
 
-      <Container className="mt-24">
-        <SectionHeading index="01" label="Roles we hire for" title="Where you could start." />
-        <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {roles.map((r, i) => (
-            <Tile as="li" key={r.title} delay={(i % 3) * 60} className={cx("flex flex-col justify-between gap-10", i === 0 && "lg:row-span-2 bg-grid")}>
-              <div className="flex items-center justify-between">
-                <IconBadge name={r.icon} />
-                {r.tag && (
-                  <span className="rounded-full border border-line-strong px-2.5 py-1 font-mono text-[0.65rem] uppercase tracking-wider text-muted">
+      {/* Roles */}
+      <section id="roles" aria-labelledby="roles-title" className="scroll-mt-24">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="roles-title" text="Open roles" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Six ways in" sub="Full-time, at our office in Kanpur" />
+          </div>
+        </Row>
+        <ul>
+          {roles.map((r) => (
+            <li key={r.title}>
+              <Row>
+                <div className="flex flex-col items-start justify-between gap-6 p-6 md:p-8">
+                  <span className="border border-line bg-panel px-2.5 py-1 font-mono text-[0.6875rem] uppercase tracking-[0.06em]">
                     {r.tag}
                   </span>
-                )}
-              </div>
-              <div>
-                <h3 className={cx("font-semibold leading-tight", i === 0 ? "text-3xl" : "text-xl")}>{r.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{r.text}</p>
-              </div>
-            </Tile>
+                  <h3 className="text-xl leading-snug md:text-2xl">{r.title}</h3>
+                </div>
+                <div className="grid place-items-center p-6 max-lg:hidden">
+                  <IsoIcon name={r.icon} className="w-full max-w-[8.5rem]" />
+                </div>
+                <div className="flex flex-col justify-between gap-6 bg-bg p-6 md:p-8 lg:col-span-2">
+                  <p className="leading-relaxed md:text-lg">{r.text}</p>
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <span className={mono}>Kanpur · Full-time</span>
+                    <ButtonLink href={applyHref(r.title)} variant="line" arrow>
+                      Apply
+                    </ButtonLink>
+                  </div>
+                </div>
+              </Row>
+            </li>
           ))}
-          <Tile as="li" delay={120} className="flex flex-col justify-between gap-10">
-            <div className="flex items-center justify-between">
-              <IconBadge name="layers" />
-              <Fill k="hiringWeb" className="font-mono text-[0.65rem] uppercase tracking-wider" />
-            </div>
-            <div>
-              <h3 className="text-xl font-semibold">Web developers and digital marketers</h3>
-              <p className="mt-2 leading-relaxed text-muted">Build and grow websites, web apps and campaigns for our clients.</p>
-            </div>
-          </Tile>
         </ul>
-      </Container>
+      </section>
 
-      <Container className="mt-24">
-        <div className="grid gap-3 lg:grid-cols-12">
-          <Tile className="lg:col-span-6">
-            <div className="flex items-center justify-between gap-3">
-              <Label index="02">What we offer</Label>
-              <SampleTag show={!benefits.confirmed}>Some benefits are samples</SampleTag>
+      {/* What we offer */}
+      <section aria-labelledby="offer-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="offer-title" text="What you get" className="md:col-span-2" />
+          <div className="flex flex-col justify-center gap-4 bg-bg p-6 md:col-span-2 md:p-8 lg:items-center">
+            <Lead title="More than a seat on the floor" />
+          </div>
+        </Row>
+        <Row className="max-md:grid-cols-2">
+          {offers.map((o, i) => (
+            <NumberCard key={o.title} n={i + 1} icon={o.icon} title={o.title} text={o.text} className="min-h-[19rem]" />
+          ))}
+          <div className="panel flex flex-col p-4">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono text-xs">04</span>
+              <SampleTag show={!benefits.confirmed} />
             </div>
-            <Bullets
-              className="mt-6"
-              items={[
-                "Structured training before you start on any process",
-                "Performance-based incentives",
-                "A clear path to team lead, trainer and quality roles",
-                ...benefits.items.map((b) => (benefits.confirmed ? b : <SampleMark key={b}>{b}</SampleMark>)),
-              ]}
-            />
-          </Tile>
-          <Tile delay={80} className="bg-grid flex flex-col justify-between gap-8 lg:col-span-6">
-            <div>
-              <Label index="03">How to apply</Label>
-              <p className="mt-6 text-lg leading-relaxed text-fg/85">
-                Send your CV to <Fill k="hrEmail" /> or call <Fill k="hrPhone" />. Current openings are also posted on our
-                LinkedIn page.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-3">
-              <a
-                href={`mailto:${fact("hrEmail")}`}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full bg-signal px-5 py-2.5 font-semibold text-signal-ink hover:bg-signal-strong"
-              >
-                <Icon name="mail" className="h-4 w-4" /> Email your CV
-              </a>
-              <a
-                href={fact("linkedin")}
-                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-line-strong px-5 py-2.5 font-semibold hover:border-fg/40"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                LinkedIn {!facts.linkedin.confirmed && <SampleTag className="ml-1" />}
-              </a>
-            </div>
-          </Tile>
-        </div>
-      </Container>
-    </>
+            <h3 className="mt-auto pt-6 text-[1.0625rem] leading-snug">Benefits</h3>
+            <ul className="mt-3 space-y-2 text-xs leading-relaxed text-mute">
+              {benefits.items.map((b) => (
+                <li key={b} className="flex items-center gap-2">
+                  <span aria-hidden className="size-1.5 shrink-0 bg-orange" />
+                  {benefits.confirmed ? b : <SampleMark>{b}</SampleMark>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Row>
+      </section>
+
+      {/* How to apply */}
+      <section aria-labelledby="apply-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="apply-title" text="How to apply" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Two minutes, no forms" sub="Send your CV and the role you want" />
+          </div>
+        </Row>
+        <Row>
+          {[
+            { icon: "mail" as IconName, label: "Email your CV", value: <Fill k="hrEmail" />, href: applyHref("General application") },
+            { icon: "phone" as IconName, label: "Call HR", value: <Fill k="hrPhone" />, href: `tel:${fact("hrPhone").replace(/\s/g, "")}` },
+            { icon: "linkedin" as IconName, label: "Openings on LinkedIn", value: "SS Unicom Service", href: fact("linkedin"), external: true },
+          ].map((c) => (
+            <a
+              key={c.label}
+              href={c.href}
+              className="brackets group relative flex min-h-52 flex-col justify-between gap-8 p-6 transition-colors [--b-color:transparent] hover:bg-panel hover:[--b-color:var(--color-orange)] md:p-8"
+              {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            >
+              <span className="grid size-11 place-items-center border border-line bg-panel">
+                <Icon name={c.icon} className="h-5 w-5" />
+              </span>
+              <span>
+                <span className={mono}>{c.label}</span>
+                <span className="mt-2 flex items-center justify-between gap-3 text-[0.9375rem]">
+                  <span className="min-w-0 break-words">{c.value}</span>
+                  <Icon name="arrow-up-right" className="h-4 w-4 shrink-0" strokeWidth={2} />
+                </span>
+              </span>
+            </a>
+          ))}
+          <div className="flex flex-col justify-end gap-3 p-6 md:p-8">
+            <p className={mono}>What happens next</p>
+            <p className="text-sm leading-relaxed">
+              Tell us which role you want. If it’s a fit, our HR team will call you to arrange an interview.
+            </p>
+            {!facts.hrEmail.confirmed && <SampleTag className="self-start">HR contacts are samples</SampleTag>}
+          </div>
+        </Row>
+      </section>
+
+      <CtaBand text="Hiring for a campaign of your own? Tell us the process and the volume, and we’ll staff it, train it and run it." />
+    </div>
   );
 }

@@ -1,70 +1,108 @@
-import { CtaStrip, PageHero, PhotoSlot } from "@/components/blocks";
-import type { IconName } from "@/components/Icon";
-import { Icon } from "@/components/Icon";
+import { Icon, type IconName } from "@/components/Icon";
 import { Fill } from "@/components/Sample";
-import { Container, Label, SectionHeading, Tile, cx } from "@/components/ui";
+import { CtaBand, PageHero, Spacer } from "@/components/sections";
+import { ButtonLink, HeadingPanel, Lead, Row } from "@/components/ui";
+import { IsoRow, PhotoSlot } from "@/components/visuals";
 import { pageMetadata } from "@/lib/metadata";
-import type { FactKey } from "@/lib/placeholders";
-import { sampleLists } from "@/lib/placeholders";
+import { type FactKey, sampleLists } from "@/lib/placeholders";
 
 export const metadata = pageMetadata({
   title: "Our Kanpur Operations Centre",
-  description: "Seats, shifts, calling systems and backups at our Kanpur operations centre.",
+  description:
+    "The floor behind every call: seats, shifts, calling system, power backup, internet and security at our operations centre in Kanpur.",
   path: "/infrastructure",
 });
 
-const items: { label: string; k: FactKey; icon: IconName; suffix?: string }[] = [
-  { label: "Location", k: "address", icon: "compass" },
-  { label: "Floor area", k: "floorArea", icon: "layers" },
-  { label: "Seats", k: "seatCount", icon: "users", suffix: "seats" },
-  { label: "Shifts", k: "shifts", icon: "calendar" },
-  { label: "Calling system", k: "dialer", icon: "headset", suffix: "with call recording" },
-  { label: "Power", k: "power", icon: "refresh" },
-  { label: "Connectivity", k: "connectivity", icon: "flow" },
-  { label: "Security", k: "security", icon: "check-shield" },
+const specs: { icon: IconName; label: string; k: FactKey }[] = [
+  { icon: "grid", label: "Floor area", k: "floorArea" },
+  { icon: "users", label: "Seats", k: "seatCount" },
+  { icon: "moon", label: "Shifts", k: "shifts" },
+  { icon: "headset", label: "Calling system", k: "dialer" },
+  { icon: "bolt", label: "Power backup", k: "power" },
+  { icon: "wifi", label: "Internet", k: "connectivity" },
+  { icon: "lock", label: "Security", k: "security" },
+  { icon: "database", label: "CRM & reporting", k: "tools" },
 ];
 
 export default function InfrastructurePage() {
+  const photos = sampleLists.photos;
+
   return (
-    <>
+    <div className="wrap @container">
       <PageHero
         label="Infrastructure"
-        title="Built to deliver every shift."
-        intro="Our Kanpur operations centre is set up for international work around the clock, with the systems and backups a client needs to rely on us day after day."
+        title={"Infra\nstructure"}
+        intro="One operations centre in Kanpur, built for long shifts, clear calls and data that stays where it should."
+        actions={
+          <ButtonLink href="/contact" arrow>
+            Book a visit
+          </ButtonLink>
+        }
+        visual={
+          <IsoRow
+            items={[
+              { icon: "bolt", label: "Power" },
+              { icon: "wifi", label: "Internet" },
+              { icon: "lock", label: "Security" },
+              { icon: "headset", label: "Calling" },
+            ]}
+            className="absolute inset-0"
+          />
+        }
+        aside={
+          <div className="flex h-full flex-col justify-end gap-3 p-6 md:p-7 lg:py-9">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">Address</p>
+            <p className="text-sm leading-relaxed">
+              <Fill k="address" />
+            </p>
+          </div>
+        }
       />
 
-      <Container className="mt-3">
-        <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {items.map((item, i) => (
-            <Tile
-              as="li"
-              key={item.label}
-              delay={(i % 4) * 60}
-              className={cx("flex min-h-48 flex-col justify-between gap-8", (i === 0 || i === 3) && "lg:col-span-2")}
+      <section aria-labelledby="specs-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="specs-title" text="The floor" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="What’s behind every call" sub="Seats, shifts, power, internet and the systems we call from" />
+          </div>
+        </Row>
+        <Row as="dl" className="max-md:grid-cols-2">
+          {specs.map((s) => (
+            <div
+              key={s.label}
+              className="brackets relative flex min-h-56 flex-col justify-between gap-8 border-b border-line p-5 [--b-inset:0.75rem] md:p-8"
             >
-              <div className="flex items-center justify-between">
-                <Label>{item.label}</Label>
-                <Icon name={item.icon} className="h-5 w-5 text-signal" />
+              <span className="grid size-11 place-items-center border border-line bg-panel">
+                <Icon name={s.icon} className="h-5 w-5" />
+              </span>
+              <div>
+                <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">{s.label}</dt>
+                <dd className="mt-2 text-sm leading-relaxed md:text-base">
+                  <Fill k={s.k} />
+                </dd>
               </div>
-              <p className="font-display text-xl font-semibold leading-snug">
-                <Fill k={item.k} />
-                {item.suffix && <span className="font-normal text-muted"> {item.suffix}</span>}
-              </p>
-            </Tile>
+            </div>
           ))}
-        </ul>
-      </Container>
+        </Row>
+      </section>
 
-      <Container className="mt-24">
-        <SectionHeading index="02" label="Gallery" title="The floor, the training room, the team." intro="Real photos only." />
-        <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {sampleLists.photos.items.map((p, i) => (
-            <PhotoSlot key={p} label={p} className={cx(i === 0 && "sm:col-span-2 sm:row-span-2 sm:min-h-[360px]", i === 1 && "lg:col-span-2")} />
+      <section aria-labelledby="photos-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="photos-title" text="Photos" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="See it for yourself" sub="Real photos of the floor are on the way. Or visit us in Kanpur." />
+          </div>
+        </Row>
+        <Row className="max-md:grid-cols-2">
+          {photos.items.map((p) => (
+            <PhotoSlot key={p} label={p} confirmed={photos.confirmed} />
           ))}
-        </div>
-      </Container>
+        </Row>
+      </section>
 
-      <CtaStrip />
-    </>
+      <CtaBand />
+    </div>
   );
 }

@@ -41,7 +41,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         Email{" "}
-        <a href={site.contact.emailHref} className="text-signal underline-offset-4 hover:underline">
+        <a href={site.contact.emailHref}>
           {site.contact.email}
         </a>
         .

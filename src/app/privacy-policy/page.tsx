@@ -20,7 +20,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         <Fill k="legalEntity" />, <Fill k="address" />. Contact:{" "}
-        <a href={site.contact.emailHref} className="text-signal underline-offset-4 hover:underline">
+        <a href={site.contact.emailHref}>
           {site.contact.email}
         </a>
         .
@@ -80,7 +80,7 @@ const sections: LegalSection[] = [
     body: (
       <p>
         Email{" "}
-        <a href={site.contact.emailHref} className="text-signal underline-offset-4 hover:underline">
+        <a href={site.contact.emailHref}>
           {site.contact.email}
         </a>{" "}
         or call {site.contact.phoneDisplay}.
@@ -92,7 +92,7 @@ const sections: LegalSection[] = [
 export default function PrivacyPolicyPage() {
   return (
     <LegalPage
-      title="Privacy Policy"
+      title="Privacy |policy"
       intro="How we handle information submitted through this website, and how that differs from data we handle on behalf of clients."
       sections={sections}
     />

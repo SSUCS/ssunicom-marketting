@@ -1,18 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
-import Link from "next/link";
+import { Roboto_Mono, Turret_Road } from "next/font/google";
 import { Analytics } from "@/components/Analytics";
 import { Footer } from "@/components/Footer";
+import { GridLines } from "@/components/GridLines";
 import { Header } from "@/components/Header";
-import { RevealObserver } from "@/components/RevealObserver";
-import { Spotlight } from "@/components/Spotlight";
+import { RevealObserver } from "@/components/motion";
+import { Preloader } from "@/components/Preloader";
+import { PreloaderController, PreviewNotice, SmoothScroll } from "@/components/site-effects";
 import { SHOW_SAMPLE_MARKERS } from "@/lib/placeholders";
 import { site } from "@/lib/site";
 import "./globals.css";
 
-const body = Inter({ subsets: ["latin"], variable: "--font-body", display: "swap" });
-const heading = Space_Grotesk({ subsets: ["latin"], variable: "--font-heading", weight: ["400", "500", "600", "700"], display: "swap" });
-const code = JetBrains_Mono({ subsets: ["latin"], variable: "--font-code", weight: ["400", "500", "700"], display: "swap" });
+// Turret Road stands in for the reference's wide pixel face; Roboto Mono sets everything else.
+const display = Turret_Road({ subsets: ["latin"], weight: ["800"], variable: "--font-turret", display: "swap" });
+const mono = Roboto_Mono({ subsets: ["latin"], variable: "--font-roboto-mono", display: "swap" });
+
+// Runs before first paint: enables JS-only styles and skips the preloader on repeat visits.
+const HEAD_SCRIPT =
+  "(function(){var d=document.documentElement;d.classList.add('js');try{if(sessionStorage.getItem('ssu-pl')||matchMedia('(prefers-reduced-motion: reduce)').matches)d.classList.add('pl-skip')}catch(e){d.classList.add('pl-skip')}})();";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -27,31 +32,33 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
-export const viewport: Viewport = { themeColor: "#060708" };
+export const viewport: Viewport = { themeColor: "#e4e4e4" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${body.variable} ${heading.variable} ${code.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${display.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        {/* Enables reveal-on-scroll styles only when JavaScript is running. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        <script dangerouslySetInnerHTML={{ __html: HEAD_SCRIPT }} />
+        <noscript>
+          <style>{"#preloader{display:none}"}</style>
+        </noscript>
       </head>
-      <body className="flex min-h-svh flex-col">
-        {SHOW_SAMPLE_MARKERS && (
-          <div className="border-b border-sample/30 bg-sample/10 px-4 py-2 text-center font-mono text-[0.7rem] uppercase tracking-[0.14em] text-sample">
-            Preview build · details outlined in amber are samples ·{" "}
-            <Link href="/placeholders" className="underline underline-offset-2">
-              see checklist
-            </Link>
-          </div>
-        )}
+      <body>
+        <a
+          href="#main"
+          className="sr-only z-[300] bg-orange px-4 py-3 font-mono text-sm uppercase focus:not-sr-only focus:fixed focus:left-3 focus:top-3"
+        >
+          Skip to content
+        </a>
+        <Preloader />
+        <GridLines />
         <Header />
-        <main id="main" className="flex-1">
-          {children}
-        </main>
+        <main id="main">{children}</main>
         <Footer />
         <RevealObserver />
-        <Spotlight />
+        <PreloaderController />
+        <SmoothScroll />
+        {SHOW_SAMPLE_MARKERS && <PreviewNotice />}
         <Analytics />
       </body>
     </html>
