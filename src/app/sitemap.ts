@@ -1,10 +1,14 @@
 import type { MetadataRoute } from "next";
-import { legalNav, nav, site } from "@/lib/site";
+import { companyNav, legalNav, nav, site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return [...nav, ...legalNav].map(({ href }) => ({
-    url: `${site.url}${href === "/" ? "" : href}`,
-    changeFrequency: "monthly",
-    priority: href === "/" ? 1 : href.startsWith("/privacy") || href.startsWith("/terms") ? 0.3 : 0.7,
-  }));
+  const pages = [...new Set([...nav, ...companyNav, ...legalNav].map((r) => r.href as string))];
+  return [
+    { url: site.url, changeFrequency: "monthly", priority: 1 },
+    ...pages.map((href) => ({
+      url: `${site.url}${href}`,
+      changeFrequency: "monthly" as const,
+      priority: href.startsWith("/privacy") || href.startsWith("/terms") ? 0.3 : 0.7,
+    })),
+  ];
 }

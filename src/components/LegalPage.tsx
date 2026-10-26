@@ -1,65 +1,74 @@
 import type { ReactNode } from "react";
-import { Container, DraftNotice, Eyebrow } from "./ui";
+import { SampleTag } from "./Sample";
+import { PageHero, Spacer } from "./sections";
+import { Row } from "./ui";
 
 export type LegalSection = { id: string; title: string; body: ReactNode };
 
-/** Shared layout for the legal pages: title, draft notice, contents and sections. */
-export function LegalPage({
-  title,
-  intro,
-  lastUpdated,
-  sections,
-}: {
-  title: string;
-  intro: ReactNode;
-  lastUpdated: ReactNode;
-  sections: LegalSection[];
-}) {
-  return (
-    <Container className="py-16 sm:py-20 lg:py-24">
-      <div className="max-w-3xl">
-        <Eyebrow>Legal</Eyebrow>
-        <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">{title}</h1>
-        <p className="mt-4 text-sm text-muted">Last updated: {lastUpdated}</p>
-        <div className="mt-8">
-          <DraftNotice>
-            <strong>Draft — requires company and legal review.</strong> This page is a structured placeholder. Items
-            marked &ldquo;To confirm&rdquo; must be completed by SS Unicom Service and the full text reviewed by a
-            qualified legal adviser before the website is published.
-          </DraftNotice>
-        </div>
-        <div className="mt-8 text-lg leading-relaxed text-muted">{intro}</div>
-      </div>
+const pad = (n: number) => String(n).padStart(2, "0");
 
-      <div className="mt-14 grid gap-12 lg:grid-cols-12">
-        <nav aria-label="On this page" className="lg:col-span-3">
-          <div className="lg:sticky lg:top-28">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-muted">Contents</h2>
-            <ol className="mt-4 space-y-2 text-sm">
+/** Shared layout for the legal pages: title, draft notice, contents and numbered sections. */
+export function LegalPage({ title, intro, sections }: { title: string; intro: ReactNode; sections: LegalSection[] }) {
+  return (
+    <div className="wrap @container">
+      <PageHero
+        size="md"
+        label="Legal"
+        title={title}
+        intro={intro}
+        aside={
+          <div role="note" className="flex h-full flex-col justify-end gap-4 p-6 md:p-7 lg:py-9">
+            <SampleTag className="self-start">Outline only</SampleTag>
+            <p className="text-sm leading-relaxed">
+              For the company’s legal adviser to complete before launch. Because we call US consumers for clients, the
+              review should cover US telemarketing rules (TCPA, Telemarketing Sales Rule) and India’s Digital Personal
+              Data Protection Act.
+            </p>
+          </div>
+        }
+      />
+
+      <Spacer />
+      <Row>
+        <nav aria-label="On this page" className="p-6 max-lg:hidden md:p-8">
+          <div className="sticky top-28">
+            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">Contents</p>
+            <ol className="mt-5 space-y-3 text-sm">
               {sections.map((s, i) => (
                 <li key={s.id}>
-                  <a href={`#${s.id}`} className="text-muted hover:text-accent">
-                    {i + 1}. {s.title}
+                  <a href={`#${s.id}`} className="flex gap-3 leading-snug transition-colors hover:text-orange-deep">
+                    <span className="font-mono text-mute">{pad(i + 1)}</span>
+                    {s.title}
                   </a>
                 </li>
               ))}
             </ol>
           </div>
         </nav>
-        <div className="max-w-3xl lg:col-span-9">
+        <div className="panel relative z-[2] md:col-span-2 lg:col-span-3">
           {sections.map((s, i) => (
-            <section key={s.id} id={s.id} className="scroll-mt-24 border-t border-line py-8 first:border-t-0 first:pt-0">
-              <h2 className="text-2xl font-bold">
-                <span className="mr-2 text-accent">{i + 1}.</span>
+            <section key={s.id} id={s.id} className="scroll-mt-28 border-t border-line p-6 first:border-t-0 md:p-10">
+              <h2 className="flex items-baseline gap-3 text-xl leading-snug md:text-2xl">
+                <span className="font-mono text-sm text-orange-deep">{pad(i + 1)}</span>
                 {s.title}
               </h2>
-              <div className="mt-4 space-y-4 leading-relaxed text-ink/80 [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
+              <div className="mt-4 max-w-3xl space-y-3 leading-relaxed text-ink/80 [&_a]:underline [&_a]:decoration-orange [&_a]:underline-offset-4 [&_a:hover]:text-orange-deep [&_ul]:list-disc [&_ul]:space-y-1.5 [&_ul]:pl-5">
                 {s.body}
               </div>
             </section>
           ))}
         </div>
-      </div>
-    </Container>
+      </Row>
+    </div>
+  );
+}
+
+/** Note for the legal adviser inside a legal section. */
+export function ToDraft({ children }: { children: ReactNode }) {
+  return (
+    <p className="border border-dashed border-orange bg-bg px-3 py-2 text-sm text-ink">
+      <span className="font-mono text-[0.625rem] font-bold uppercase tracking-wider text-orange-deep">To draft · </span>
+      {children}
+    </p>
   );
 }

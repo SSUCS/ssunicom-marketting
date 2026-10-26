@@ -1,149 +1,229 @@
-import { Icon, type IconName } from "@/components/Icon";
-import { CtaBand, PageHero } from "@/components/sections";
-import { Container, Placeholder, SectionHeading } from "@/components/ui";
-import { workflowSteps } from "@/lib/content";
+import { NumberCard } from "@/components/cards";
+import { Icon } from "@/components/Icon";
+import { Fill, SampleTag } from "@/components/Sample";
+import { CtaBand, PageHero, Spacer } from "@/components/sections";
+import { ButtonLink, HeadingPanel, Lead, RadioDot, Row, Tick } from "@/components/ui";
+import { Bars3D, IsoIcon, ProcessRail, SphereTile } from "@/components/visuals";
+import { compliance, disclaimer, steps } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "How We Work",
+  title: "How We Work — Process, Quality & Reporting",
   description:
-    "Our five-stage way of working: Understand, Plan, Execute, Qualify, and Report & Improve. A systematic approach to dependable business process support.",
+    "Five steps agreed in writing before day one, recorded and reviewed calls, plain daily reporting and strict calling rules.",
   path: "/how-we-work",
 });
 
-/** Extra detail for each stage, in the same order as workflowSteps. */
-const stageDetail: { icon: IconName; activities: string[]; outcome: string }[] = [
-  {
-    icon: "search",
-    activities: ["Discovery conversation", "Review of your current workflow", "Requirements and constraints captured"],
-    outcome: "A shared understanding of what success looks like.",
-  },
-  {
-    icon: "compass",
-    activities: ["Roles and responsibilities", "Documented process steps", "Communication channels and contacts"],
-    outcome: "An agreed plan, with criteria we can both measure against.",
-  },
-  {
-    icon: "flow",
-    activities: ["Team briefed on your process", "Work carried out to documented procedures", "Issues raised early"],
-    outcome: "Consistent, traceable day-to-day delivery.",
-  },
-  {
-    icon: "check-shield",
-    activities: ["Records checked against your criteria", "Incomplete items followed up", "Exceptions flagged to you"],
-    outcome: "Outputs you can rely on.",
-  },
-  {
-    icon: "chart",
-    activities: ["Progress updates", "Bottlenecks identified", "Improvement suggestions"],
-    outcome: "A process that gets better over time.",
-  },
+/** An illustrative report, so visitors can see the shape of what they receive. */
+const exampleReport = [
+  { label: "Leads dialled", value: "412" },
+  { label: "Conversations", value: "156" },
+  { label: "Qualified", value: "61" },
+  { label: "Handed to your team", value: "48" },
+  { label: "Rejected, with reasons", value: "13" },
 ];
 
-/**
- * Operating details that differ per client. Replace the placeholder text
- * once the company confirms its standard practices.
- */
-const operatingDetails: { icon: IconName; title: string; text: string; placeholder: string }[] = [
-  {
-    icon: "check-shield",
-    title: "Quality assurance",
-    text: "Outputs are reviewed against the criteria agreed during planning before they are handed over.",
-    placeholder: "Describe review method, e.g. sample checks or second review",
-  },
-  {
-    icon: "calendar",
-    title: "Reporting",
-    text: "Progress reports are shared at an interval agreed with each client.",
-    placeholder: "Standard reporting frequency and format",
-  },
-  {
-    icon: "database",
-    title: "CRM & communication tools",
-    text: "We can work within your existing CRM and communication tools, or agree a setup with you.",
-    placeholder: "Tools the team is experienced with",
-  },
-  {
-    icon: "refresh",
-    title: "Client feedback",
-    text: "Feedback is reviewed regularly and used to adjust procedures and training.",
-    placeholder: "How and how often feedback reviews take place",
-  },
-];
+const mono = "font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute";
 
 export default function HowWeWorkPage() {
   return (
-    <>
+    <div className="wrap @container">
       <PageHero
-        eyebrow="How we work"
-        title="A systematic process, from first conversation to continuous improvement."
-        intro="Dependable outsourcing depends on clear structure. Every engagement follows the same five stages, so you always know what is happening and what comes next."
+        label="How we work"
+        title="How we |work"
+        intro="Five steps, agreed in writing before day one. Then daily numbers, recorded calls and a team that tunes the work every week."
+        actions={
+          <ButtonLink href="/contact" arrow>
+            Plan a campaign
+          </ButtonLink>
+        }
+        visual={<ProcessRail items={steps} className="absolute inset-x-[2cqw] top-1/2 -translate-y-1/2" />}
+        aside={
+          <dl className="flex h-full flex-col justify-end">
+            {[
+              { label: "Live in", value: <Fill k="launchTime" /> },
+              { label: "Calls reviewed", value: <Fill k="qaShare" /> },
+              { label: "Reports", value: <Fill k="reportingFrequency" /> },
+            ].map((d) => (
+              <div key={d.label} className="border-t border-line px-6 py-4 md:px-7">
+                <dt className={mono}>{d.label}</dt>
+                <dd className="mt-1">{d.value}</dd>
+              </div>
+            ))}
+          </dl>
+        }
       />
 
-      <section className="py-20 sm:py-28" aria-label="Five-stage workflow">
-        <Container>
-          <ol className="relative">
-            <span aria-hidden className="absolute bottom-6 left-[1.6rem] top-6 w-px bg-gradient-to-b from-accent via-accent/40 to-line sm:left-[2.1rem]" />
-            {workflowSteps.map((step, i) => {
-              const detail = stageDetail[i];
-              return (
-                <li key={step.title} className="reveal relative grid gap-6 pb-14 pl-20 last:pb-0 sm:pl-28 lg:grid-cols-12 lg:gap-10">
-                  <span className="absolute left-0 top-0 flex h-[3.2rem] w-[3.2rem] items-center justify-center rounded-full border border-accent/40 bg-paper font-display text-sm font-bold text-accent sm:h-[4.2rem] sm:w-[4.2rem] sm:text-base">
+      {/* The five steps */}
+      <section aria-labelledby="steps-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="steps-title" text="The process" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Five steps, every time" sub="For a calling team, a website or an ad campaign" />
+          </div>
+        </Row>
+        <ol>
+          {steps.map((s, i) => (
+            <li key={s.title}>
+              <Row>
+                <div className="flex flex-col justify-between gap-6 p-6 md:p-8">
+                  <span className="display text-[3.5rem] leading-none md:text-[4.5rem]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <div className="lg:col-span-5">
-                    <div className="flex items-center gap-3 text-accent">
-                      <Icon name={detail.icon} className="h-5 w-5" />
-                      <span className="text-xs font-semibold uppercase tracking-[0.16em]">Stage {i + 1}</span>
-                    </div>
-                    <h2 className="mt-3 text-3xl font-bold sm:text-4xl">{step.title}</h2>
-                    <p className="mt-4 text-lg leading-relaxed text-muted">{step.text}</p>
-                  </div>
-                  <div className="rounded-[var(--radius-card)] border border-line bg-white p-6 lg:col-span-7">
-                    <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">What happens</h3>
-                    <ul className="mt-3 grid gap-2 sm:grid-cols-3 sm:gap-4">
-                      {detail.activities.map((a) => (
-                        <li key={a} className="flex items-start gap-2 text-[0.95rem] sm:block">
-                          <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-accent sm:mb-2" />
-                          {a}
-                        </li>
-                      ))}
-                    </ul>
-                    <p className="mt-5 border-t border-line pt-4 text-[0.95rem]">
-                      <span className="font-semibold">Result: </span>
-                      <span className="text-muted">{detail.outcome}</span>
-                    </p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </Container>
-      </section>
-
-      <section className="border-y border-line bg-white py-20 sm:py-28">
-        <Container>
-          <SectionHeading
-            eyebrow="Operating details"
-            title="Agreed with you, written down, reviewed regularly."
-            intro="Specific tools, reporting schedules and quality checks are confirmed for each engagement during planning."
-          />
-          <ul className="mt-14 grid gap-5 sm:grid-cols-2">
-            {operatingDetails.map((d) => (
-              <li key={d.title} className="reveal rounded-[var(--radius-card)] border border-line p-7">
-                <Icon name={d.icon} className="h-6 w-6 text-accent" />
-                <h3 className="mt-4 text-xl font-bold">{d.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{d.text}</p>
-                <p className="mt-4">
-                  <Placeholder>{d.placeholder}</Placeholder>
+                  <h3 className="flex items-center gap-3 text-xl md:text-2xl">
+                    <span aria-hidden className="size-2.5 shrink-0 bg-orange" />
+                    {s.title}
+                  </h3>
+                </div>
+                <div className="grid place-items-center p-6 max-lg:hidden">
+                  <IsoIcon name={s.icon} className="w-full max-w-[8.5rem]" />
+                </div>
+                <p className="flex items-center bg-bg p-6 leading-relaxed text-mute md:p-8 md:text-lg lg:col-span-2">
+                  {s.text}
                 </p>
-              </li>
-            ))}
-          </ul>
-        </Container>
+              </Row>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <CtaBand title="Let's map out your process together." />
-    </>
+      {/* Quality */}
+      <section aria-labelledby="quality-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.25rem]">
+          <div className="flex items-start max-lg:hidden">
+            <SphereTile className="size-[11.25rem]" />
+            <RadioDot />
+          </div>
+          <div className="max-lg:hidden" />
+          <HeadingPanel id="quality-title" text="Quality" className="justify-center md:col-span-2" />
+        </Row>
+        <Row className="max-md:grid-cols-2">
+          <NumberCard
+            n={1}
+            icon="check-shield"
+            title="Calls reviewed"
+            text={
+              <>
+                <Fill k="qaShare" /> scored by quality analysts.
+              </>
+            }
+            className="min-h-[20rem]"
+          />
+          <NumberCard
+            n={2}
+            icon="database"
+            title="Every call recorded"
+            text={
+              <>
+                Recordings kept for <Fill k="retention" />.
+              </>
+            }
+            className="min-h-[20rem]"
+          />
+          <NumberCard
+            n={3}
+            icon="document"
+            title="Written criteria"
+            text="Your definition of a qualified lead, agreed before the first call."
+            className="min-h-[20rem]"
+          />
+          <NumberCard
+            n={4}
+            icon="users"
+            title="Weekly coaching"
+            text="Agents coached on their own recorded calls."
+            className="min-h-[20rem]"
+          />
+        </Row>
+      </section>
+
+      {/* Reporting */}
+      <section aria-labelledby="reporting-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="reporting-title" text="Reporting" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead
+              title={
+                <>
+                  <Fill k="reportingFrequency" /> reports
+                </>
+              }
+              sub="Plain numbers, with a reason for every rejected lead"
+            />
+          </div>
+        </Row>
+        <Row>
+          <div className="panel relative z-[2] p-6 md:p-8">
+            <div className="flex items-center justify-between gap-3">
+              <p className={mono}>Example daily report</p>
+              <SampleTag>Example</SampleTag>
+            </div>
+            <dl className="mt-6">
+              {exampleReport.map((r) => (
+                <div key={r.label} className="flex items-baseline justify-between gap-4 border-t border-line py-3">
+                  <dt className="text-sm">{r.label}</dt>
+                  <dd className="display text-2xl">{r.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <div className="relative min-h-72 max-md:hidden">
+            <Bars3D className="absolute inset-0 m-auto h-[78%] w-[86%]" />
+          </div>
+          <div className="flex flex-col justify-between gap-8 bg-bg p-6 md:col-span-2 md:p-8">
+            <p className="text-lg leading-relaxed md:text-xl">
+              You see what we see: every lead dialled, reached, qualified and handed over, plus the reason behind every
+              rejection. Recordings are there when you want to listen.
+            </p>
+            <div>
+              <p className={mono}>Tools</p>
+              <p className="mt-1.5 leading-relaxed">
+                <Fill k="tools" />
+              </p>
+            </div>
+          </div>
+        </Row>
+      </section>
+
+      {/* Compliance */}
+      <section aria-labelledby="compliance-title">
+        <Spacer />
+        <Row className="lg:min-h-[11.5rem]">
+          <HeadingPanel id="compliance-title" text="Compliance" className="md:col-span-2" />
+          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
+            <Lead title="Rules we don’t bend" sub={disclaimer} />
+          </div>
+        </Row>
+        <Row as="ul">
+          {compliance.map((c, i) => (
+            <li
+              key={i}
+              className="brackets relative flex items-center gap-4 border-b border-line bg-bg px-6 py-6 [--b-inset:0.6rem] md:px-8 lg:col-span-2"
+            >
+              <Tick />
+              <span className="leading-relaxed">{c}</span>
+            </li>
+          ))}
+        </Row>
+        <Row>
+          <div className="flex flex-col justify-center gap-4 p-6 md:col-span-2 md:p-8 lg:col-span-3">
+            <p className="flex items-center gap-3 leading-relaxed">
+              <Icon name="document" className="h-5 w-5 shrink-0" />
+              Need it in writing for your compliance team? We’ll walk them through our process before you sign.
+            </p>
+          </div>
+          <div className="flex items-center p-6 md:col-span-2 md:p-8 lg:col-span-1">
+            <ButtonLink href="/contact" variant="line" arrow className="w-full">
+              Ask about compliance
+            </ButtonLink>
+          </div>
+        </Row>
+      </section>
+
+      <CtaBand />
+    </div>
   );
 }
