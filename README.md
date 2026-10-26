@@ -1,8 +1,7 @@
-# SS Universal Communication Services: marketing website (grid variation)
+# SS Unicom Service: marketing website
 
-This branch is a design variation modelled on the layout and motion of labs.chaingpt.org: a light grey page on a fixed four-column grid, oversized display type, chamfered orange buttons, isometric illustrations and a glass "lead tube" that carries a lead down the home page. All artwork, fonts and copy are original or openly licensed; nothing is copied from the reference site. The original design stays on `main`.
-
-Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. Runtime dependencies: Next.js, React and [Lenis](https://github.com/darkroomengineering/lenis) for smooth scrolling. Icons and other illustrations are hand-written SVG and CSS. [three.js](https://threejs.org) is a dev dependency, used only to render the hero funnel's picture.
+Sample marketing website for SS Unicom Service, an India-based BPO, lead generation and business support company.
+Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. The only runtime dependencies are Next.js and React: icons, illustrations and the scroll animation are hand-written SVG, CSS and React.
 
 ## Quick start
 
@@ -23,23 +22,16 @@ Deploys as a standard Next.js app (Vercel, Netlify, or any Node host). Set the e
 
 | Route | Page |
 | --- | --- |
-| `/` | Home: hero funnel, the lead tube, services, case studies, industries, testimonials, team, FAQ, hiring |
-| `/services` | Four service lines (anchors: `#us-lead-generation`, `#web-apps-digital-marketing`, `#india-edtech`, `#custom-solutions`) |
-| `/how-we-work` | Five steps, quality, reporting, compliance |
-| `/industries` | Industries and markets, with live Kanpur and New York clocks |
-| `/about` | Story, mission, values, training, team, founder's note, office photos |
-| `/infrastructure` | Operations centre (linked from the footer) |
-| `/careers` | Open roles, what you get, how to apply, no-fee notice |
-| `/contact` | Enquiry form, contact details and map |
-| `/privacy-policy`, `/terms` | Legal outlines for the company's legal adviser |
-| `/placeholders` | Internal checklist of every sample value (not indexed) |
+| `/` | Home, including the "Journey of a Lead" scroll animation |
+| `/about` | About Us |
+| `/services` | Services (each service has an anchor, e.g. `/services#india-edtech`) |
+| `/how-we-work` | Five-stage workflow and operating details |
+| `/industries` | Industries & Markets |
+| `/contact` | Contact details and inquiry form |
+| `/privacy-policy`, `/terms` | Legal drafts (flagged for review) |
 | `/api/contact` | Server endpoint for the form |
 
-## Placeholders (sample content)
-
-Every unconfirmed fact (address, hours, team size, client names, case studies, testimonials, team, benefits, photos and so on) lives in **`src/lib/placeholders.ts`**. On the site, sample values have a dotted orange underline, whole sample cards carry a small "Sample" tag, and a dismissible notice links to `/placeholders`, which lists every item and its status.
-
-To replace one, change its `value` (or list items) and set `confirmed: true`. When everything is confirmed, set `SHOW_SAMPLE_MARKERS = false` to remove the notice. Do not launch with sample values.
+`sitemap.xml`, `robots.txt`, the favicon (`src/app/icon.svg`) and the default social image (`src/app/opengraph-image.tsx`) are generated automatically.
 
 ## Environment variables
 
@@ -59,40 +51,48 @@ Secrets are only read on the server (`src/app/api/contact/route.ts`); never pref
 - Validation rules live in `src/lib/contact.ts` and run in the browser and on the server.
 - Delivery is in `src/app/api/contact/route.ts`. Resend is used if configured, otherwise the webhook.
 - **If neither is configured, the form does not pretend to send.** The visitor is told the message was not sent and is shown the email address and phone number instead.
-- The footer's "Get a call back" field opens `/contact?email=…` with the email filled in; "Enquire" buttons pre-select a service with `?service=…`.
 - Includes a hidden honeypot field for basic spam protection. Add rate limiting or a CAPTCHA if spam becomes a problem.
 
 ## Where to change things
 
 | What | Where |
 | --- | --- |
-| Sample / unconfirmed facts | `src/lib/placeholders.ts` |
-| Company name, phone, email, navigation, form options | `src/lib/site.ts` |
-| Shared copy: services, capabilities, steps, industries, values, roles, FAQ | `src/lib/content.tsx` |
+| Company name, phone, email, address, hours, navigation, form service options | `src/lib/site.ts` |
+| Service descriptions, workflow steps, animation stage copy, "why choose us" commitments | `src/lib/content.ts` |
 | Page-specific copy | `src/app/<route>/page.tsx` |
-| Colours, fonts, grid, buttons, effects | `src/app/globals.css`; fonts in `src/app/layout.tsx` |
-| Grid rows, buttons, headings, labels | `src/components/ui.tsx` |
-| Page hero, section blocks (case studies, FAQ, team, CTA) | `src/components/sections.tsx` |
-| Cards | `src/components/cards.tsx` |
-| Illustrations (cubes, spheres, isometric icons, portraits, funnel, charts) | `src/components/visuals.tsx` |
-| Lead tube on the home page | `src/components/LeadTube.tsx` |
-| Hero funnel: shape and motion | `src/components/funnelMotion.ts` |
-| Hero funnel: drawing (chips, shadows, glow) | `src/components/funnelCanvas.ts`; loaded by `src/components/HeroFunnel.tsx` |
-| Hero funnel: the funnel picture | `src/components/hero-funnel.webp`, rendered from `scripts/funnel-stage.ts` by `node scripts/render-hero-funnel.mjs` (needs Playwright); re-run it after changing the funnel's shape or lighting |
+| Colours, fonts, radii (design tokens) | `@theme` block in `src/app/globals.css`; fonts in `src/app/layout.tsx` |
+| Logo (temporary wordmark) | `src/components/Logo.tsx` and `src/app/icon.svg` |
+| Shared buttons, headings, containers, placeholders | `src/components/ui.tsx` |
+| Page hero, service cards, process steps, CTA band | `src/components/sections.tsx` |
+| Header / footer | `src/components/Header.tsx`, `src/components/Footer.tsx` |
+| Analytics | `src/components/Analytics.tsx` |
 
-## Grid and motion
+## The lead-journey animation
 
-- The page sits on four columns (two on tablets, one on phones). The fixed vertical lines come from `src/components/GridLines.tsx`; each page root is a size container (`@container`), so widths such as `25cqw` land exactly on the lines. Any cell whose text spans two columns gets `bg-bg` so the lines never run through words.
-- Effects: preloader with a pixel cover (first visit per session), pixel page transitions (`src/app/template.tsx`), letter-by-letter headings, scramble text on hover, a marquee, scroll-snap sliders, Lenis smooth scrolling, the hero funnel (lead sources drop in, swirl down and pulse the orange band) and the lead tube whose card changes status as it passes each collar.
-- The hero funnel is a picture rendered in 3D with the chips drawn over it on a 2D canvas, so it runs in every browser without WebGL. It only animates while it is on screen, and falls back to the SVG funnel without JavaScript.
-- Like the reference site, the animations run even when the visitor's device asks for reduced motion (the client wants them seen). Only Lenis smooth scrolling still turns off under `prefers-reduced-motion`.
-- Content stays readable without JavaScript (the preloader is skipped, reveals are disabled, the FAQ uses native `<details>`).
+`src/components/LeadJourney.tsx` is the only scroll-driven animation on the site.
 
-## Fonts and licences
+- A tall track (`TRACK_VH`) holds a `position: sticky` panel, so normal page scrolling drives it. No scroll hijacking.
+- Scroll progress is read once per animation frame and written directly to the SVG (path stroke offset, token position). React only re-renders when the active stage changes.
+- `STAGE_SHARE` sets how much of the scroll the four stages use; the remainder completes the path and reveals the CTA.
+- Path and node geometry are the `PATH` and `NODES` constants. Stage visuals are in `StageVisual` at the bottom of the file. Stage text comes from `journeyStages` in `src/lib/content.ts`.
+- With `prefers-reduced-motion`, without JavaScript, and on first server render, a static version shows the completed workflow with all four stages explained.
 
-- Turret Road (display) and Roboto Mono (text) load through `next/font/google`.
-- The social image (`src/app/opengraph-image.tsx`) embeds Turret Road from `src/app/_og/`, under the SIL Open Font License (`src/app/_og/TurretRoad-OFL.txt`).
+Elsewhere, motion is limited to a subtle reveal-on-scroll (`.reveal` class plus `src/components/RevealObserver.tsx`) and the hero illustration's flowing connectors. Both switch off under reduced motion.
+
+## Placeholders to resolve before launch
+
+Search the code for `PLACEHOLDER` and `<Placeholder` to find each one.
+
+1. **Address and business hours.** `site.contact.address` and `site.contact.hours` in `src/lib/site.ts` are `null` and hidden until filled in.
+2. **Form delivery.** Configure Resend or a webhook and decide which inbox receives inquiries.
+3. **Privacy Policy and Terms.** Structured drafts only. Data practices, providers, retention, rights, liability, governing law and jurisdiction need company input and legal review. Remove the draft notice in `src/components/LegalPage.tsx` once approved.
+4. **Mission statement** on `/about` is draft wording pending approval.
+5. **Team photo** placeholder on `/about`. Replace with an approved image using `next/image` and descriptive alt text.
+6. **Operating details** on `/how-we-work`: QA method, reporting frequency, tools and feedback process.
+7. **Logo.** The wordmark and icon are temporary.
+8. **Service scope.** Confirm the activity lists in `src/lib/content.ts` match what the company actually offers, especially for the US and Canadian services.
+9. **Analytics.** If enabled, update the privacy policy and consider whether a consent banner is needed.
 
 ## Content principles
 
-No invented testimonials, ratings, awards or guaranteed results. Client names, figures and dates on this branch are clearly marked samples, kept in one file, and must be replaced or removed before launch. Service copy states the company does not provide legal or financial advice, approve loans or represent any government agency. Keep to these rules when editing.
+The copy deliberately avoids invented facts: no client names, testimonials, ratings, metrics, certifications, founding dates or headcounts. "10+ years" is presented as company-provided industry experience. Service copy states that the company provides process support only, not legal, financial, lending or immigration advice. Keep to these rules when editing.

@@ -1,89 +1,129 @@
-import { LegalPage, ToDraft, type LegalSection } from "@/components/LegalPage";
-import { Fill } from "@/components/Sample";
+import { LegalPage, type LegalSection } from "@/components/LegalPage";
+import { Placeholder } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Privacy Policy — SS Universal Communication Services",
-  description: "How SS Universal Communication Services handles personal information submitted through this website. Outline pending legal review.",
+  title: "Privacy Policy",
+  description: "How SS Unicom Service handles personal information submitted through this website. Draft pending legal review.",
   path: "/privacy-policy",
 });
 
 /*
- * OUTLINE. Do not publish without legal review. Section headings follow the
- * content doc; the text under each is a brief for the legal adviser.
+ * DRAFT. Do not publish without company confirmation and legal review.
+ * Nothing below states the company's actual data practices, jurisdiction,
+ * retention periods or compliance status; those are marked as placeholders.
  */
 const sections: LegalSection[] = [
   {
-    id: "who-we-are",
-    title: "Who we are",
-    body: (
-      <p>
-        <Fill k="legalEntity" />, <Fill k="address" />. Contact:{" "}
-        <a href={site.contact.emailHref}>
-          {site.contact.email}
-        </a>
-        .
-      </p>
-    ),
-  },
-  {
-    id: "information-we-collect",
-    title: "Information we collect through this website",
+    id: "information-collected",
+    title: "Information we collect",
     body: (
       <>
-        <p>The enquiry form (name, company, email, phone, service of interest and message), analytics and cookies.</p>
-        <ToDraft>Confirm which analytics and cookies, if any, are used.</ToDraft>
+        <p>When you use the contact form on this website, we collect the information you choose to provide:</p>
+        <ul>
+          <li>Name</li>
+          <li>Company name (optional)</li>
+          <li>Email address</li>
+          <li>Phone number (optional)</li>
+          <li>The service you are interested in and your message</li>
+        </ul>
+        <p>
+          We may also receive limited technical information, such as your browser type and pages visited, through
+          server logs or analytics tools if they are enabled. <Placeholder>Confirm what technical data is collected</Placeholder>
+        </p>
       </>
     ),
   },
   {
-    id: "how-we-use-it",
-    title: "How we use it",
-    body: <p>Responding to enquiries and improving the site.</p>,
-  },
-  {
-    id: "client-data",
-    title: "Data we handle on behalf of clients",
+    id: "purpose",
+    title: "Why we collect it",
     body: (
-      <ToDraft>Explain how data handled for clients (for example, contact lists for calling campaigns) differs from website data.</ToDraft>
+      <>
+        <p>We use the information you provide to:</p>
+        <ul>
+          <li>Respond to your inquiry and discuss your requirements</li>
+          <li>Prepare and follow up on proposals you have requested</li>
+          <li>Maintain records of business communications</li>
+        </ul>
+        <p>
+          <Placeholder>Confirm all purposes and the legal basis for processing, if applicable</Placeholder>
+        </p>
+      </>
     ),
   },
   {
-    id: "service-providers",
-    title: "Sharing with service providers",
-    body: <ToDraft>Name the email delivery, hosting and analytics providers.</ToDraft>,
-  },
-  {
-    id: "storage-security",
-    title: "Storage, security and retention",
-    body: <ToDraft>State where data is stored, the security measures in place and the retention periods.</ToDraft>,
-  },
-  {
-    id: "your-rights",
-    title: "Your rights and how to make a request",
-    body: <ToDraft>List the rights available under the applicable law and how to exercise them.</ToDraft>,
+    id: "contact-form",
+    title: "Contact-form submissions",
+    body: (
+      <p>
+        Messages sent through the contact form are delivered to our team by{" "}
+        <Placeholder>name the email or form service used</Placeholder>. Please do not include sensitive personal,
+        financial or identity-document information in the form.
+      </p>
+    ),
   },
   {
     id: "cookies",
-    title: "Cookies and analytics choices",
-    body: <ToDraft>Describe the cookies set and how visitors can opt out.</ToDraft>,
-  },
-  {
-    id: "changes",
-    title: "Changes to this policy",
-    body: <p>We will post any changes on this page with a new &ldquo;last updated&rdquo; date.</p>,
-  },
-  {
-    id: "contact",
-    title: "Contact for privacy questions",
+    title: "Cookies and analytics",
     body: (
       <p>
-        Email{" "}
-        <a href={site.contact.emailHref}>
+        This website does not use analytics or advertising cookies unless they are enabled by the company.{" "}
+        <Placeholder>If analytics is enabled, name the provider, the cookies set and how visitors can opt out</Placeholder>
+      </p>
+    ),
+  },
+  {
+    id: "storage-security",
+    title: "Data storage and security",
+    body: (
+      <p>
+        We take reasonable steps to protect the information you provide.{" "}
+        <Placeholder>Describe where data is stored and the security measures in place</Placeholder>
+      </p>
+    ),
+  },
+  {
+    id: "third-parties",
+    title: "Third-party service providers",
+    body: (
+      <p>
+        We may use third-party providers to host this website and deliver form submissions. They process data on our
+        behalf only as needed to provide their services.{" "}
+        <Placeholder>List hosting, email and analytics providers</Placeholder>
+      </p>
+    ),
+  },
+  {
+    id: "retention",
+    title: "Retention",
+    body: (
+      <p>
+        We keep inquiry information only for as long as needed for the purposes described above.{" "}
+        <Placeholder>State the retention period</Placeholder>
+      </p>
+    ),
+  },
+  {
+    id: "your-requests",
+    title: "Your requests and how to contact us",
+    body: (
+      <p>
+        You may ask to access, correct or delete the personal information you have shared with us by emailing{" "}
+        <a href={site.contact.emailHref} className="font-semibold text-accent underline-offset-4 hover:underline">
           {site.contact.email}
-        </a>{" "}
-        or call {site.contact.phoneDisplay}.
+        </a>
+        . <Placeholder>Confirm the rights available and the applicable data-protection law</Placeholder>
+      </p>
+    ),
+  },
+  {
+    id: "updates",
+    title: "Changes to this policy",
+    body: (
+      <p>
+        We may update this policy from time to time. The &ldquo;last updated&rdquo; date at the top of the page shows
+        when it was last changed.
       </p>
     ),
   },
@@ -92,8 +132,14 @@ const sections: LegalSection[] = [
 export default function PrivacyPolicyPage() {
   return (
     <LegalPage
-      title="Privacy |policy"
-      intro="How we handle information submitted through this website, and how that differs from data we handle on behalf of clients."
+      title="Privacy Policy"
+      lastUpdated={<Placeholder>Add date on publication</Placeholder>}
+      intro={
+        <p>
+          This policy explains how {site.name} collects and uses personal information submitted through{" "}
+          {site.url.replace(/^https?:\/\//, "")}.
+        </p>
+      }
       sections={sections}
     />
   );

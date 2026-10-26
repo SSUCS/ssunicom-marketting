@@ -1,145 +1,102 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
 import { ContactForm } from "@/components/ContactForm";
-import { Icon, type IconName } from "@/components/Icon";
-import { Fill, SampleTag } from "@/components/Sample";
-import { PageHero, Spacer } from "@/components/sections";
-import { ButtonLink, HeadingPanel, Lead, Row } from "@/components/ui";
+import { Icon } from "@/components/Icon";
+import { Container, Eyebrow } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
-import { fact, facts } from "@/lib/placeholders";
 import { site } from "@/lib/site";
 
 export const metadata = pageMetadata({
-  title: "Contact SS Universal Communication Services",
+  title: "Contact",
   description:
-    "Ask for a free consultation on lead generation, web apps, digital marketing or EdTech support. Call +91 97947 74773 or email info@ssunicomservice.com.",
+    "Contact SS Unicom Service to discuss lead generation, customer support or back-office process support. Call +91 97947 74773 or email info@ssunicomservice.com.",
   path: "/contact",
 });
 
-const mono = "font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute";
+const nextSteps = [
+  "We review your inquiry and reply by email or phone.",
+  "A short call to understand your workflow and requirements.",
+  "A practical proposal for how we could support you.",
+];
 
 export default function ContactPage() {
-  const details: { icon: IconName; label: string; value: ReactNode; href?: string }[] = [
-    { icon: "phone", label: "Phone", value: site.contact.phoneDisplay, href: site.contact.phoneHref },
-    { icon: "mail", label: "Email", value: site.contact.email, href: site.contact.emailHref },
-    { icon: "pin", label: "Office", value: <Fill k="address" /> },
-    { icon: "clock", label: "Hours", value: <Fill k="hours" /> },
-  ];
-
   return (
-    <div className="wrap @container">
-      <PageHero
-        label="Contact"
-        title="Contact"
-        intro={
-          <>
-            Tell us what you need: more leads, better leads or a website that works harder. A real person replies within{" "}
-            <Fill k="replyTime" />.
-          </>
-        }
-        actions={
-          <>
-            <ButtonLink href="#enquiry" arrow>
-              Send an enquiry
-            </ButtonLink>
-            <ButtonLink href={site.contact.phoneHref} variant="line" icon="phone">
-              Call us
-            </ButtonLink>
-          </>
-        }
-        visual={
-          <div className="absolute inset-0 grid place-items-center p-8">
-            <a href={site.contact.phoneHref} className="group flex flex-col items-center gap-5 text-center">
-              <span className="flex items-center gap-2.5 font-mono text-xs uppercase tracking-[0.12em] text-mute">
-                <span aria-hidden className="size-2 animate-pulse bg-orange" />
-                Call us now
-              </span>
-              <span className="display text-[clamp(2.4rem,4.6cqw,4.4rem)] leading-none transition-colors group-hover:text-orange-deep">
-                {site.contact.phoneDisplay}
-              </span>
-              <span className="font-mono text-sm uppercase tracking-[0.06em]">{site.contact.email}</span>
-            </a>
-          </div>
-        }
-        aside={
-          <div className="flex h-full flex-col justify-end gap-3 p-6 md:p-7 lg:py-9">
-            <p className={mono}>Looking for a job?</p>
-            <p className="text-sm leading-relaxed">
-              See open roles on our{" "}
-              <Link href="/careers" className="underline decoration-orange underline-offset-4 hover:text-orange-deep">
-                careers page
-              </Link>
-              .
-            </p>
-          </div>
-        }
-      />
+    <section className="relative overflow-hidden">
+      <div className="bg-grid pointer-events-none absolute inset-x-0 top-0 h-[32rem] [mask-image:linear-gradient(to_bottom,black,transparent)]" aria-hidden />
+      <Container className="relative grid gap-14 py-16 sm:py-20 lg:grid-cols-12 lg:gap-16 lg:py-24">
+        <div className="lg:col-span-5">
+          <Eyebrow>Contact</Eyebrow>
+          <h1 className="text-4xl font-extrabold leading-[1.05] sm:text-5xl lg:text-6xl">Let&apos;s discuss your requirements.</h1>
+          <p className="mt-6 text-lg leading-relaxed text-muted">
+            Tell us about the process you need support with. A free, no-obligation consultation is the first step.
+          </p>
 
-      {/* Enquiry form */}
-      <section id="enquiry" aria-labelledby="enquiry-title" className="scroll-mt-24">
-        <Spacer />
-        <Row className="lg:min-h-[11.5rem]">
-          <HeadingPanel id="enquiry-title" text={"Free\nconsultation"} className="md:col-span-2" />
-          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
-            <Lead title="No cost, no obligation" sub="Tell us about your leads, your site or your process" />
-          </div>
-        </Row>
-        <Row>
-          <div className="panel relative z-[2] p-6 md:col-span-2 md:p-10 lg:col-span-3">
-            <ContactForm />
-          </div>
-          <ul className="flex flex-col md:col-span-2 lg:col-span-1">
-            {details.map((d) => {
-              const body = (
-                <>
-                  <span className="flex items-center justify-between gap-3">
-                    <span className={mono}>{d.label}</span>
-                    <Icon name={d.icon} className="h-4 w-4" />
-                  </span>
-                  <span className="mt-3 block break-words leading-relaxed">{d.value}</span>
-                </>
-              );
-              return (
-                <li key={d.label} className="border-b border-line">
-                  {d.href ? (
-                    <a href={d.href} className="block p-6 transition-colors hover:bg-panel md:px-7">
-                      {body}
-                    </a>
-                  ) : (
-                    <div className="p-6 md:px-7">{body}</div>
-                  )}
-                </li>
-              );
-            })}
+          <ul className="mt-10 space-y-3">
+            <li>
+              <a
+                href={site.contact.phoneHref}
+                className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-accent/50"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
+                  <Icon name="phone" />
+                </span>
+                <span>
+                  <span className="block text-sm text-muted">Call us</span>
+                  <span className="block font-display text-lg font-bold">{site.contact.phoneDisplay}</span>
+                </span>
+              </a>
+            </li>
+            <li>
+              <a
+                href={site.contact.emailHref}
+                className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-5 transition-colors hover:border-accent/50"
+              >
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent-soft text-accent">
+                  <Icon name="mail" />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-sm text-muted">Email us</span>
+                  <span className="block break-all font-display text-lg font-bold">{site.contact.email}</span>
+                </span>
+              </a>
+            </li>
+            {/* Address and hours appear automatically once set in src/lib/site.ts. */}
+            {site.contact.address && (
+              <li className="rounded-2xl border border-line bg-white p-5">
+                <span className="block text-sm text-muted">Address</span>
+                <address className="mt-1 not-italic">{site.contact.address}</address>
+              </li>
+            )}
+            {site.contact.hours && (
+              <li className="rounded-2xl border border-line bg-white p-5">
+                <span className="block text-sm text-muted">Business hours</span>
+                <span className="mt-1 block">{site.contact.hours}</span>
+              </li>
+            )}
           </ul>
-        </Row>
-      </section>
 
-      {/* Map */}
-      <section aria-labelledby="visit-title">
-        <Spacer />
-        <Row>
-          <HeadingPanel id="visit-title" text="Visit us" className="md:col-span-2 lg:col-span-1" />
-          <div className="flex flex-col justify-center gap-4 p-6 md:col-span-2 md:p-8 lg:col-span-1">
-            <p className="leading-relaxed">
-              <Fill k="address" />
-            </p>
-            <SampleTag show={!facts.mapEmbed.confirmed} className="self-start">
-              Approximate location
-            </SampleTag>
+          <div className="mt-12">
+            <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-muted">What happens next</h2>
+            <ol className="mt-5 space-y-4">
+              {nextSteps.map((s, i) => (
+                <li key={s} className="flex gap-4">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-accent/40 text-xs font-bold text-accent">
+                    {i + 1}
+                  </span>
+                  <span className="pt-0.5 text-muted">{s}</span>
+                </li>
+              ))}
+            </ol>
           </div>
-          <div className="photo-slot relative min-h-80 md:col-span-2">
-            <span className="absolute left-5 top-5 font-mono text-xs uppercase tracking-[0.06em] text-mute">Loading map…</span>
-            <iframe
-              title="Map showing the office location"
-              src={`https://www.google.com/maps?q=${encodeURIComponent(fact("mapEmbed"))}&output=embed`}
-              className="absolute inset-0 h-full w-full border-0 [filter:grayscale(1)_contrast(1.05)]"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+        </div>
+
+        <div className="lg:col-span-7">
+          <div className="rounded-[1.75rem] border border-line bg-white p-6 shadow-[0_30px_80px_-50px_rgb(10_22_38/0.4)] sm:p-10">
+            <h2 className="text-2xl font-bold">Send us an inquiry</h2>
+            <div className="mt-6">
+              <ContactForm />
+            </div>
           </div>
-        </Row>
-      </section>
-    </div>
+        </div>
+      </Container>
+    </section>
   );
 }

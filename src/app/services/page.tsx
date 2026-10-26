@@ -1,177 +1,102 @@
-import type { ReactNode } from "react";
+import Link from "next/link";
 import { Icon } from "@/components/Icon";
-import { Fill } from "@/components/Sample";
-import { CaseStudiesSection, CtaBand, FaqSection, PageHero, Spacer } from "@/components/sections";
-import { ButtonLink, HeadingPanel, Lead, Micro, Row, Tick } from "@/components/ui";
-import { IsoIcon, IsoRow } from "@/components/visuals";
-import { disclaimer, enquireHref, services, type Service } from "@/lib/content";
+import { CtaBand, PageHero } from "@/components/sections";
+import { ButtonLink, Container, cx } from "@/components/ui";
+import { services } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "US Lead Generation, Web Apps & EdTech Support",
+  title: "Services",
   description:
-    "US lead generation and live transfers, websites and web apps, SEO and ads, and admissions calling for EdTech teams in India. One team in Kanpur.",
+    "US lead generation and process support, Canadian business services, India EdTech solutions and custom business process support from SS Unicom Service.",
   path: "/services",
 });
 
-/** Section headings: "\n" breaks the line everywhere, "|" on phones only. */
-const headings: Record<string, string> = {
-  "us-lead-generation": "US Lead\nGeneration",
-  "web-apps-digital-marketing": "Web Apps &\nMarketing",
-  "india-edtech": "EdTech |Support",
-  "custom-solutions": "Custom\nSolutions",
-};
-
-/** The working details of each service. Unconfirmed facts use <Fill>. */
-const details: Record<string, { label: string; value: ReactNode }[]> = {
-  "us-lead-generation": [
-    { label: "You get", value: <Fill k="deliveryType" /> },
-    { label: "Hours", value: <Fill k="coverage" /> },
-    { label: "Tools", value: <Fill k="tools" /> },
-    { label: "Reports", value: <Fill k="reportingFrequency" /> },
-  ],
-  "web-apps-digital-marketing": [
-    { label: "Built with", value: <Fill k="techStack" /> },
-    { label: "Pricing", value: <Fill k="engagement" /> },
-    { label: "Follow-up", value: "Our calling team can ring every enquiry the site brings in." },
-    { label: "Reports", value: "Traffic, enquiries and cost per lead." },
-  ],
-  "india-edtech": [
-    { label: "Call-backs", value: "Fast, while the enquiry is still warm." },
-    { label: "Partner", value: <Fill k="edtechPartner" /> },
-    { label: "Tracking", value: "Every enquiry logged, from first call to admission." },
-    { label: "Reports", value: <Fill k="reportingFrequency" /> },
-  ],
-  "custom-solutions": [
-    {
-      label: "Start",
-      value: (
-        <>
-          Live within <Fill k="launchTime" /> of sign-off
-        </>
-      ),
-    },
-    { label: "Tools", value: "Yours or ours." },
-    { label: "Team", value: "Sized to your volume, on your hours." },
-    { label: "Reports", value: <Fill k="reportingFrequency" /> },
-  ],
-};
-
 export default function ServicesPage() {
   return (
-    <div className="wrap @container">
+    <>
       <PageHero
-        label="Services"
-        title="Services"
-        intro="Four service lines, one team. Use one, or combine them so the campaign that brings in enquiries and the people who call them work as one."
-        actions={
-          <ButtonLink href="/contact" arrow>
-            Free consultation
-          </ButtonLink>
-        }
-        visual={
-          <IsoRow items={services.map((s) => ({ icon: s.icon, label: s.short }))} className="absolute inset-0" />
-        }
-        aside={
-          <nav aria-label="Services on this page" className="flex h-full flex-col">
-            <p className="px-6 pb-4 pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute md:px-7">
-              Jump to
-            </p>
-            <ul className="mt-auto">
-              {services.map((s, i) => (
-                <li key={s.id}>
-                  <a
-                    href={`#${s.id}`}
-                    className="group flex items-center justify-between gap-3 border-t border-line px-6 py-4 transition-colors hover:bg-panel md:px-7"
-                  >
-                    <span className="flex items-center gap-3">
-                      <span className="font-mono text-xs text-orange-deep">{String(i + 1).padStart(2, "0")}</span>
-                      {s.short}
-                    </span>
-                    <Icon
-                      name="arrow-right"
-                      className="h-4 w-4 rotate-90 transition-transform group-hover:translate-y-0.5"
-                      strokeWidth={2}
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        }
-      />
-
-      {services.map((s, i) => (
-        <ServiceSection key={s.id} service={s} index={i} />
-      ))}
-
-      <CaseStudiesSection />
-      <FaqSection />
-      <CtaBand />
-    </div>
-  );
-}
-
-function ServiceSection({ service: s, index }: { service: Service; index: number }) {
-  const titleId = `${s.id}-title`;
-  return (
-    <section id={s.id} aria-labelledby={titleId} className="scroll-mt-24">
-      <Spacer />
-      <Row className="lg:min-h-[12rem]">
-        <HeadingPanel id={titleId} text={headings[s.id] ?? s.title} className="md:col-span-2" />
-        <div className="flex flex-col justify-center gap-4 p-6 md:p-8">
-          <Micro>
-            {String(index + 1).padStart(2, "0")} <span className="text-mute">/</span> {String(services.length).padStart(2, "0")}
-          </Micro>
-          <Lead title={s.kicker} size="md" />
-        </div>
-        <div className="grid place-items-center p-6 max-lg:hidden">
-          <IsoIcon name={s.icon} className="w-full max-w-[10rem]" />
-        </div>
-      </Row>
-
-      <Row>
-        <div className="flex flex-col gap-8 bg-bg p-6 md:col-span-2 md:p-8 lg:py-10">
-          <p className="text-lg leading-relaxed md:text-xl">{s.summary}</p>
-          <dl className="grid gap-x-8 gap-y-6 sm:grid-cols-2">
-            {details[s.id]?.map((d) => (
-              <div key={d.label}>
-                <dt className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">{d.label}</dt>
-                <dd className="mt-1.5 text-sm leading-relaxed">{d.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-        <div className="flex flex-col md:col-span-2">
-          <p className="px-6 pb-4 pt-6 font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute md:px-8 lg:pt-10">
-            What’s included
-          </p>
-          <ul className="grid flex-1 content-start md:grid-cols-2">
-            {s.includes.map((item) => (
-              <li
-                key={item}
-                className="brackets relative flex min-h-[4.25rem] items-center gap-3 border-t border-line px-6 [--b-inset:0.6rem] md:px-8"
-              >
-                <Tick />
-                {item}
+        eyebrow="Services"
+        title="Process support shaped around how your business works."
+        intro="We support the operational side of lead generation, client coordination and customer support. Every engagement starts from your requirements, and the activities below are agreed with you before work begins."
+      >
+        <nav aria-label="Services on this page">
+          <ul className="flex flex-wrap gap-2">
+            {services.map((s) => (
+              <li key={s.id}>
+                <Link
+                  href={`#${s.id}`}
+                  className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-4 py-2 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                >
+                  <Icon name={s.icon} className="h-4 w-4" />
+                  {s.title}
+                </Link>
               </li>
             ))}
           </ul>
-        </div>
-      </Row>
+        </nav>
+      </PageHero>
 
-      <Row>
-        <div className="flex flex-col justify-center gap-2 bg-bg p-6 md:col-span-2 md:p-8 lg:col-span-3">
-          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">Best for</p>
-          <p className="leading-relaxed">{s.bestFor}</p>
-          {s.id === "us-lead-generation" && <p className="mt-2 text-xs leading-relaxed text-mute">{disclaimer}</p>}
-        </div>
-        <div className="flex items-center p-6 md:col-span-2 md:p-8 lg:col-span-1">
-          <ButtonLink href={enquireHref(s)} arrow className="w-full">
-            Enquire
-          </ButtonLink>
-        </div>
-      </Row>
-    </section>
+      {services.map((s, i) => (
+        <section
+          key={s.id}
+          id={s.id}
+          aria-labelledby={`${s.id}-title`}
+          className={cx("scroll-mt-20 py-20 sm:py-24", i % 2 === 1 && "border-y border-line bg-white")}
+        >
+          <Container className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-5">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-ink text-accent-bright">
+                  <Icon name={s.icon} className="h-6 w-6" />
+                </span>
+                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                  {String.fromCharCode(65 + i)} · {s.market}
+                </span>
+              </div>
+              <h2 id={`${s.id}-title`} className="mt-6 text-3xl font-bold leading-tight sm:text-4xl">
+                {s.title}
+              </h2>
+              <p className="mt-5 text-lg leading-relaxed text-muted">{s.detail}</p>
+              <div className="mt-8">
+                <ButtonLink href={`/contact?service=${encodeURIComponent(s.title)}`} arrow>
+                  Enquire about this service
+                </ButtonLink>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="reveal rounded-[var(--radius-card)] border border-line bg-paper p-6 sm:p-8">
+                <h3 className="text-sm font-semibold uppercase tracking-[0.14em] text-muted">
+                  Typical activities <span className="font-normal normal-case tracking-normal">(agreed per client)</span>
+                </h3>
+                <ul className="mt-5 grid gap-x-8 sm:grid-cols-2">
+                  {s.activities.map((a) => (
+                    <li key={a} className="flex items-start gap-3 border-b border-line py-3.5">
+                      <Icon name="check" className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
+                      <span>{a}</span>
+                    </li>
+                  ))}
+                </ul>
+                {s.note && (
+                  <p className="mt-6 flex gap-3 rounded-xl bg-white p-4 text-sm leading-relaxed text-muted">
+                    <Icon name="check-shield" className="mt-0.5 h-5 w-5 shrink-0 text-ink/50" />
+                    <span>
+                      <strong className="font-semibold text-ink">Scope note: </strong>
+                      {s.note}
+                    </span>
+                  </p>
+                )}
+              </div>
+            </div>
+          </Container>
+        </section>
+      ))}
+
+      <CtaBand
+        title="Not sure which service fits?"
+        text="Describe the process you need help with. We'll tell you honestly whether and how we can support it."
+      />
+    </>
   );
 }

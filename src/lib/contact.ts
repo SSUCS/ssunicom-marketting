@@ -42,22 +42,20 @@ export function validateContact(input: ContactInput): ContactErrors {
   if (!input.name) errors.name = "Please enter your name.";
   else if (input.name.length > LIMITS.name) errors.name = "Please shorten your name.";
 
-  if (!input.company) errors.company = "Please enter your company name.";
-  else if (input.company.length > LIMITS.company) errors.company = "Please shorten the company name.";
+  if (input.company.length > LIMITS.company) errors.company = "Please shorten the company name.";
 
   if (!input.email) errors.email = "Please enter your email address.";
   else if (!EMAIL_RE.test(input.email) || input.email.length > LIMITS.email)
     errors.email = "Please enter a valid email address, like name@company.com.";
 
-  if (!input.phone) errors.phone = "Please enter a phone number, including the country code.";
-  else if (!PHONE_RE.test(input.phone))
+  if (input.phone && !PHONE_RE.test(input.phone))
     errors.phone = "Please enter a valid phone number, including the country code.";
 
   if (!input.service) errors.service = "Please choose the service you're interested in.";
   else if (!(serviceOptions as readonly string[]).includes(input.service))
     errors.service = "Please choose an option from the list.";
 
-  if (!input.message) errors.message = "Please tell us a little about what you need.";
+  if (!input.message) errors.message = "Please tell us a little about your requirements.";
   else if (input.message.length < 20) errors.message = "Please add a little more detail (at least 20 characters).";
   else if (input.message.length > LIMITS.message) errors.message = `Please keep your message under ${LIMITS.message} characters.`;
 

@@ -1,143 +1,172 @@
-import Link from "next/link";
-import { IndustryCard } from "@/components/cards";
-import { DualClock } from "@/components/Clocks";
-import { Icon } from "@/components/Icon";
-import { Fill } from "@/components/Sample";
-import { CtaBand, PageHero, Spacer, TestimonialsSection } from "@/components/sections";
-import { ButtonLink, HeadingPanel, Lead, Micro, Row, Tick } from "@/components/ui";
-import { SphereCluster } from "@/components/visuals";
-import { industries } from "@/lib/content";
+import { Icon, type IconName } from "@/components/Icon";
+import { CtaBand, PageHero } from "@/components/sections";
+import { Container, Eyebrow, SectionHeading } from "@/components/ui";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
-  title: "Industries & Markets — Finance, EdTech, SMBs",
+  title: "Industries & Markets",
   description:
-    "Lead generation and calling for US student-loan document services and consumer finance, admissions support for EdTech in India, and web and marketing for growing businesses.",
+    "Business process support for lead generation, document preparation, student-loan and finance-related processes and education technology, for clients in the United States, Canada and India.",
   path: "/industries",
 });
 
-/** What we usually run for each industry, in the same order as `industries`. */
-const work: string[][] = [
-  ["Outbound outreach", "Lead qualification", "Document collection", "Live transfers"],
-  ["Lead qualification", "Live transfers", "Appointment setting", "CRM updates"],
-  ["Enquiry call-backs", "Counselling calls", "Admission follow-ups", "Daily reports"],
-  ["Websites & landing pages", "SEO & ads", "Lead capture", "Enquiry follow-up"],
+const industries: { icon: IconName; title: string; text: string }[] = [
+  {
+    icon: "document",
+    title: "Lead generation & document preparation",
+    text: "Lead intake, information collection and workflow support for businesses that prepare documents for their customers.",
+  },
+  {
+    icon: "briefcase",
+    title: "Student-loan & finance-related processes",
+    text: "Operational support such as qualification, follow-up and record-keeping. We do not give financial advice or make lending decisions.",
+  },
+  {
+    icon: "graduation",
+    title: "Education technology",
+    text: "Inquiry management, student follow-up, customer support and reporting for EdTech businesses.",
+  },
+  {
+    icon: "layers",
+    title: "Other business operations",
+    text: "Customer support, data management and back-office processes where our way of working is a good fit.",
+  },
+];
+
+const markets = [
+  { code: "US", name: "United States", note: "Lead generation and document-preparation workflows" },
+  { code: "CA", name: "Canada", note: "Client coordination and administrative support" },
+  { code: "IN", name: "India", note: "EdTech and business operations support" },
+];
+
+const tailoring: { title: string; text: string }[] = [
+  {
+    title: "Your market's requirements",
+    text: "Time zones, communication norms and any rules your business works under are built into the process plan.",
+  },
+  {
+    title: "Your criteria",
+    text: "Qualification rules, scripts and quality checks are defined by you, not imposed by us.",
+  },
+  {
+    title: "Your tools",
+    text: "We work within your CRM and communication setup wherever possible, so nothing has to change on your side.",
+  },
 ];
 
 export default function IndustriesPage() {
   return (
-    <div className="wrap @container">
+    <>
       <PageHero
-        label="Industries"
-        title="Industries"
-        intro="Four markets where we know the work, the rules and the people on the other end of the phone."
-        actions={
-          <ButtonLink href="/contact" arrow>
-            Free consultation
-          </ButtonLink>
-        }
-        visual={<DualClock className="absolute inset-x-[5cqw] top-1/2 -translate-y-1/2" />}
-        aside={
-          <div className="flex h-full flex-col justify-end gap-4 p-6 md:p-7 lg:py-9">
-            <Micro>Your daytime</Micro>
-            <p className="text-sm leading-relaxed text-mute">
-              When it’s 9:00 in New York, it’s evening in Kanpur. Our US team works the night shift, so your prospects
-              are called during their day.
-            </p>
-          </div>
-        }
+        eyebrow="Industries & markets"
+        title="Focused expertise, adapted to each market we support."
+        intro="Our experience is concentrated in lead generation and the processes around it. We deliver from India for clients in the United States, Canada and India."
       />
 
-      {/* Industry cards */}
-      <section aria-labelledby="sectors-title">
-        <Spacer />
-        <Row className="lg:min-h-[11.5rem]">
-          <HeadingPanel id="sectors-title" text={"Who we\nwork for"} className="md:col-span-2" />
-          <div className="flex items-center bg-bg p-6 md:col-span-2 md:p-8 lg:justify-center">
-            <Lead title="Where we know the work" sub="The industries we run campaigns for today" />
-          </div>
-        </Row>
-        <Row>
-          {industries.map((ind, i) => (
-            <IndustryCard key={ind.title} icon={ind.icon} market={ind.market} title={ind.title} text={ind.text} className="min-h-[30rem]">
-              <div className="mt-auto pt-8">
-                <ul className="border-t border-line pt-5">
-                  {work[i]?.map((w) => (
-                    <li key={w} className="flex items-center gap-3 py-1.5 text-sm">
-                      <Tick className="h-3 w-4" />
-                      {w}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </IndustryCard>
-          ))}
-        </Row>
+      <section className="py-20 sm:py-28">
+        <Container>
+          <SectionHeading eyebrow="Areas of focus" title="Where our experience is deepest." />
+          <ul className="mt-14 grid gap-x-12 sm:grid-cols-2">
+            {industries.map((ind, i) => (
+              <li key={ind.title} className="reveal flex gap-5 border-t border-line py-8">
+                <span className="font-display text-sm font-bold tabular-nums text-accent">0{i + 1}</span>
+                <div>
+                  <Icon name={ind.icon} className="h-6 w-6 text-ink/60" />
+                  <h3 className="mt-3 text-xl font-bold">{ind.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{ind.text}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Container>
       </section>
 
-      {/* Markets */}
-      <section aria-labelledby="markets-title">
-        <Spacer />
-        <Row className="lg:min-h-[11.5rem]">
-          <div className="relative grid place-items-center max-lg:hidden">
-            <SphereCluster />
-          </div>
-          <div className="max-lg:hidden" />
-          <HeadingPanel id="markets-title" text="Markets" className="justify-center md:col-span-2" />
-        </Row>
-        <Row>
-          <div className="flex flex-col justify-between gap-10 p-6 md:p-8 lg:min-h-[19rem]">
-            <Micro>United States</Micro>
-            <p className="display text-[5rem] leading-none">US</p>
-            <p className="text-sm leading-relaxed text-mute">
-              Lead generation, live transfers and appointment setting, on <Fill k="coverage" />.
+      {/* Market diagram: delivery hub connected to client markets (no map, no office pins). */}
+      <section className="on-dark relative overflow-hidden bg-ink py-20 text-white sm:py-28">
+        <div className="bg-grid-dark absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" aria-hidden />
+        <Container className="relative grid items-center gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <Eyebrow dark>Geographic focus</Eyebrow>
+            <h2 className="text-3xl font-bold leading-tight sm:text-4xl">One delivery team, three client markets.</h2>
+            <p className="mt-5 text-lg leading-relaxed text-mist">
+              Our team works from India. We support clients in the United States, Canada and India remotely, using
+              communication channels and working hours agreed with each client.
+            </p>
+            <p className="mt-6 text-sm leading-relaxed text-mist">
+              Markets listed here reflect where our clients operate. They do not indicate a local office or a
+              professional licence in that country.
             </p>
           </div>
-          <div className="flex flex-col justify-between gap-10 p-6 md:p-8">
-            <Micro>India</Micro>
-            <p className="display text-[5rem] leading-none">IN</p>
-            <p className="text-sm leading-relaxed text-mute">
-              Admissions calling for EdTech, plus websites and campaigns for growing businesses.
-            </p>
+          <div className="lg:col-span-7">
+            <svg viewBox="0 0 560 360" className="h-auto w-full" role="img" aria-labelledby="markets-title">
+              <title id="markets-title">
+                Diagram: a delivery team in India connected to client markets in the United States, Canada and India.
+              </title>
+              {[70, 180, 290].map((y) => (
+                <path key={y} d={`M170 180 C 280 180, 300 ${y}, 390 ${y}`} fill="none" stroke="#45d6c4" strokeOpacity="0.6" strokeWidth="1.5" />
+              ))}
+              <g transform="translate(30 120)">
+                <rect width="140" height="120" rx="18" fill="#12233a" stroke="#45d6c4" />
+                <text x="20" y="34" fontSize="10" letterSpacing="1.6" fontWeight="700" fill="#45d6c4">
+                  DELIVERY
+                </text>
+                <text x="20" y="62" fontSize="18" fontWeight="700" fill="#fff">
+                  Team in
+                </text>
+                <text x="20" y="86" fontSize="18" fontWeight="700" fill="#fff">
+                  India
+                </text>
+              </g>
+              <circle cx="170" cy="180" r="5" fill="#45d6c4" />
+              {markets.map((m, i) => (
+                <g key={m.code} transform={`translate(390 ${40 + i * 110})`}>
+                  <rect width="160" height="60" rx="14" fill="#0a1626" stroke="#1d3352" />
+                  <circle cy="30" r="5" fill="#45d6c4" />
+                  <text x="18" y="38" fontSize="22" fontWeight="800" fill="#45d6c4">
+                    {m.code}
+                  </text>
+                  <text x="62" y="35" fontSize="13" fontWeight="600" fill="#fff">
+                    {m.name}
+                  </text>
+                </g>
+              ))}
+            </svg>
+            <ul className="mt-6 grid gap-4 text-sm text-mist sm:grid-cols-3">
+              {markets.map((m) => (
+                <li key={m.code} className="border-t border-white/15 pt-3">
+                  <span className="font-semibold text-white">{m.name}:</span> {m.note}
+                </li>
+              ))}
+            </ul>
           </div>
-          <div className="panel relative z-[2] flex flex-col justify-between gap-10 p-6 md:col-span-2 md:p-8">
-            <div className="flex items-center justify-between gap-4">
-              <Micro>Operations centre</Micro>
-              <span className="font-mono text-xs text-mute">26.45° N, 80.33° E</span>
-            </div>
-            <p className="display text-[clamp(3rem,7cqw,6rem)] leading-none">Kanpur</p>
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <p className="max-w-sm text-sm leading-relaxed text-mute">
-                Every campaign is run from one floor in Kanpur, Uttar Pradesh, with the same training and quality checks.
-              </p>
-              <Link
-                href="/infrastructure"
-                className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.06em] hover:text-orange-deep"
-              >
-                See the floor
-                <Icon name="arrow-right" className="h-4 w-4" strokeWidth={2} />
-              </Link>
-            </div>
-          </div>
-        </Row>
-        <Row>
-          <div className="flex flex-col justify-center gap-2 bg-bg p-6 md:col-span-2 md:p-8 lg:col-span-3">
-            <p className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">Not on the list?</p>
-            <p className="leading-relaxed">
-              Also on our radar: <Fill k="otherIndustries" />. If your process runs on phone calls or web enquiries, ask
-              us.
-            </p>
-          </div>
-          <div className="flex items-center p-6 md:col-span-2 md:p-8 lg:col-span-1">
-            <ButtonLink href="/contact?service=Custom%20solution" variant="line" arrow className="w-full">
-              Ask us
-            </ButtonLink>
-          </div>
-        </Row>
+        </Container>
       </section>
 
-      <TestimonialsSection />
-      <CtaBand />
-    </div>
+      <section className="py-20 sm:py-28">
+        <Container className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <SectionHeading
+              eyebrow="Tailored delivery"
+              title="Built around your workflow, not the other way round."
+            />
+          </div>
+          <ol className="grid gap-5 lg:col-span-7">
+            {tailoring.map((t, i) => (
+              <li key={t.title} className="reveal flex gap-5 rounded-[var(--radius-card)] border border-line bg-white p-6">
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent-soft font-display text-sm font-bold text-accent">
+                  {i + 1}
+                </span>
+                <div>
+                  <h3 className="text-lg font-bold">{t.title}</h3>
+                  <p className="mt-1.5 leading-relaxed text-muted">{t.text}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </section>
+
+      <CtaBand title="Working in one of these markets? Let's talk." />
+    </>
   );
 }

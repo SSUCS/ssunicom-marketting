@@ -66,7 +66,7 @@ async function deliver(input: ContactInput): Promise<boolean> {
         from: CONTACT_FROM_EMAIL || `${site.name} Website <onboarding@resend.dev>`,
         to: CONTACT_TO_EMAIL.split(",").map((s) => s.trim()),
         reply_to: submission.email,
-        subject: `New enquiry: ${submission.service} — ${submission.name}`,
+        subject: `New inquiry: ${submission.service} — ${submission.name}`,
         text: formatText(submission),
       }),
     });
@@ -90,9 +90,9 @@ async function deliver(input: ContactInput): Promise<boolean> {
 function formatText(s: Omit<ContactInput, "website">) {
   return [
     `Name: ${s.name}`,
-    `Company: ${s.company}`,
+    `Company: ${s.company || "-"}`,
     `Email: ${s.email}`,
-    `Phone: ${s.phone}`,
+    `Phone: ${s.phone || "-"}`,
     `Service: ${s.service}`,
     "",
     s.message,

@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { LIMITS, normalise, validateContact, type ContactErrors, type ContactInput } from "@/lib/contact";
-import { fact } from "@/lib/placeholders";
 import { serviceOptions, site } from "@/lib/site";
 import { Icon } from "./Icon";
 import { cx } from "./ui";
@@ -19,16 +18,11 @@ export function ContactForm() {
   const [touched, setTouched] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
   const [service, setService] = useState("");
-  const [sent, setSent] = useState({ name: "", email: "" });
 
-  // Prefill from links: ?service= from "Enquire" buttons, ?email= from the footer call-back form.
+  // Pre-select a service when arriving from a "Enquire about this service" link.
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const requested = params.get("service");
+    const requested = new URLSearchParams(window.location.search).get("service");
     if (requested && (serviceOptions as readonly string[]).includes(requested)) setService(requested);
-    const email = params.get("email");
-    const input = formRef.current?.elements.namedItem("email");
-    if (email && input instanceof HTMLInputElement && !input.value) input.value = email.slice(0, LIMITS.email);
   }, []);
 
   useEffect(() => {
@@ -62,7 +56,6 @@ export function ContactForm() {
       });
       const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; errors?: ContactErrors };
       if (res.ok && data.ok) {
-        setSent({ name: input.name, email: input.email });
         setStatus("success");
         formRef.current?.reset();
         setService("");
@@ -87,41 +80,41 @@ export function ContactForm() {
     // layout between pressing and releasing the submit button.
     onInput: revalidate,
     className: cx(
-      "mt-1 block w-full rounded-none border-0 border-b bg-transparent py-3 text-base text-ink placeholder:text-dim transition-colors",
-      "focus:outline-none focus-visible:outline-none",
-      errors[name] ? "border-error focus:border-error" : "border-line hover:border-ink/50 focus:border-ink",
+      "mt-2 block w-full rounded-xl border bg-white px-4 py-3 text-base text-ink placeholder:text-muted/60 transition-colors",
+      "focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/25",
+      errors[name] ? "border-red-600" : "border-line hover:border-ink/30",
     ),
   });
 
   const label = (name: keyof ContactInput, text: string, optional = false) => (
-    <label htmlFor={`contact-${name}`} className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">
+    <label htmlFor={`contact-${name}`} className="text-sm font-semibold">
       {text}
-      {optional ? <span> (optional)</span> : <span aria-hidden className="text-orange-deep"> *</span>}
+      {optional ? <span className="font-normal text-muted"> (optional)</span> : <span aria-hidden className="text-accent"> *</span>}
     </label>
   );
 
   const error = (name: keyof ContactInput) =>
     errors[name] ? (
-      <p id={`contact-${name}-error`} className="mt-2 text-sm text-error">
+      <p id={`contact-${name}-error`} className="mt-1.5 text-sm text-red-700">
         {errors[name]}
       </p>
     ) : null;
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate className="relative space-y-7" aria-describedby="contact-required-note">
-      <p id="contact-required-note" className="font-mono text-[0.6875rem] uppercase tracking-[0.08em] text-mute">
-        All fields are required.
+    <form ref={formRef} onSubmit={onSubmit} noValidate className="space-y-5" aria-describedby="contact-required-note">
+      <p id="contact-required-note" className="text-sm text-muted">
+        Fields marked <span className="text-accent">*</span> are required.
       </p>
 
-      <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2">
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
           {label("name", "Name")}
           <input type="text" autoComplete="name" maxLength={LIMITS.name} required {...fieldProps("name")} />
           {error("name")}
         </div>
         <div>
-          {label("company", "Company")}
-          <input type="text" autoComplete="organization" maxLength={LIMITS.company} required {...fieldProps("company")} />
+          {label("company", "Company", true)}
+          <input type="text" autoComplete="organization" maxLength={LIMITS.company} {...fieldProps("company")} />
           {error("company")}
         </div>
         <div>
@@ -130,36 +123,32 @@ export function ContactForm() {
           {error("email")}
         </div>
         <div>
-          {label("phone", "Phone (with country code)")}
-          <input type="tel" autoComplete="tel" inputMode="tel" maxLength={LIMITS.phone} placeholder="+1 555 000 0000" required {...fieldProps("phone")} />
+          {label("phone", "Phone", true)}
+          <input type="tel" autoComplete="tel" inputMode="tel" maxLength={LIMITS.phone} placeholder="+1 555 000 0000" {...fieldProps("phone")} />
           {error("phone")}
         </div>
       </div>
 
       <div>
         {label("service", "Service of interest")}
-        <div className="relative">
-          <select
-            required
-            value={service}
-            onChange={(e) => {
-              setService(e.target.value);
-              if (touched) setErrors((prev) => ({ ...prev, service: undefined }));
-            }}
-            {...fieldProps("service")}
-            className={cx(fieldProps("service").className, "cursor-pointer appearance-none pr-8")}
-          >
-            <option value="" disabled>
-              Choose an option
+        <select
+          required
+          value={service}
+          onChange={(e) => {
+            setService(e.target.value);
+            if (touched) setErrors((prev) => ({ ...prev, service: undefined }));
+          }}
+          {...fieldProps("service")}
+        >
+          <option value="" disabled>
+            Choose a service
+          </option>
+          {serviceOptions.map((o) => (
+            <option key={o} value={o}>
+              {o}
             </option>
-            {serviceOptions.map((o) => (
-              <option key={o} value={o}>
-                {o}
-              </option>
-            ))}
-          </select>
-          <Icon name="chevron-right" className="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 rotate-90" />
-        </div>
+          ))}
+        </select>
         {error("service")}
       </div>
 
@@ -169,9 +158,8 @@ export function ContactForm() {
           rows={6}
           required
           maxLength={LIMITS.message}
-          placeholder="More enquiries, better-qualified leads, a new website or support for an existing process — tell us what you need."
+          placeholder="Briefly describe your workflow, the support you need and any expected volumes."
           {...fieldProps("message")}
-          className={cx(fieldProps("message").className, "mt-3 resize-y border px-4")}
         />
         {error("message")}
       </div>
@@ -182,15 +170,19 @@ export function ContactForm() {
         <input id="contact-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
-      <div className="flex flex-col gap-5 pt-2 sm:flex-row sm:items-center sm:justify-between">
-        <button type="submit" disabled={status === "submitting"} className="btn disabled:cursor-wait disabled:opacity-70">
-          {status === "submitting" ? "Sending…" : "Send enquiry"}
-          {status !== "submitting" && <Icon name="arrow-right" className="h-4 w-4" strokeWidth={2} />}
+      <div className="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
+        <button
+          type="submit"
+          disabled={status === "submitting"}
+          className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-accent px-7 py-3 font-semibold text-white transition-colors hover:bg-accent-strong disabled:cursor-wait disabled:opacity-70"
+        >
+          {status === "submitting" ? "Sending…" : "Send inquiry"}
+          {status !== "submitting" && <Icon name="arrow-right" className="h-4 w-4" />}
         </button>
-        <p className="text-xs leading-relaxed text-mute sm:max-w-xs sm:text-right">
-          By sending this form you agree that we may contact you about your enquiry. See our{" "}
-          <Link href="/privacy-policy" className="underline decoration-orange underline-offset-2 hover:text-ink">
-            Privacy Policy
+        <p className="text-xs text-muted sm:max-w-xs sm:text-right">
+          We use your details only to respond to your inquiry. See our{" "}
+          <Link href="/privacy-policy" className="underline underline-offset-2 hover:text-ink">
+            privacy policy
           </Link>
           .
         </p>
@@ -198,32 +190,27 @@ export function ContactForm() {
 
       <div ref={statusRef} tabIndex={-1} role="status" aria-live="polite" className="outline-none">
         {status === "success" && (
-          <Notice tone="success" title={`Thank you, ${sent.name}.`}>
-            We&apos;ve received your enquiry and will reply to {sent.email} within {fact("replyTime")}. For anything
-            urgent, call{" "}
-            <a className="underline decoration-orange underline-offset-2" href={site.contact.phoneHref}>
-              {site.contact.phoneDisplay}
-            </a>
-            .
+          <Notice tone="success" title="Thank you, your inquiry has been sent.">
+            We&apos;ll get back to you as soon as possible.
           </Notice>
         )}
         {status === "not_configured" && (
           <Notice tone="warning" title="Online form delivery isn't set up yet.">
             Your message has not been sent. Please email{" "}
-            <a className="underline decoration-orange underline-offset-2" href={site.contact.emailHref}>
+            <a className="font-semibold underline" href={site.contact.emailHref}>
               {site.contact.email}
             </a>{" "}
             or call{" "}
-            <a className="underline decoration-orange underline-offset-2" href={site.contact.phoneHref}>
+            <a className="font-semibold underline" href={site.contact.phoneHref}>
               {site.contact.phoneDisplay}
             </a>
             .
           </Notice>
         )}
         {status === "error" && (
-          <Notice tone="error" title="Something went wrong and your enquiry wasn't sent.">
-            Please try again, or email us at{" "}
-            <a className="underline decoration-orange underline-offset-2" href={site.contact.emailHref}>
+          <Notice tone="error" title="Sorry, something went wrong.">
+            Your message may not have been sent. Please try again, or email{" "}
+            <a className="font-semibold underline" href={site.contact.emailHref}>
               {site.contact.email}
             </a>
             .
@@ -234,18 +221,18 @@ export function ContactForm() {
   );
 }
 
-function Notice({ tone, title, children }: { tone: "success" | "warning" | "error"; title: string; children: ReactNode }) {
+function Notice({ tone, title, children }: { tone: "success" | "warning" | "error"; title: string; children: React.ReactNode }) {
   const styles = {
-    success: "border-ink",
-    warning: "border-orange",
-    error: "border-error",
+    success: "border-accent/40 bg-accent-soft text-ink",
+    warning: "border-amber-600/40 bg-amber-50 text-amber-950",
+    error: "border-red-600/40 bg-red-50 text-red-950",
   }[tone];
   return (
-    <div className={cx("flex gap-3 border bg-bg p-4", styles)}>
-      <Icon name={tone === "success" ? "check" : "chat"} className={cx("mt-0.5 h-5 w-5 shrink-0", tone === "error" && "text-error")} />
+    <div className={cx("flex gap-3 rounded-xl border p-4", styles)}>
+      <Icon name={tone === "success" ? "check" : "chat"} className="mt-0.5 h-5 w-5 shrink-0" />
       <div>
-        <p className="font-medium">{title}</p>
-        <p className="mt-1 text-sm leading-relaxed">{children}</p>
+        <p className="font-semibold">{title}</p>
+        <p className="mt-1 text-sm">{children}</p>
       </div>
     </div>
   );

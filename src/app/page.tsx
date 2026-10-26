@@ -1,266 +1,226 @@
-import { NumberCard } from "@/components/cards";
-import { HeroFunnel } from "@/components/HeroFunnel";
-import { LeadTube, TubeBase, TubeCollar, TubeShowcase } from "@/components/LeadTube";
-import { SliderButtons } from "@/components/motion";
-import { SampleTag } from "@/components/Sample";
-import {
-  CaseStudiesSection,
-  FaqSection,
-  HiringSection,
-  IndustriesSection,
-  SocialRail,
-  TeamSection,
-  TestimonialsSection,
-} from "@/components/sections";
-import { ButtonLink, Crosshair, HeadingPanel, Lead, RadioDot, Row, Slider, Tick, cx } from "@/components/ui";
-import { ClientLogo, CubeTile, SphereTile } from "@/components/visuals";
-import { capabilities, services } from "@/lib/content";
-import { pageMetadata } from "@/lib/metadata";
-import { sampleLists } from "@/lib/placeholders";
+import type { Metadata } from "next";
+import { HeroVisual } from "@/components/HeroVisual";
+import { Icon, type IconName } from "@/components/Icon";
+import { LeadJourney } from "@/components/LeadJourney";
+import { CtaBand, ProcessSteps, ServiceCard } from "@/components/sections";
+import { ButtonLink, Container, Eyebrow, SectionHeading, TextLink } from "@/components/ui";
+import { commitments, services, workflowSteps } from "@/lib/content";
+import { site } from "@/lib/site";
 
-export const metadata = pageMetadata({
-  title: "SS Universal Communication Services — Lead Generation & Web Apps, India",
-  description:
-    "We create websites and digital campaigns that generate enquiries, and our Kanpur team qualifies every lead before it reaches your sales team. Serving the US and India.",
-  path: "/",
-});
+export const metadata: Metadata = {
+  title: { absolute: `${site.name} | Business Process Support & Lead Generation` },
+  description: site.description,
+  alternates: { canonical: "/" },
+};
+
+const capabilities: { icon: IconName; title: string; text: string }[] = [
+  { icon: "target", title: "Lead generation", text: "Capture, organise and qualify inquiries." },
+  { icon: "headset", title: "Customer support", text: "Responsive, documented customer interactions." },
+  { icon: "database", title: "Data management", text: "Accurate entry, upkeep and reporting." },
+  { icon: "layers", title: "Back-office operations", text: "Administrative and process workflows." },
+];
+
+const markets = [
+  { code: "US", name: "United States", focus: "Lead generation, document-preparation workflows, student-loan and finance-related process support." },
+  { code: "CA", name: "Canada", focus: "Client coordination, administrative documentation, scheduling and CRM support." },
+  { code: "IN", name: "India", focus: "EdTech inquiry management, student follow-up and customer support." },
+];
 
 export default function HomePage() {
   return (
-    <div className="wrap @container [--collar-w:27.5cqw] [--tube-w:22.5cqw]">
-      <Hero />
-      {/* The lead tube runs behind everything from the client strip to the hand-off platform. */}
-      <div className="relative">
-        <LeadTube />
-        <ClientsRow />
-        <BeyondTheClick />
-        <FullFunnel />
-      </div>
-      <CaseStudiesSection />
-      <IndustriesSection />
-      <TestimonialsSection />
-      <TeamSection />
-      <FaqSection />
-      <HiringSection />
-    </div>
-  );
-}
-
-/* ---------- Hero ---------- */
-
-function Hero() {
-  const sq = "absolute size-3 bg-orange";
-  return (
-    <section aria-labelledby="hero-title" className="relative">
-      <div className="relative h-10 md:h-[3.9rem]">
-        <Crosshair className="absolute right-full top-5 hidden lg:block" />
-        <SocialRail className="absolute left-full top-5 z-[3] hidden lg:flex" />
-      </div>
-
-      {/* Marquee */}
-      <div className="relative overflow-hidden border-t border-line pb-16 pt-10 md:pb-20 md:pt-14">
-        <span aria-hidden className={cx(sq, "left-4 top-4 md:left-5 md:top-5")} />
-        <span aria-hidden className={cx(sq, "right-4 top-4 md:right-5 md:top-5")} />
-        <span aria-hidden className={cx(sq, "bottom-4 right-4 md:bottom-5 md:right-5")} />
-        <h1 id="hero-title" className="sr-only">
-          Digital reach. Human follow-through. Lead generation, web apps and digital marketing from Kanpur, India.
-        </h1>
-        <div aria-hidden="true" className="marquee-track flex w-max">
-          {[0, 1].map((k) => (
-            <span
-              key={k}
-              className="display flex shrink-0 items-center whitespace-nowrap text-[clamp(5.6rem,min(21vh,24vw),14.5rem)] leading-[0.8]"
-            >
-              Digital reach
-              <span className="mx-[0.32em] inline-block size-[0.15em] bg-orange" />
-              Human follow-through
-              <span className="mx-[0.32em] inline-block size-[0.15em] bg-orange" />
-            </span>
-          ))}
-        </div>
-        <p aria-hidden="true" className="absolute bottom-4 left-4 flex items-center gap-3 font-mono text-[0.8125rem] uppercase md:bottom-5 md:left-5">
-          <span className="size-3 bg-orange" />
-          <span>Digital reach</span>
-          <span className="ml-3 max-sm:hidden">Human follow-through</span>
-        </p>
-      </div>
-
-      {/* Intro, funnel and side tile */}
-      <div className="grid grid-cols-1 border-t border-line md:grid-cols-2 lg:h-[max(22rem,28cqw)] lg:grid-cols-4">
-        <div className="flex flex-col justify-between gap-8 p-6 md:p-7 lg:py-9">
-          <p className="text-[1.0625rem] leading-[1.5] md:text-lg">
-            We build websites and campaigns that generate enquiries. Our team qualifies every lead and passes only
-            sales-ready prospects to you.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <ButtonLink href="/contact">Free consultation</ButtonLink>
+    <>
+      {/* 1. Hero */}
+      <section className="relative overflow-hidden">
+        <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_70%_30%,black,transparent_70%)]" aria-hidden />
+        <Container className="relative grid items-center gap-14 pb-20 pt-14 sm:pt-20 lg:grid-cols-12 lg:gap-10 lg:pb-28 lg:pt-24">
+          <div className="lg:col-span-6">
+            <Eyebrow>Business process outsourcing from India</Eyebrow>
+            <h1 className="text-[2.6rem] font-extrabold leading-[1.03] sm:text-6xl lg:text-[3.6rem] xl:text-[4rem]">
+              Smarter processes.{" "}
+              <span className="text-accent">Stronger business outcomes.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+              We help businesses run lead generation, customer interactions and back-office workflows with
+              dependable, documented process support, focused on quality, consistency and measurable progress.
+            </p>
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <ButtonLink href="/contact" arrow>
+                Discuss Your Requirements
+              </ButtonLink>
+              <ButtonLink href="/services" variant="secondary">
+                Explore Our Services
+              </ButtonLink>
+            </div>
+            <dl className="mt-12 grid max-w-lg grid-cols-2 gap-6 border-t border-line pt-6">
+              <div>
+                <dt className="text-sm text-muted">Industry experience</dt>
+                <dd className="mt-1 font-display text-xl font-bold">{site.experience} in BPO</dd>
+              </div>
+              <div>
+                <dt className="text-sm text-muted">Markets supported</dt>
+                <dd className="mt-1 font-display text-xl font-bold">US · Canada · India</dd>
+              </div>
+            </dl>
           </div>
-        </div>
-        <div className="relative h-[17rem] overflow-hidden sm:h-[21rem] lg:col-span-2 lg:h-auto">
-          <HeroFunnel />
-        </div>
-        <div className="relative hidden flex-col justify-between lg:flex">
-          <CubeTile className="size-[11.25rem]" />
-          <ClientsBar />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ClientsBar({ className }: { className?: string }) {
-  const clients = sampleLists.clients;
-  return (
-    <div className={cx("panel relative z-[2] flex items-stretch justify-between", className)}>
-      <p className="flex flex-1 items-center gap-3 px-5 py-3 font-mono text-[0.8125rem] uppercase">
-        Our clients:
-        <SampleTag show={!clients.confirmed} />
-      </p>
-      <SliderButtons target="clients" className="border-l border-line" />
-    </div>
-  );
-}
-
-function ClientsRow() {
-  const clients = sampleLists.clients;
-  return (
-    <div className="relative z-[2] border-t border-line">
-      <ClientsBar className="lg:hidden" />
-      <Slider id="clients" label="Client logos" className="bleed-r">
-        {clients.items.map((c) => (
-          <div
-            key={c.name}
-            className="panel brackets group relative grid h-[6.7rem] w-[70cqw] shrink-0 snap-start place-items-center px-4 transition-colors duration-300 [--b-color:transparent] [--b-inset:1.4rem] hover:bg-ink hover:text-panel hover:[--b-color:var(--color-orange)] hover:[--b-inset:0.6rem] sm:w-[50cqw] md:w-[33.333cqw] lg:w-[25cqw]"
-          >
-            <ClientLogo name={c.name} glyph={c.glyph} font={c.font} className="max-sm:scale-[0.82]" />
+          <div className="lg:col-span-6">
+            <HeroVisual />
           </div>
-        ))}
-      </Slider>
-    </div>
-  );
-}
+        </Container>
+      </section>
 
-/* ---------- Beyond the click ---------- */
-
-function BeyondTheClick() {
-  return (
-    <section aria-labelledby="beyond-title">
-      <Row className="mt-16 lg:mt-24">
-        <HeadingPanel
-          id="beyond-title"
-          text="Beyond the click"
-          className="md:col-span-2 lg:col-span-4 lg:justify-end lg:pr-16"
-        />
-      </Row>
-      <Row>
-        <div className="p-6 md:p-8 lg:py-12">
-          <Lead title="What we run" sub="For businesses in the US and India" as="h3" />
-        </div>
-        <div className="max-lg:hidden lg:col-span-2" />
-        <div className="p-6 md:p-8 lg:py-12">
-          <Lead title="One team" sub="Two capabilities" as="h3" />
-        </div>
-      </Row>
-      <Row className="relative">
-        <TubeCollar className="top-[30%]" />
-        <div className="flex flex-col">
-          <ul>
-            {services.map((s) => (
+      {/* 2. Positioning */}
+      <section className="border-y border-line bg-white py-20 sm:py-28">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <Eyebrow>Who we are</Eyebrow>
+              <p className="text-sm leading-relaxed text-muted">
+                A BPO, lead generation and business support company based in India.
+              </p>
+            </div>
+            <p className="reveal font-display text-2xl font-semibold leading-snug tracking-tight sm:text-3xl lg:col-span-8 lg:text-[2.35rem] lg:leading-[1.2]">
+              For over ten years, our team has handled the operational work that keeps businesses moving:{" "}
+              <span className="text-muted">
+                generating and qualifying leads, supporting customer interactions and managing back-end processes,
+                technical and non-technical alike.
+              </span>
+            </p>
+          </div>
+          <ul className="mt-16 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
+            {capabilities.map((c, i) => (
               <li
-                key={s.id}
-                className="brackets relative flex h-[4.5rem] items-center justify-center gap-3 border-b border-line text-[1.0625rem] [--b-inset:0.75rem]"
+                key={c.title}
+                className="reveal bg-white p-6"
+                style={{ "--reveal-delay": `${i * 70}ms` } as React.CSSProperties}
               >
-                <Tick />
-                {s.short}
+                <Icon name={c.icon} className="h-6 w-6 text-accent" />
+                <h2 className="mt-5 font-display text-lg font-bold">{c.title}</h2>
+                <p className="mt-1.5 text-[0.95rem] text-muted">{c.text}</p>
               </li>
             ))}
           </ul>
-          <div className="p-6 md:p-8">
-            <ButtonLink href="/services" className="w-full" arrow>
-              Explore services
+        </Container>
+      </section>
+
+      {/* 3. Signature animation */}
+      <LeadJourney />
+
+      {/* 4. Services overview */}
+      <section className="py-20 sm:py-28">
+        <Container>
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <SectionHeading
+              eyebrow="Services"
+              title="Process support for three markets, and for your own workflow."
+              intro="Each engagement is shaped around your requirements. These are the areas we most often support."
+            />
+            <TextLink href="/services" className="shrink-0">
+              View all services
+            </TextLink>
+          </div>
+          <div className="mt-14 grid gap-5 md:grid-cols-3">
+            {services.slice(0, 3).map((s, i) => (
+              <ServiceCard key={s.id} service={s} index={i} />
+            ))}
+          </div>
+          <div className="reveal mt-5 flex flex-col gap-5 rounded-[var(--radius-card)] border border-dashed border-ink/20 p-7 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-4">
+              <Icon name="puzzle" className="mt-1 h-6 w-6 shrink-0 text-accent" />
+              <div>
+                <h3 className="text-lg font-bold">{services[3].title}</h3>
+                <p className="mt-1 text-muted">{services[3].summary}</p>
+              </div>
+            </div>
+            <ButtonLink href="/contact" variant="secondary" className="shrink-0">
+              Describe your workflow
             </ButtonLink>
           </div>
-        </div>
-        <div className="lg:col-span-2">
-          <TubeShowcase className="my-10" />
-        </div>
-        <div className="grid grid-cols-2 self-start md:max-lg:col-span-2">
-          <NumberCard n={1} icon="globe" title="Digital reach" text="Websites, SEO and ads that bring in enquiries." className="min-h-[19rem]" />
-          <NumberCard
-            n={2}
-            icon="headset"
-            title="Human follow-through"
-            text="Trained callers who reach every lead, fast."
-            className="min-h-[19rem]"
-          />
-        </div>
-      </Row>
-    </section>
-  );
-}
+        </Container>
+      </section>
 
-/* ---------- Full funnel ---------- */
-
-function FullFunnel() {
-  return (
-    <section aria-labelledby="funnel-title">
-      <Row className="relative mt-16 lg:mt-24">
-        <TubeCollar marker={false} className="top-[38%]" />
-        <div className="flex items-start max-lg:hidden">
-          <SphereTile className="size-[11.25rem]" />
-          <RadioDot />
-        </div>
-        <div className="max-lg:hidden" />
-        <HeadingPanel id="funnel-title" text="Full funnel" className="justify-center md:col-span-2 lg:min-h-[11.25rem]" />
-      </Row>
-      <Row>
-        <div className="p-6 md:p-8 lg:py-12">
-          <Lead title="End-to-end" sub="From first click to qualified call" as="h3" />
-        </div>
-        <div className="max-lg:hidden lg:col-span-2" />
-        <div className="p-6 md:p-8 lg:py-12">
-          <Lead title="No hand-offs" sub="One team owns the whole funnel" as="h3" />
-        </div>
-      </Row>
-      <Row className="relative">
-        <TubeCollar band className="top-[22%]" />
-        <TubeCollar className="bottom-[4%]" />
-        <div className="min-w-0 md:col-span-2 lg:col-span-1">
-          <Slider id="capabilities" label="What we do" className="border-b border-line">
-            {capabilities.map((c, i) => (
-              <NumberCard
-                key={c.title}
-                n={i + 1}
-                icon={c.icon}
-                title={c.title}
-                text={c.text}
-                className="min-h-[21rem] w-[46cqw] shrink-0 snap-start md:w-[25cqw] lg:w-[12.5cqw]"
+      {/* 5. Why choose us */}
+      <section className="border-y border-line bg-paper-2/60 py-20 sm:py-28">
+        <Container className="grid gap-14 lg:grid-cols-12">
+          <div className="lg:col-span-5">
+            <div className="lg:sticky lg:top-28">
+              <SectionHeading
+                eyebrow="Why SS Unicom Service"
+                title="What you can expect from working with us."
+                intro="These are the commitments we build every engagement around."
               />
+            </div>
+          </div>
+          <ul className="lg:col-span-7">
+            {commitments.map((c, i) => (
+              <li key={c.title} className="reveal flex gap-6 border-t border-line py-7 last:border-b">
+                <span className="font-display text-sm font-bold tabular-nums text-accent">0{i + 1}</span>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold">{c.title}</h3>
+                  <p className="mt-2 leading-relaxed text-muted">{c.text}</p>
+                </div>
+                <Icon name={c.icon} className="hidden h-6 w-6 shrink-0 text-ink/40 sm:block" />
+              </li>
             ))}
-          </Slider>
-          <SliderButtons target="capabilities" className="panel w-fit" />
-        </div>
-        <div className="max-lg:hidden lg:col-span-2" />
-        <div className="flex items-center p-6 md:col-span-2 md:p-8 lg:col-span-1">
-          <p className="text-[1.0625rem] leading-[1.6]">
-            Most agencies stop at the click. Most call centres start cold. We run both halves, the campaign that creates
-            the enquiry and the call that qualifies it, so no lead goes cold in between.
-          </p>
-        </div>
-      </Row>
-      <Row>
-        <div className="flex flex-col justify-end p-6 md:p-8">
-          <ButtonLink href="/how-we-work" variant="line" arrow className="self-start">
-            How we work
-          </ButtonLink>
-        </div>
-        <div className="max-lg:hidden lg:col-span-2">
-          <TubeBase />
-        </div>
-        <div className="flex flex-col justify-end p-6 md:p-8">
-          <Lead title="Your team" sub="Live transfers, booked calls or full lead records" size="md" />
-        </div>
-      </Row>
-    </section>
+          </ul>
+        </Container>
+      </section>
+
+      {/* 6. How we work */}
+      <section className="py-20 sm:py-28">
+        <Container>
+          <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <SectionHeading
+              eyebrow="How we work"
+              title="A clear, repeatable way of working."
+              intro="Five stages take an engagement from first conversation to ongoing improvement."
+            />
+            <TextLink href="/how-we-work" className="shrink-0">
+              See our process in detail
+            </TextLink>
+          </div>
+          <div className="mt-14">
+            <ProcessSteps steps={workflowSteps} />
+          </div>
+        </Container>
+      </section>
+
+      {/* 7. Markets & industries */}
+      <section className="border-t border-line bg-white py-20 sm:py-28">
+        <Container>
+          <SectionHeading
+            eyebrow="Markets & industries"
+            title="Delivered from India for businesses in three markets."
+            intro="We adapt each workflow to the client's market, requirements and existing tools."
+          />
+          <div className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line md:grid-cols-3">
+            {markets.map((m, i) => (
+              <div
+                key={m.code}
+                className="reveal bg-white p-8"
+                style={{ "--reveal-delay": `${i * 80}ms` } as React.CSSProperties}
+              >
+                <p className="font-display text-6xl font-extrabold tracking-tight text-ink/10" aria-hidden>
+                  {m.code}
+                </p>
+                <h3 className="mt-4 text-xl font-bold">{m.name}</h3>
+                <p className="mt-2 leading-relaxed text-muted">{m.focus}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-muted">
+              Industries: lead generation, document preparation, student-loan and finance-related processes, education
+              technology and general business operations.
+            </p>
+            <TextLink href="/industries" className="shrink-0">
+              Industries &amp; markets
+            </TextLink>
+          </div>
+        </Container>
+      </section>
+
+      {/* 8. Final CTA */}
+      <CtaBand />
+    </>
   );
 }

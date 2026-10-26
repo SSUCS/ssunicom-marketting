@@ -6,151 +6,140 @@ import { useEffect, useRef, useState } from "react";
 import { nav, site } from "@/lib/site";
 import { Icon } from "./Icon";
 import { Logo } from "./Logo";
-import { Scramble } from "./motion";
-import { lockScroll } from "./site-effects";
-import { ButtonLink, cx } from "./ui";
-
-// Bottom corners are cut diagonally; --hc is the size of the cut.
-const CLIP =
-  "polygon(0 0, 100% 0, 100% calc(100% - var(--hc)), calc(100% - var(--hc)) 100%, var(--hc) 100%, 0 calc(100% - var(--hc)))";
-
-function Dots({ className }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 12 12" aria-hidden className={cx("size-3 text-orange", className)} fill="currentColor">
-      <rect x="0" y="0" width="4" height="4" />
-      <rect x="8" y="0" width="4" height="4" />
-      <rect x="0" y="8" width="4" height="4" />
-      <rect x="8" y="8" width="4" height="4" />
-    </svg>
-  );
-}
+import { ButtonLink, Container, cx } from "./ui";
 
 export function Header() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const firstLink = useRef<HTMLAnchorElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close the mobile menu on navigation.
   useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
-    lockScroll(open);
     if (!open) return;
-    firstLink.current?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
+      if (e.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+      }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
   }, [open]);
 
-  const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 
   return (
-    <header className="sticky top-0 z-50 h-[var(--header-h)] [--hc:1.42rem] max-sm:[--hc:1.2rem]">
-      <div className="relative h-full bg-bg" style={{ clipPath: CLIP }}>
-        <span aria-hidden className="absolute bottom-0 h-px bg-line" style={{ left: "var(--hc)", right: "var(--hc)" }} />
-        <svg aria-hidden className="absolute bottom-0 left-0 size-[var(--hc)] text-line" preserveAspectRatio="none">
-          <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" />
-        </svg>
-        <svg aria-hidden className="absolute bottom-0 right-0 size-[var(--hc)] text-line" preserveAspectRatio="none">
-          <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" />
-        </svg>
-        {[0.25, 0.75].map((f) => (
-          <span
-            key={f}
-            aria-hidden
-            className="absolute inset-y-0 hidden w-px bg-line xl:block"
-            style={{ left: `calc(var(--gutter) + (100% - 2 * var(--gutter)) * ${f})` }}
-          />
-        ))}
+    <header
+      className={cx(
+        "sticky top-0 z-50 border-b transition-[background-color,border-color] duration-300",
+        scrolled || open ? "border-line bg-paper/90 backdrop-blur-md" : "border-transparent bg-paper",
+      )}
+    >
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:z-50 focus:rounded-md focus:bg-ink focus:px-4 focus:py-2 focus:text-white"
+      >
+        Skip to content
+      </a>
+      <Container className="flex h-16 items-center justify-between gap-6">
+        <Link href="/" aria-label={`${site.name} home`} className="shrink-0">
+          <Logo />
+        </Link>
 
-        <div className="relative flex h-full items-center justify-between gap-6 px-[max(1rem,calc(var(--gutter)/2))]">
-          <Link href="/" aria-label={`${site.name}, home`} className="shrink-0">
-            <Logo compact />
-          </Link>
+        <nav aria-label="Main" className="hidden lg:block">
+          <ul className="flex items-center gap-1">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                  className={cx(
+                    "relative rounded-full px-3.5 py-2 text-[0.93rem] font-medium transition-colors",
+                    isActive(item.href) ? "text-ink" : "text-muted hover:text-ink",
+                  )}
+                >
+                  {item.label}
+                  {isActive(item.href) && (
+                    <span aria-hidden className="absolute inset-x-3.5 -bottom-0.5 h-0.5 rounded-full bg-accent" />
+                  )}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <nav aria-label="Main" className="hidden xl:block">
-            <ul className="flex items-center gap-2 2xl:gap-5">
+        <div className="flex items-center gap-2">
+          <div className="hidden sm:block">
+            <ButtonLink href="/contact" arrow>
+              Free Consultation
+            </ButtonLink>
+          </div>
+          <button
+            ref={toggleRef}
+            type="button"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-ink/15 lg:hidden"
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+            onClick={() => setOpen((v) => !v)}
+          >
+            <Icon name={open ? "close" : "menu"} />
+          </button>
+        </div>
+      </Container>
+
+      <div
+        id="mobile-menu"
+        hidden={!open}
+        className="h-[calc(100svh-4rem)] overflow-y-auto border-t border-line bg-paper lg:hidden"
+      >
+        <Container className="py-6">
+          <nav aria-label="Mobile">
+            <ul className="divide-y divide-line">
               {nav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="nav-link text-[0.9375rem]"
                     aria-current={isActive(item.href) ? "page" : undefined}
+                    className={cx(
+                      "flex items-center justify-between py-4 font-display text-2xl font-semibold",
+                      isActive(item.href) ? "text-accent" : "text-ink",
+                    )}
                   >
-                    <Scramble text={item.label} trigger="hover" />
+                    {item.label}
+                    <Icon name="arrow-right" className="h-5 w-5 opacity-50" />
                   </Link>
                 </li>
               ))}
             </ul>
           </nav>
-
-          <div className="flex items-center gap-5">
-            <a
-              href={site.contact.phoneHref}
-              className="hidden items-center gap-2.5 text-[0.9375rem] transition-colors hover:text-orange-deep 2xl:flex"
-            >
-              <Dots />
-              {site.contact.phoneDisplay}
+          <div className="mt-8 grid gap-3">
+            <ButtonLink href="/contact" arrow>
+              Free Consultation
+            </ButtonLink>
+            <a href={site.contact.phoneHref} className="inline-flex items-center gap-2 py-2 text-muted">
+              <Icon name="phone" className="h-4 w-4" /> {site.contact.phoneDisplay}
             </a>
-            <ButtonLink href="/contact" className="max-md:hidden">
-              Free consultation
-            </ButtonLink>
-            <button
-              type="button"
-              className="flex h-11 items-center gap-2.5 border border-line bg-panel px-3 font-mono text-xs uppercase tracking-wide xl:hidden"
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              onClick={() => setOpen((o) => !o)}
-            >
-              <Icon name={open ? "close" : "menu"} className="h-5 w-5" strokeWidth={2} />
-              {open ? "Close" : "Menu"}
-            </button>
+            <a href={site.contact.emailHref} className="inline-flex items-center gap-2 py-2 text-muted">
+              <Icon name="mail" className="h-4 w-4" /> {site.contact.email}
+            </a>
           </div>
-        </div>
+        </Container>
       </div>
-
-      {open && (
-        <div
-          id="mobile-menu"
-          data-lenis-prevent
-          className="fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto overscroll-contain bg-bg xl:hidden"
-        >
-          <nav aria-label="Main" className="wrap pb-10">
-            <ul className="border-x border-line">
-              {nav.map((item, i) => (
-                <li key={item.href} className="border-b border-line">
-                  <Link
-                    ref={i === 0 ? firstLink : undefined}
-                    href={item.href}
-                    aria-current={isActive(item.href) ? "page" : undefined}
-                    className="group flex items-center justify-between px-4 py-4 aria-[current=page]:bg-panel"
-                  >
-                    <span className="display text-[2.4rem] sm:text-5xl">{item.label}</span>
-                    <span className="flex items-center gap-2 font-mono text-xs text-mute">
-                      {String(i + 1).padStart(2, "0")}
-                      <span aria-hidden className="size-2 bg-orange opacity-0 group-aria-[current=page]:opacity-100" />
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className="grid gap-px border-x border-b border-line bg-line sm:grid-cols-2">
-              <a href={site.contact.phoneHref} className="flex items-center gap-3 bg-bg p-4">
-                <Icon name="phone" className="h-5 w-5" />
-                {site.contact.phoneDisplay}
-              </a>
-              <a href={site.contact.emailHref} className="flex items-center gap-3 break-all bg-bg p-4">
-                <Icon name="mail" className="h-5 w-5" />
-                {site.contact.email}
-              </a>
-            </div>
-            <ButtonLink href="/contact" arrow className="mt-6 w-full">
-              Free consultation
-            </ButtonLink>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }
