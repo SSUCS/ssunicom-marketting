@@ -11,7 +11,7 @@ export const site = {
   shortName: "SS Unicom",
   url: process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") || "https://ssunicomservice.com",
   description:
-    "Business process support for lead generation, customer operations and back-office workflows, delivered from India for clients in the United States, Canada and India.",
+    "BPO and call centre services from Kanpur, India: inbound and outbound calling, lead generation, chat and email support, back office and digital marketing for clients in India, the US and the UK.",
 
   contact: {
     phoneDisplay: "+91 97947 74773",
@@ -43,9 +43,14 @@ export const legalNav = [
 ] as const;
 
 export const serviceOptions = [
-  "US Lead Generation & Process Support",
-  "Canadian Business Services",
-  "India EdTech Solutions",
-  "Custom Business Process Solutions",
+  "Inbound Call Centre & Customer Support",
+  "Outbound Campaigns & Telemarketing",
+  "Lead Generation & Live Transfers",
+  "Appointment Setting & Surveys",
+  "Chat & Email Support",
+  "Back Office & Data Management",
+  "Virtual Assistants & Dedicated Teams",
+  "Digital Marketing",
+  "Custom Outsourcing Solutions",
   "Not sure yet",
 ] as const;

@@ -8,22 +8,22 @@ import { commitments, services, workflowSteps } from "@/lib/content";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: { absolute: `${site.name} | Business Process Support & Lead Generation` },
+  title: { absolute: `${site.name} | BPO, Call Centre & Lead Generation Services` },
   description: site.description,
   alternates: { canonical: "/" },
 };
 
 const capabilities: { icon: IconName; title: string; text: string }[] = [
-  { icon: "target", title: "Lead generation", text: "Capture, organise and qualify inquiries." },
-  { icon: "headset", title: "Customer support", text: "Responsive, documented customer interactions." },
-  { icon: "database", title: "Data management", text: "Accurate entry, upkeep and reporting." },
-  { icon: "layers", title: "Back-office operations", text: "Administrative and process workflows." },
+  { icon: "headset", title: "Inbound support", text: "Customer calls answered, resolved and logged." },
+  { icon: "phone", title: "Outbound campaigns", text: "Telemarketing, follow-ups and win-back calls." },
+  { icon: "target", title: "Lead generation", text: "Qualified leads, live transfers and appointments." },
+  { icon: "database", title: "Back office", text: "Data entry, processing and CRM upkeep." },
 ];
 
 const markets = [
-  { code: "US", name: "United States", focus: "Lead generation, document-preparation workflows, student-loan and finance-related process support." },
-  { code: "CA", name: "Canada", focus: "Client coordination, administrative documentation, scheduling and CRM support." },
-  { code: "IN", name: "India", focus: "EdTech inquiry management, student follow-up and customer support." },
+  { code: "IN", name: "India", focus: "Domestic processes in English and Hindi: customer support, telesales, lead generation and back office." },
+  { code: "US", name: "United States", focus: "International voice and non-voice processes run in US time zones, including overnight shifts." },
+  { code: "UK", name: "United Kingdom", focus: "Customer service, outbound campaigns and lead generation for UK businesses, during UK hours." },
 ];
 
 export default function HomePage() {
@@ -34,18 +34,18 @@ export default function HomePage() {
         <div className="bg-grid pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_at_70%_30%,black,transparent_70%)]" aria-hidden />
         <Container className="relative grid items-center gap-14 pb-20 pt-14 sm:pt-20 lg:grid-cols-12 lg:gap-10 lg:pb-28 lg:pt-24">
           <div className="lg:col-span-6">
-            <Eyebrow>Business process outsourcing from India</Eyebrow>
+            <Eyebrow>BPO &amp; call centre services from Kanpur, India</Eyebrow>
             <h1 className="text-[2.6rem] font-extrabold leading-[1.03] sm:text-6xl lg:text-[3.6rem] xl:text-[4rem]">
-              Smarter processes.{" "}
-              <span className="text-accent">Stronger business outcomes.</span>
+              Your customers, answered.{" "}
+              <span className="text-accent">Your sales pipeline, filled.</span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-              We help businesses run lead generation, customer interactions and back-office workflows with
-              dependable, documented process support, focused on quality, consistency and measurable progress.
+              We run inbound and outbound call centre programmes, lead generation, chat and email support and back-office
+              work for growing businesses, with trained teams, round-the-clock shifts and reporting you can measure.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <ButtonLink href="/contact" arrow>
-                Discuss Your Requirements
+                Get a Free Consultation
               </ButtonLink>
               <ButtonLink href="/services" variant="secondary">
                 Explore Our Services
@@ -57,8 +57,8 @@ export default function HomePage() {
                 <dd className="mt-1 font-display text-xl font-bold">{site.experience} in BPO</dd>
               </div>
               <div>
-                <dt className="text-sm text-muted">Markets supported</dt>
-                <dd className="mt-1 font-display text-xl font-bold">US · Canada · India</dd>
+                <dt className="text-sm text-muted">Operations</dt>
+                <dd className="mt-1 font-display text-xl font-bold">24/7 · India · US · UK</dd>
               </div>
             </dl>
           </div>
@@ -75,14 +75,14 @@ export default function HomePage() {
             <div className="lg:col-span-4">
               <Eyebrow>Who we are</Eyebrow>
               <p className="text-sm leading-relaxed text-muted">
-                A BPO, lead generation and business support company based in India.
+                A BPO and call centre company based in Kanpur, Uttar Pradesh.
               </p>
             </div>
             <p className="reveal font-display text-2xl font-semibold leading-snug tracking-tight sm:text-3xl lg:col-span-8 lg:text-[2.35rem] lg:leading-[1.2]">
-              For over ten years, our team has handled the operational work that keeps businesses moving:{" "}
+              For over ten years, businesses have trusted us with their customer conversations:{" "}
               <span className="text-muted">
-                generating and qualifying leads, supporting customer interactions and managing back-end processes,
-                technical and non-technical alike.
+                answering support calls, running sales campaigns, generating qualified leads and handling the back-office
+                work behind them, so their own teams can focus on growth.
               </span>
             </p>
           </div>
@@ -111,15 +111,15 @@ export default function HomePage() {
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <SectionHeading
               eyebrow="Services"
-              title="Process support for three markets, and for your own workflow."
-              intro="Each engagement is shaped around your requirements. These are the areas we most often support."
+              title="Everything your customer operations need, under one roof."
+              intro="Pick a single service or combine several into one programme. Every engagement is set up around your goals."
             />
             <TextLink href="/services" className="shrink-0">
               View all services
             </TextLink>
           </div>
           <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {services.slice(0, 3).map((s, i) => (
+            {services.slice(0, 6).map((s, i) => (
               <ServiceCard key={s.id} service={s} index={i} />
             ))}
           </div>
@@ -127,8 +127,8 @@ export default function HomePage() {
             <div className="flex items-start gap-4">
               <Icon name="puzzle" className="mt-1 h-6 w-6 shrink-0 text-accent" />
               <div>
-                <h3 className="text-lg font-bold">{services[3].title}</h3>
-                <p className="mt-1 text-muted">{services[3].summary}</p>
+                <h3 className="text-lg font-bold">{services[services.length - 1].title}</h3>
+                <p className="mt-1 text-muted">{services[services.length - 1].summary}</p>
               </div>
             </div>
             <ButtonLink href="/contact" variant="secondary" className="shrink-0">
@@ -144,9 +144,9 @@ export default function HomePage() {
           <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-28">
               <SectionHeading
-                eyebrow="Why SS Unicom Service"
-                title="What you can expect from working with us."
-                intro="These are the commitments we build every engagement around."
+                eyebrow="Why choose us"
+                title="The advantages of outsourcing to our team."
+                intro="Reliable people, modern infrastructure and clear reporting, at a cost that makes sense for businesses of every size."
               />
             </div>
           </div>
@@ -189,8 +189,8 @@ export default function HomePage() {
         <Container>
           <SectionHeading
             eyebrow="Markets & industries"
-            title="Delivered from India for businesses in three markets."
-            intro="We adapt each workflow to the client's market, requirements and existing tools."
+            title="Domestic and international processes, from one Kanpur centre."
+            intro="We work in our clients' time zones and adapt every programme to their market, customers and tools."
           />
           <div className="mt-14 grid gap-px overflow-hidden rounded-[var(--radius-card)] border border-line bg-line md:grid-cols-3">
             {markets.map((m, i) => (
@@ -209,8 +209,8 @@ export default function HomePage() {
           </div>
           <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-muted">
-              Industries: lead generation, document preparation, student-loan and finance-related processes, education
-              technology and general business operations.
+              Industries: banking and finance, insurance, telecom, healthcare, e-commerce and retail, real estate,
+              education, travel and IT services.
             </p>
             <TextLink href="/industries" className="shrink-0">
               Industries &amp; markets

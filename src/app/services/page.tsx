@@ -8,7 +8,7 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Services",
   description:
-    "US lead generation and process support, Canadian business services, India EdTech solutions and custom business process support from SS Unicom Service.",
+    "Inbound and outbound call centre services, lead generation and live transfers, appointment setting, chat and email support, back office, virtual assistants and digital marketing from SS Unicom Service, Kanpur.",
   path: "/services",
 });
 
@@ -17,8 +17,8 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="Process support shaped around how your business works."
-        intro="We support the operational side of lead generation, client coordination and customer support. Every engagement starts from your requirements, and the activities below are agreed with you before work begins."
+        title="Call centre, lead generation and back-office services, set up around your business."
+        intro="From answering customer calls to filling your sales calendar, our Kanpur teams take on the work that keeps customers happy and revenue growing. Every engagement starts from your goals, and the activities below are agreed with you before work begins."
       >
         <nav aria-label="Services on this page">
           <ul className="flex flex-wrap gap-2">
