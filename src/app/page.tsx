@@ -21,7 +21,7 @@ import { sampleLists } from "@/lib/placeholders";
 export const metadata = pageMetadata({
   title: "SS Universal Communication Services — Lead Generation & Web Apps, India",
   description:
-    "We build the websites and campaigns that bring in leads, then our Kanpur team calls, qualifies and hands every one to your sales team. Serving the US and India.",
+    "We create websites and digital campaigns that generate enquiries, and our Kanpur team qualifies every lead before it reaches your sales team. Serving the US and India.",
   path: "/",
 });
 
@@ -89,8 +89,8 @@ function Hero() {
       <div className="grid grid-cols-1 border-t border-line md:grid-cols-2 lg:h-[max(22rem,28cqw)] lg:grid-cols-4">
         <div className="flex flex-col justify-between gap-8 p-6 md:p-7 lg:py-9">
           <p className="text-[1.0625rem] leading-[1.5] md:text-lg">
-            We build the websites and ads that bring in leads. Then our team calls every one, qualifies it and hands you
-            the ones ready to buy.
+            We build websites and campaigns that generate enquiries. Our team qualifies every lead and passes only
+            sales-ready prospects to you.
           </p>
           <div className="flex flex-wrap gap-3">
             <ButtonLink href="/contact">Free consultation</ButtonLink>
