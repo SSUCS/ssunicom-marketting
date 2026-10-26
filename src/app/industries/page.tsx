@@ -6,37 +6,57 @@ import { pageMetadata } from "@/lib/metadata";
 export const metadata = pageMetadata({
   title: "Industries & Markets",
   description:
-    "Business process support for lead generation, document preparation, student-loan and finance-related processes and education technology, for clients in the United States, Canada and India.",
+    "Call centre, lead generation and back-office services for banking and finance, insurance, telecom, healthcare, e-commerce, real estate, education and more, for clients in India, the US and the UK.",
   path: "/industries",
 });
 
 const industries: { icon: IconName; title: string; text: string }[] = [
   {
-    icon: "document",
-    title: "Lead generation & document preparation",
-    text: "Lead intake, information collection and workflow support for businesses that prepare documents for their customers.",
-  },
-  {
     icon: "briefcase",
-    title: "Student-loan & finance-related processes",
-    text: "Operational support such as qualification, follow-up and record-keeping. We do not give financial advice or make lending decisions.",
+    title: "Banking & finance",
+    text: "Loan and credit-card lead generation, customer verification, collections reminders and account support.",
   },
   {
-    icon: "graduation",
-    title: "Education technology",
-    text: "Inquiry management, student follow-up, customer support and reporting for EdTech businesses.",
+    icon: "check-shield",
+    title: "Insurance",
+    text: "Policy enquiries, renewal calls, lead qualification and claims-support processing.",
+  },
+  {
+    icon: "phone",
+    title: "Telecom",
+    text: "Customer service, plan upgrades, retention campaigns and technical help-desk support.",
+  },
+  {
+    icon: "users",
+    title: "Healthcare",
+    text: "Appointment scheduling, patient follow-ups, enquiry handling and medical data entry.",
   },
   {
     icon: "layers",
-    title: "Other business operations",
-    text: "Customer support, data management and back-office processes where our way of working is a good fit.",
+    title: "E-commerce & retail",
+    text: "Order taking and tracking, returns, chat and email support and customer win-back campaigns.",
+  },
+  {
+    icon: "compass",
+    title: "Real estate",
+    text: "Property enquiry handling, site-visit appointment setting and buyer lead qualification.",
+  },
+  {
+    icon: "graduation",
+    title: "Education",
+    text: "Admission enquiries, counselling-call bookings, student follow-up and support.",
+  },
+  {
+    icon: "search",
+    title: "Travel & IT services",
+    text: "Booking support, reservations, help-desk services and B2B lead generation for technology firms.",
   },
 ];
 
 const markets = [
-  { code: "US", name: "United States", note: "Lead generation and document-preparation workflows" },
-  { code: "CA", name: "Canada", note: "Client coordination and administrative support" },
-  { code: "IN", name: "India", note: "EdTech and business operations support" },
+  { code: "IN", name: "India", note: "Domestic voice and non-voice processes" },
+  { code: "US", name: "United States", note: "International processes in US hours" },
+  { code: "UK", name: "United Kingdom", note: "International processes in UK hours" },
 ];
 
 const tailoring: { title: string; text: string }[] = [
@@ -59,13 +79,13 @@ export default function IndustriesPage() {
     <>
       <PageHero
         eyebrow="Industries & markets"
-        title="Focused expertise, adapted to each market we support."
-        intro="Our experience is concentrated in lead generation and the processes around it. We deliver from India for clients in the United States, Canada and India."
+        title="Industry experience that shortens your ramp-up."
+        intro="Our teams have run customer support, sales and back-office programmes across many sectors. We deliver from Kanpur for clients in India, the United States and the United Kingdom."
       />
 
       <section className="py-20 sm:py-28">
         <Container>
-          <SectionHeading eyebrow="Areas of focus" title="Where our experience is deepest." />
+          <SectionHeading eyebrow="Areas of focus" title="Industries we serve." />
           <ul className="mt-14 grid gap-x-12 sm:grid-cols-2">
             {industries.map((ind, i) => (
               <li key={ind.title} className="reveal flex gap-5 border-t border-line py-8">
@@ -89,8 +109,8 @@ export default function IndustriesPage() {
             <Eyebrow dark>Geographic focus</Eyebrow>
             <h2 className="text-3xl font-bold leading-tight sm:text-4xl">One delivery team, three client markets.</h2>
             <p className="mt-5 text-lg leading-relaxed text-mist">
-              Our team works from India. We support clients in the United States, Canada and India remotely, using
-              communication channels and working hours agreed with each client.
+              Our team works from Kanpur, India. We run domestic processes for Indian businesses and international
+              processes for clients in the United States and the United Kingdom, in their own business hours.
             </p>
             <p className="mt-6 text-sm leading-relaxed text-mist">
               Markets listed here reflect where our clients operate. They do not indicate a local office or a
@@ -100,7 +120,7 @@ export default function IndustriesPage() {
           <div className="lg:col-span-7">
             <svg viewBox="0 0 560 360" className="h-auto w-full" role="img" aria-labelledby="markets-title">
               <title id="markets-title">
-                Diagram: a delivery team in India connected to client markets in the United States, Canada and India.
+                Diagram: a delivery team in India connected to client markets in India, the United States and the United Kingdom.
               </title>
               {[70, 180, 290].map((y) => (
                 <path key={y} d={`M170 180 C 280 180, 300 ${y}, 390 ${y}`} fill="none" stroke="#45d6c4" strokeOpacity="0.6" strokeWidth="1.5" />

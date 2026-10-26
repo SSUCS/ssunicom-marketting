@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 export const metadata = pageMetadata({
   title: "Contact",
   description:
-    "Contact SS Unicom Service to discuss lead generation, customer support or back-office process support. Call +91 97947 74773 or email info@ssunicomservice.com.",
+    "Contact SS Unicom Service to discuss call centre, lead generation, customer support or back-office services. Call +91 97947 74773 or email info@ssunicomservice.com.",
   path: "/contact",
 });
 

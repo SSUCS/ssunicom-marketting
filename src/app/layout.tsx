@@ -18,7 +18,7 @@ const heading = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} | Business Process Support & Lead Generation`,
+    default: `${site.name} | BPO, Call Centre & Lead Generation Services`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
