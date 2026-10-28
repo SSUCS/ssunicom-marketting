@@ -5,6 +5,7 @@ import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import crypto from 'crypto'
 import path from 'path'
 import type { Field } from 'payload'
 import { buildConfig } from 'payload'
@@ -132,9 +133,15 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
-  secret: process.env.PAYLOAD_SECRET || 'local-development-secret-change-me',
+  secret: process.env.PAYLOAD_SECRET || fallbackSecret(),
   sharp,
   typescript: { outputFile: path.resolve(dirname, 'payload-types.ts') },
   graphQL: { disable: true },
   telemetry: false,
 })
+
+/** Without PAYLOAD_SECRET, a hosted deploy gets a random per-instance secret so login tokens can never be forged. */
+function fallbackSecret() {
+  if (process.env.VERCEL && !process.env.PAYLOAD_BUILD) return crypto.randomBytes(32).toString('hex')
+  return 'local-development-secret-change-me'
+}
