@@ -11,7 +11,7 @@ export function IndustryCard({ industry, style }: { industry: Industry; style?: 
       href={pathFor('industries', industry.slug)}
       data-reveal
       style={style}
-      className="group lift flex flex-col overflow-hidden rounded-lg bg-white shadow-[0_1px_2px_rgba(0,37,81,0.06)]"
+      className="group lift flex flex-col overflow-hidden rounded-lg bg-white shadow-[0_1px_2px_rgba(11,46,49,0.06)]"
     >
       <div className="relative aspect-[16/9] overflow-hidden bg-cobalt-50">
         <Media resource={industry.image} fill imgClassName="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(min-width:1024px) 300px, 50vw" />

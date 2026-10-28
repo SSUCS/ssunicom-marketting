@@ -81,7 +81,7 @@ export function HeaderClient({ data }: { data: NavData }) {
       <header
         className={cn(
           'sticky top-0 z-50 border-b transition-all duration-300',
-          scrolled ? 'border-line bg-white/92 shadow-[0_8px_30px_-12px_rgba(0,37,81,0.18)] backdrop-blur-md' : 'border-transparent bg-white/80 backdrop-blur',
+          scrolled ? 'border-line bg-white/92 shadow-[0_8px_30px_-12px_rgba(11,46,49,0.18)] backdrop-blur-md' : 'border-transparent bg-white/80 backdrop-blur',
         )}
         onMouseLeave={leave}
       >
@@ -153,7 +153,7 @@ export function HeaderClient({ data }: { data: NavData }) {
           item.menu === 'link' ? null : (
             <div
               key={item.label}
-              className="mega-panel absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-[0_30px_60px_-20px_rgba(0,37,81,0.25)] lg:block"
+              className="mega-panel absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-[0_30px_60px_-20px_rgba(11,46,49,0.25)] lg:block"
               data-open={open === i}
               onMouseEnter={() => enter(i)}
             >

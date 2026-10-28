@@ -161,7 +161,7 @@ export function FormRenderer({ form, confirmation, redirectTo }: Props) {
           {state !== 'sending' && <ArrowRight className="size-4" />}
         </button>
         {state === 'error' && (
-          <p role="alert" className="text-[0.95rem] text-amber-600">
+          <p role="alert" className="text-[0.95rem] text-red-700">
             {error} Please try again, or email us directly.
           </p>
         )}
