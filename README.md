@@ -1,98 +1,91 @@
-# SS Unicom Service: marketing website
+# SS Unicom: marketing website and CMS
 
-Sample marketing website for SS Unicom Service, an India-based BPO, lead generation and business support company.
-Built with Next.js 15 (App Router), React 19, TypeScript and Tailwind CSS v4. The only runtime dependencies are Next.js and React: icons, illustrations and the scroll animation are hand-written SVG, CSS and React.
+The website for SS Universal Communication Services Pvt Ltd (SS Unicom), a business process outsourcing company in Kanpur, India.
+Every word, image, menu, form and SEO setting is editable in the built-in CMS at `/admin`.
+
+- **Front end:** Next.js 16 (App Router), React 19, Tailwind CSS v4
+- **CMS:** Payload 3 (runs inside the same Next.js app, no separate server)
+- **Database:** SQLite locally, libSQL/Turso in production
+- **Media:** local `./media` folder locally, Vercel Blob in production
 
 ## Quick start
 
-Requires Node.js 18.18 or newer (20+ recommended).
+Requires Node.js 22+.
 
 ```bash
-npm install        # install dependencies
-npm run dev        # development server at http://localhost:3000
-npm run lint       # ESLint
-npx tsc --noEmit   # type-check
-npm run build      # production build
-npm start          # serve the production build
+npm install
+cp .env.example .env      # optional locally; defaults work
+npm run db:prepare        # create the database and load the starter content
+npm run dev               # http://localhost:3000, CMS at http://localhost:3000/admin
 ```
 
-Deploys as a standard Next.js app (Vercel, Netlify, or any Node host). Set the environment variables below in the host's dashboard.
+The first visit to `/admin` asks you to create an admin user (or set `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` before seeding).
 
-## Routes
-
-| Route | Page |
+| Script | What it does |
 | --- | --- |
-| `/` | Home, including the "Journey of a Lead" scroll animation |
-| `/about` | About Us |
-| `/services` | Services (each service has an anchor, e.g. `/services#india-edtech`) |
-| `/how-we-work` | Five-stage workflow and operating details |
-| `/industries` | Industries & Markets |
-| `/contact` | Contact details and inquiry form |
-| `/privacy-policy`, `/terms` | Legal drafts (flagged for review) |
-| `/api/contact` | Server endpoint for the form |
+| `npm run dev` | Development server |
+| `npm run build` | Runs migrations, seeds an empty database, then builds |
+| `npm start` | Serves the production build |
+| `npm run seed` | Loads starter content if the database is empty |
+| `npm run seed:fresh` | **Deletes all content** and reloads the starter content |
+| `npm run migrate:create` | Creates a migration after you change a collection or block |
+| `npm run generate:types` | Regenerates `src/payload-types.ts` |
+| `npm run typecheck` | TypeScript check |
 
-`sitemap.xml`, `robots.txt`, the favicon (`src/app/icon.svg`) and the default social image (`src/app/opengraph-image.tsx`) are generated automatically.
+## Deploying to Vercel
 
-## Environment variables
+1. Import the repository in Vercel. The build command is already `npm run build`.
+2. Add a Turso database from the Vercel Marketplace and set `DATABASE_URI` and `DATABASE_AUTH_TOKEN`.
+3. Add a Vercel Blob store (sets `BLOB_READ_WRITE_TOKEN`) so uploads survive deploys.
+4. Set `PAYLOAD_SECRET` (a long random string), `NEXT_PUBLIC_SERVER_URL=https://ssunicomservice.com`, `PREVIEW_SECRET`, and optionally `RESEND_API_KEY` for form emails.
+5. Deploy. The first build creates the tables and loads the starter content.
 
-Copy `.env.example` to `.env.local` (local) or set these in your host. None are required to build.
+**Without a database** (as on preview deployments today) the site still works: the build seeds a SQLite file that is copied to temporary storage when the server starts. The site and the admin work, but edits are lost when the server restarts. Use this only for previews.
 
-| Variable | Purpose |
-| --- | --- |
-| `NEXT_PUBLIC_SITE_URL` | Production URL for canonical links, sitemap and Open Graph. Defaults to `https://ssunicomservice.com`. |
-| `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL` | Contact form delivery via [Resend](https://resend.com). The "from" address must be on a domain verified in Resend. |
-| `CONTACT_WEBHOOK_URL` | Alternative delivery: the submission is POSTed as JSON to this URL (Formspree, Zapier, Make, Google Apps Script, etc.). |
-| `NEXT_PUBLIC_GA_ID` | Optional Google Analytics 4 ID. Nothing analytics-related loads when empty. |
+Preview deployments send `noindex` and a disallow-all `robots.txt`, so they never compete with the live site in Google.
 
-Secrets are only read on the server (`src/app/api/contact/route.ts`); never prefix them with `NEXT_PUBLIC_`.
+## How content is organised
 
-## Contact form
+| Admin section | What lives there | Public URL |
+| --- | --- | --- |
+| Content → Pages | Home, About, Contact, legal pages and any new page, built from 18 section blocks | `/<slug>` |
+| Services → Services | The 20 services, each with its own landing page | `/services/<slug>` |
+| Services → Service groups | The five practices (Groups A–E) | `/services/<slug>` |
+| Content → Industries | Industry landing pages | `/industries/<slug>` |
+| Content → Case studies | Client stories with headline metrics | `/case-studies/<slug>` |
+| Insights | Articles and topics, with RSS at `/insights/feed.xml` | `/insights/<slug>` |
+| Careers → Job openings | Jobs, published with Google Jobs structured data | `/careers/<slug>` |
+| SEO → Keyword map | Target keywords mapped to pages (SEMrush-style) | — |
+| SEO → Redirects | 301/302 redirects for old or changed URLs | — |
+| Forms | Form builder and submissions (with UTM source and page URL) | — |
+| Settings | Header menu, footer, company details, analytics IDs, announcement bar | — |
 
-- Validation rules live in `src/lib/contact.ts` and run in the browser and on the server.
-- Delivery is in `src/app/api/contact/route.ts`. Resend is used if configured, otherwise the webhook.
-- **If neither is configured, the form does not pretend to send.** The visitor is told the message was not sent and is shown the email address and phone number instead.
-- Includes a hidden honeypot field for basic spam protection. Add rate limiting or a CAPTCHA if spam becomes a problem.
+See [docs/editor-guide.md](docs/editor-guide.md) for day-to-day editing, [docs/seo-and-keywords.md](docs/seo-and-keywords.md) for the SEO setup and keyword plan, and [docs/content-to-confirm.md](docs/content-to-confirm.md) for starter details that need checking before launch.
 
-## Where to change things
+## Marketing features built in
 
-| What | Where |
-| --- | --- |
-| Company name, phone, email, address, hours, navigation, form service options | `src/lib/site.ts` |
-| Service descriptions, workflow steps, animation stage copy, "why choose us" commitments | `src/lib/content.ts` |
-| Page-specific copy | `src/app/<route>/page.tsx` |
-| Colours, fonts, radii (design tokens) | `@theme` block in `src/app/globals.css`; fonts in `src/app/layout.tsx` |
-| Logo (temporary wordmark) | `src/components/Logo.tsx` and `src/app/icon.svg` |
-| Shared buttons, headings, containers, placeholders | `src/components/ui.tsx` |
-| Page hero, service cards, process steps, CTA band | `src/components/sections.tsx` |
-| Header / footer | `src/components/Header.tsx`, `src/components/Footer.tsx` |
-| Analytics | `src/components/Analytics.tsx` |
+- Per-page SEO tab: title, description, social image, focus keyword with a live on-page check, secondary keywords, canonical URL and noindex
+- Structured data: Organization/ProfessionalService, WebSite, BreadcrumbList, Service, FAQPage, Article, JobPosting, ItemList
+- Automatic `sitemap.xml`, `robots.txt`, `llms.txt`, RSS feed and Open Graph images
+- Drafts, autosave, scheduled publishing, version history and live preview
+- Lead forms with honeypot spam protection, UTM capture, `generate_lead` dataLayer event and email notification
+- Google Tag Manager, GA4, LinkedIn Insight, Meta Pixel and Microsoft Clarity, loaded only after cookie consent
+- CMS-managed redirects, plus code redirects in `redirects.ts`
 
-## The lead-journey animation
+## Project layout
 
-`src/components/LeadJourney.tsx` is the only scroll-driven animation on the site.
+```
+src/
+  app/(frontend)/     public site routes
+  app/(payload)/      admin panel and REST API (generated by Payload)
+  blocks/             section blocks: config.ts (CMS fields) and components/ (React)
+  collections/        CMS collections
+  globals/            header, footer, site settings
+  components/         layout, cards, forms, motion, SEO helpers
+  lib/                data fetching, SEO metadata, URLs, database
+  seed/               starter content and its loader; art/ holds the generated artwork
+  migrations/         database migrations
+scripts/art/          three.js scene used to render the artwork in src/seed/art
+```
 
-- A tall track (`TRACK_VH`) holds a `position: sticky` panel, so normal page scrolling drives it. No scroll hijacking.
-- Scroll progress is read once per animation frame and written directly to the SVG (path stroke offset, token position). React only re-renders when the active stage changes.
-- `STAGE_SHARE` sets how much of the scroll the four stages use; the remainder completes the path and reveals the CTA.
-- Path and node geometry are the `PATH` and `NODES` constants. Stage visuals are in `StageVisual` at the bottom of the file. Stage text comes from `journeyStages` in `src/lib/content.ts`.
-- With `prefers-reduced-motion`, without JavaScript, and on first server render, a static version shows the completed workflow with all four stages explained.
-
-Elsewhere, motion is limited to a subtle reveal-on-scroll (`.reveal` class plus `src/components/RevealObserver.tsx`) and the hero illustration's flowing connectors. Both switch off under reduced motion.
-
-## Placeholders to resolve before launch
-
-Search the code for `PLACEHOLDER` and `<Placeholder` to find each one.
-
-1. **Address and business hours.** `site.contact.address` and `site.contact.hours` in `src/lib/site.ts` are `null` and hidden until filled in.
-2. **Form delivery.** Configure Resend or a webhook and decide which inbox receives inquiries.
-3. **Privacy Policy and Terms.** Structured drafts only. Data practices, providers, retention, rights, liability, governing law and jurisdiction need company input and legal review. Remove the draft notice in `src/components/LegalPage.tsx` once approved.
-4. **Mission statement** on `/about` is draft wording pending approval.
-5. **Team photo** placeholder on `/about`. Replace with an approved image using `next/image` and descriptive alt text.
-6. **Operating details** on `/how-we-work`: QA method, reporting frequency, tools and feedback process.
-7. **Logo.** The wordmark and icon are temporary.
-8. **Service scope.** Confirm the activity lists in `src/lib/content.ts` match what the company actually offers, especially for the US and Canadian services.
-9. **Analytics.** If enabled, update the privacy policy and consider whether a consent banner is needed.
-
-## Content principles
-
-The copy deliberately avoids invented facts: no client names, testimonials, ratings, metrics, certifications, founding dates or headcounts. "10+ years" is presented as company-provided industry experience. Service copy states that the company provides process support only, not legal, financial, lending or immigration advice. Keep to these rules when editing.
+Animations run for every visitor, including devices with "reduce motion" turned on, by design.
