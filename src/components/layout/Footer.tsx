@@ -19,6 +19,12 @@ export async function Footer() {
             <span className="text-2xl font-extrabold tracking-tight">SS Unicom</span>
           </Link>
           {footer.blurb && <p className="mt-6 max-w-sm leading-relaxed text-white/70">{footer.blurb}</p>}
+          {!!site.markets?.length && (
+            <p className="mt-4 max-w-sm text-[0.95rem] leading-relaxed text-white/70">
+              <span className="font-semibold text-white">Serving: </span>
+              {site.markets.map((m) => m.name).join(' · ')}
+            </p>
+          )}
           <address className="mt-6 space-y-1 text-[0.95rem] text-white/70 not-italic">
             <span className="block font-semibold text-white">{site.legalName}</span>
             {a?.street && <span className="block">{a.street}</span>}

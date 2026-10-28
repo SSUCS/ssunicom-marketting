@@ -20,7 +20,7 @@ import { SectionHeader, stagger } from '@/components/ui/Section'
 import { CountUp } from '@/components/motion/CountUp'
 import { pathFor } from '@/lib/paths'
 import { getAll, getDocBySlug, getGlobal, getSlugs } from '@/lib/payload'
-import { buildMetadata } from '@/lib/seo'
+import { areaServedSchema, buildMetadata } from '@/lib/seo'
 import { getCanonicalURL } from '@/lib/url'
 import type { CaseStudy, Industry, Service, ServiceCategory } from '@/payload-types'
 
@@ -75,7 +75,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
           url,
           category: group?.title,
           provider: { '@id': `${getCanonicalURL()}/#organization` },
-          areaServed: (site.areaServed || []).map((name) => ({ '@type': 'Country', name })),
+          areaServed: areaServedSchema(site.markets),
           hasOfferCatalog: s.deliverables?.length
             ? { '@type': 'OfferCatalog', name: `${s.title} deliverables`, itemListElement: s.deliverables.map((d) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: d.item } })) }
             : undefined,
@@ -156,7 +156,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
                 <dl className="mt-5 space-y-4 text-[0.98rem]">
                   {[
                     ['Team model', 'Dedicated or shared agents'],
-                    ['Coverage', 'Your hours, including US and UK shifts'],
+                    ['Coverage', 'Your hours: Gulf, India, UK, North America or Australia'],
                     ['Start', 'Pilot live in 2–3 weeks'],
                     ['Quality', 'Weekly QA scorecards and reports'],
                   ].map(([k, v]) => (

@@ -95,7 +95,7 @@ export function organizationSchema(site: SiteSetting) {
         postalCode: a?.postalCode || undefined,
         addressCountry: a?.country || 'IN',
       },
-      areaServed: (site.areaServed || []).map((name) => ({ '@type': 'Country', name })),
+      areaServed: areaServedSchema(site.markets),
       openingHours: site.hours || undefined,
       sameAs: (site.socials || []).map((s) => s.url),
       contactPoint: [{ '@type': 'ContactPoint', telephone: site.phone, email: site.email, contactType: 'sales', availableLanguage: ['English', 'Hindi'] }],
@@ -110,4 +110,12 @@ export function organizationSchema(site: SiteSetting) {
       inLanguage: 'en',
     },
   ]
+}
+
+/** Schema.org areaServed from the CMS "Markets we serve" list: each named country, or the market name as a Place. */
+export function areaServedSchema(markets?: { name: string; countries?: string | null }[] | null) {
+  return (markets || []).flatMap((m) => {
+    const countries = (m.countries || '').split(',').map((c) => c.trim()).filter(Boolean)
+    return countries.length ? countries.map((name) => ({ '@type': 'Country', name })) : [{ '@type': 'Place', name: m.name }]
+  })
 }

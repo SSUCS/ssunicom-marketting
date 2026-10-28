@@ -44,11 +44,14 @@ export const Keywords: CollectionConfig = {
         {
           name: 'market',
           type: 'select',
-          defaultValue: 'us',
+          defaultValue: 'global',
           options: [
+            { label: 'Middle East', value: 'me' },
+            { label: 'India', value: 'in' },
             { label: 'United States', value: 'us' },
             { label: 'United Kingdom', value: 'uk' },
-            { label: 'India', value: 'in' },
+            { label: 'Canada', value: 'ca' },
+            { label: 'Australia', value: 'au' },
             { label: 'Global', value: 'global' },
           ],
           admin: { width: '25%' },

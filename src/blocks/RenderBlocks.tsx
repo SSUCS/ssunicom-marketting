@@ -17,6 +17,7 @@ import { ServiceDirectory } from './components/ServiceDirectory'
 import { SplitFeature } from './components/SplitFeature'
 import { StatsGrid } from './components/StatsGrid'
 import { Testimonial } from './components/Testimonial'
+import { Markets } from './components/Markets'
 import { TrustBadges } from './components/TrustBadges'
 
 type Block = NonNullable<Page['layout']>[number]
@@ -41,6 +42,7 @@ const components: Record<Block['blockType'], React.ComponentType<any>> = {
   jobsList: JobsList,
   formBlock: FormBlock,
   trustBadges: TrustBadges,
+  markets: Markets,
 }
 
 export function RenderBlocks({ blocks }: { blocks?: Page['layout'] }) {

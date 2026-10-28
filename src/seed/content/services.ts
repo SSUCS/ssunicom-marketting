@@ -52,10 +52,10 @@ export const groups: GroupSeed[] = [
     art: 'group-cx',
     description: `Your customers judge you on every call, chat and email. Our customer experience teams learn your products, your tone and your policies before they speak to a single customer, then keep improving against the measures you care about: speed, resolution and satisfaction.
 
-We run support and sales programmes for US, UK and Indian businesses from our Kanpur delivery centre, with coverage that matches your business hours, nights, weekends or seasonal peaks.`,
+We run support and sales programmes for businesses in the Middle East, India, the USA, the UK, Canada and Australia from our Kanpur delivery centre, with coverage that matches your business hours, nights, weekends or seasonal peaks.`,
     benefits: [
       { icon: 'Languages', title: 'Neutral, trained English', text: 'Agents pass accent, grammar and empathy assessments before they join your programme.' },
-      { icon: 'Clock', title: 'Coverage on your clock', text: 'Day, night, weekend and overflow shifts aligned to US, UK or Indian time zones.' },
+      { icon: 'Clock', title: 'Coverage on your clock', text: 'Day, night, weekend and overflow shifts aligned to Gulf, Indian, UK, North American or Australian time zones.' },
       { icon: 'ClipboardCheck', title: 'Measured on outcomes', text: 'Weekly QA scorecards on resolution, handle time and CSAT, not just call counts.' },
       { icon: 'Gauge', title: 'Scale up in weeks', text: 'Add seats for launches and peak seasons without a recruitment drive of your own.' },
     ],
@@ -87,7 +87,7 @@ We run support and sales programmes for US, UK and Indian businesses from our Ka
 Every process is documented in a standard operating procedure you sign off, measured against agreed turnaround and accuracy targets, and reported to you weekly.`,
     benefits: [
       { icon: 'FileCheck2', title: 'Maker-checker on every batch', text: 'A second person verifies work before it is delivered, and errors are logged and trended.' },
-      { icon: 'Clock', title: 'Overnight turnaround', text: 'Work sent at the end of your US or UK day is done by the start of the next one.' },
+      { icon: 'Clock', title: 'Overnight turnaround', text: 'Work sent at the end of your day, wherever you are, is done by the start of the next one.' },
       { icon: 'Lock', title: 'Controlled access', text: 'Role-based logins, clean-desk rules and no personal devices on the production floor.' },
       { icon: 'Wallet', title: 'Predictable cost', text: 'Per-FTE or per-transaction pricing agreed upfront, with no surprise charges.' },
     ],
@@ -111,7 +111,7 @@ Every process is documented in a standard operating procedure you sign off, meas
     code: 'Group C',
     title: 'Industry Operations',
     icon: 'Building2',
-    tagline: 'Specialist teams for regulated, process-heavy US industries.',
+    tagline: 'Specialist teams for regulated, process-heavy industries.',
     heroHeading: 'Specialist operations teams for regulated industries',
     art: 'group-industry',
     description: `Healthcare, insurance, mortgage and legal work comes with its own vocabulary, systems and compliance rules. Our industry operations teams are trained for each domain, work to your checklists and keep a clear audit trail of every file they touch.
@@ -130,7 +130,7 @@ We support practices, billing companies, agencies, carriers, lenders, brokers an
     ],
     faqs: [
       { question: 'Do you sign a Business Associate Agreement (BAA)?', answer: 'Yes. For healthcare clients that share protected health information we sign a BAA and follow HIPAA-aligned safeguards, including access logging and minimum-necessary access.' },
-      { question: 'Do your teams work on US time?', answer: 'Our industry operations teams usually work US hours, so they can call payers, carriers and title companies while those offices are open.' },
+      { question: 'Do your teams work in our time zone?', answer: 'Yes. Industry operations teams work your business hours, whether that is Gulf, Indian, UK, North American or Australian time, so they can reach payers, carriers and title companies while those offices are open.' },
       { question: 'What software do your teams know?', answer: 'Examples include AdvancedMD, Kareo, eClinicalWorks, Applied Epic, AMS360, Encompass and common document-management systems. We train on your stack during the pilot.' },
     ],
     metaTitle: 'Healthcare, Insurance, Mortgage & Legal Process Outsourcing | SS Unicom',
@@ -153,12 +153,12 @@ You choose the model: a dedicated engineer, a small cross-functional pod, or a f
       { icon: 'CodeXml', title: 'Modern stacks', text: 'React, Next.js, Node.js, Python, PHP, Laravel, WordPress, Shopify, AWS and Azure.' },
       { icon: 'Workflow', title: 'Your process, your tools', text: 'We work in your Jira, GitHub and Slack, in your sprint rhythm.' },
       { icon: 'Lock', title: 'Your code stays yours', text: 'IP assignment in every contract, least-privilege access and no code on personal machines.' },
-      { icon: 'Clock', title: 'Overlap hours', text: 'Daily overlap with US or UK working hours for stand-ups and reviews.' },
+      { icon: 'Clock', title: 'Overlap hours', text: 'Daily overlap with your working hours, from the Gulf to North America to Australia, for stand-ups and reviews.' },
     ],
     stats: [
       { value: '2 weeks', label: 'To place a vetted engineer' },
       { value: '50%', label: 'Typical saving against local hiring' },
-      { value: '4 hrs', label: 'Daily overlap with US or UK teams' },
+      { value: '4 hrs', label: 'Daily overlap with your team, in any time zone' },
     ],
     faqs: [
       { question: 'Who owns the code your developers write?', answer: 'You do. Every contract assigns intellectual property to you, and work lives in your repositories from day one.' },
@@ -344,10 +344,10 @@ Every call is logged in your CRM with notes, and you see dials, connects, conver
 
 ### Who it is for
 
-B2B software, professional services, solar, insurance and home-services companies that sell to the US, UK or India.`,
+B2B software, professional services, solar, insurance and home-services companies that sell in the Middle East, India, the USA, the UK, Canada or Australia.`,
     faqs: [
       { question: 'How do you define a qualified meeting?', answer: 'We agree the criteria with you before calling starts, for example company size, role, budget and timing. Only meetings that meet them count towards our targets.' },
-      { question: 'Do you follow TCPA and Do Not Call rules?', answer: 'Yes. We scrub lists against the relevant DNC registries, keep consent records and follow calling-hour rules for each US state and the UK.' },
+      { question: 'Do you follow TCPA and Do Not Call rules?', answer: 'Yes. We scrub lists against the relevant DNC registries, keep consent records and follow the calling rules of every market we dial, including US TCPA, the UK TPS, Canada’s DNCL, Australia’s Do Not Call Register and UAE telemarketing regulations.' },
       { question: 'Can you work from our CRM?', answer: 'Yes. We work in Salesforce, HubSpot, Pipedrive, Zoho or your own CRM, so every activity and note stays with you.' },
     ],
     related: ['inbound-voice-support', 'digital-marketing-seo', 'data-analytics'],
@@ -425,7 +425,7 @@ Work follows a checklist you approve, with a senior reviewer signing off each cl
 Small and mid-sized businesses, CPA and accounting firms that need white-label capacity, and finance teams handling growth.`,
     faqs: [
       { question: 'Do you work for CPA firms as well as businesses?', answer: 'Yes. Many CPA and accounting firms use our bookkeepers as white-label capacity during tax season or all year round.' },
-      { question: 'Are your bookkeepers familiar with US and UK accounting?', answer: 'Yes. Teams are trained on US GAAP and UK practices for bookkeeping tasks. Tax filing and sign-off remain with your licensed accountant.' },
+      { question: 'Are your bookkeepers familiar with our country\'s accounting?', answer: 'Yes. Teams work to IFRS, US GAAP and local practice, including UAE and Saudi VAT, Indian GST, UK VAT, Canadian GST/HST and Australian BAS. Tax filing and sign-off remain with your licensed accountant.' },
       { question: 'How do you keep financial data secure?', answer: 'We work in your cloud accounting software with individual logins, multi-factor authentication and role-based permissions. No data is stored locally.' },
     ],
     related: ['payroll-hr-administration', 'data-entry-processing', 'order-claims-processing'],
@@ -536,7 +536,7 @@ Certified coders support charge capture and code review, while AR callers work a
 
 ### Who it is for
 
-Physician practices, specialty clinics, hospitals, labs and medical billing companies in the United States.`,
+Physician practices, specialty clinics, hospitals, labs and medical billing companies in the USA, plus insurance-claims and TPA work for hospitals in the Middle East and India.`,
     faqs: [
       { question: 'Are your medical billing staff HIPAA trained?', answer: 'Yes. Every team member completes HIPAA training, signs confidentiality agreements and works under access controls with full activity logging. We sign a BAA with every healthcare client.' },
       { question: 'Which practice-management systems do you use?', answer: 'Common systems include AdvancedMD, Kareo (Tebra), eClinicalWorks, athenahealth, NextGen and DrChrono. We train on others during onboarding.' },
@@ -575,7 +575,7 @@ Work is tracked through service requests with agreed turnaround times, so nothin
 
 ### Who it is for
 
-Independent agencies, brokers, MGAs and carriers, mainly in commercial and personal lines in the United States.`,
+Independent agencies, brokers, MGAs and carriers, in commercial and personal lines across the USA, UK, Canada, Australia and the Middle East.`,
     faqs: [
       { question: 'Which agency management systems do you work in?', answer: 'Commonly Applied Epic, AMS360, HawkSoft, EZLynx and QQCatalyst, along with carrier portals. We learn your set-up during onboarding.' },
       { question: 'Do your staff need insurance licences?', answer: 'No. Our teams handle non-licensed servicing tasks. Anything that requires a licence, such as giving coverage advice, stays with your licensed staff.' },

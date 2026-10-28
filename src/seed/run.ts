@@ -36,6 +36,15 @@ const altFor = (key: string) => {
   return kind === 'industry' ? `Abstract artwork for the ${name} industry` : `Abstract artwork for ${name} services`
 }
 
+const markets = [
+  { name: 'Middle East', countries: 'UAE, Saudi Arabia, Qatar, Oman, Bahrain, Kuwait', coverage: 'Gulf business hours, Sunday to Thursday, in English and Arabic' },
+  { name: 'India', countries: 'India', coverage: 'IST business hours, in English and Hindi' },
+  { name: 'USA', countries: 'United States', coverage: 'Eastern to Pacific hours, including nights and weekends' },
+  { name: 'UK', countries: 'United Kingdom', coverage: 'UK business hours, with evening and weekend cover' },
+  { name: 'Canada', countries: 'Canada', coverage: 'Eastern to Pacific hours, in English' },
+  { name: 'Australia', countries: 'Australia', coverage: 'AEST and AWST business hours, from early morning in India' },
+]
+
 const wipe: CollectionSlug[] = [
   'keywords',
   'redirects',
@@ -370,8 +379,8 @@ async function seed(payload: Payload) {
       titleTemplate: '%s | SS Unicom',
       defaultTitle: 'SS Unicom: Business Process Outsourcing Company in India',
       defaultDescription:
-        'SS Unicom provides customer experience, back-office, industry, technology and marketing outsourcing from Kanpur, India, for businesses in the US, UK and India.',
-      areaServed: ['United States', 'United Kingdom', 'India'],
+        'SS Unicom provides customer experience, back-office, industry, technology and marketing outsourcing from Kanpur, India, for businesses in the Middle East, India, USA, UK, Canada and Australia.',
+      markets,
       cookieBanner: true,
       cookieText: 'We use cookies to measure how the site is used and to improve it. You can accept or decline analytics cookies.',
       announcementEnabled: false,
@@ -425,7 +434,7 @@ async function seed(payload: Payload) {
     context: ctx,
     data: {
       blurb:
-        'SS Universal Communication Services Pvt Ltd runs customer experience, back-office and technology teams from Kanpur, India, for businesses in the United States, United Kingdom and India.',
+        'SS Universal Communication Services Pvt Ltd runs customer experience, back-office and technology teams from Kanpur, India, for businesses around the world.',
       columns: [
         {
           heading: 'Services',
@@ -477,13 +486,26 @@ async function seed(payload: Payload) {
     if (!meta?.focusKeyword) continue
     const target = { relationTo: 'pages', value: pageIds[p.slug] }
     kws.push({ keyword: meta.focusKeyword, cluster: 'Core pages', intent: p.slug === 'contact' ? 'navigational' : 'commercial', priority: 'p1', target })
-    for (const k of meta.secondaryKeywords ?? []) kws.push({ keyword: k, cluster: 'Core pages', intent: 'commercial', priority: 'p2', market: /kanpur|india/i.test(k) ? 'in' : 'us', target })
+    for (const k of meta.secondaryKeywords ?? []) kws.push({ keyword: k, cluster: 'Core pages', intent: 'commercial', priority: 'p2', market: /kanpur|india/i.test(k) ? 'in' : 'global', target })
   }
   for (const k of ['SS Unicom', 'SS Unicom Service', 'SS Universal Communication Services']) {
     kws.push({ keyword: k, cluster: 'Brand', intent: 'navigational', market: 'global', priority: 'p1', target: { relationTo: 'pages', value: pageIds.home } })
   }
   for (const k of ['BPO company in Kanpur', 'call center in Kanpur', 'outsourcing company Uttar Pradesh']) {
     kws.push({ keyword: k, cluster: 'Local', intent: 'transactional', market: 'in', priority: 'p2', target: { relationTo: 'pages', value: pageIds.about } })
+  }
+  const marketKeywords: [string, string][] = [
+    ['BPO services for UAE businesses', 'me'],
+    ['outsourcing company for Saudi Arabia', 'me'],
+    ['Arabic and English call center outsourcing', 'me'],
+    ['outsourcing services India', 'in'],
+    ['offshore outsourcing for US companies', 'us'],
+    ['outsourcing to India from the UK', 'uk'],
+    ['call center outsourcing Canada', 'ca'],
+    ['offshore staffing Australia', 'au'],
+  ]
+  for (const [keyword, market] of marketKeywords) {
+    kws.push({ keyword, cluster: 'Markets', intent: 'commercial', market, priority: 'p1', target: { relationTo: 'pages', value: pageIds.home } })
   }
   const seen = new Set<string>()
   for (const k of kws) {
@@ -493,7 +515,7 @@ async function seed(payload: Payload) {
     await payload.create({
       collection: 'keywords',
       context: ctx,
-      data: { market: 'us', priority: 'p2', status: 'live', source: 'manual', ...k, notes: 'Add volume, KD and CPC from SEMrush.' } as never,
+      data: { market: 'global', priority: 'p2', status: 'live', source: 'manual', ...k, notes: 'Add volume, KD and CPC from SEMrush.' } as never,
     })
   }
   payload.logger.info(`Seed: ${seen.size} keywords`)
