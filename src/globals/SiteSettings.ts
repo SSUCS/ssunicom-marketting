@@ -55,6 +55,25 @@ export const SiteSettings: GlobalConfig = {
               ],
             },
             { name: 'hours', type: 'text' },
+            {
+              name: 'markets',
+              label: 'Markets we serve',
+              type: 'array',
+              admin: {
+                description:
+                  'Shown in the "Markets we serve" section, the footer and Google structured data. Order matters: the first market is listed first everywhere.',
+              },
+              fields: [
+                {
+                  type: 'row',
+                  fields: [
+                    { name: 'name', type: 'text', required: true, admin: { width: '35%', description: 'e.g. Middle East' } },
+                    { name: 'countries', type: 'text', admin: { width: '65%', description: 'Comma-separated, e.g. UAE, Saudi Arabia, Qatar' } },
+                  ],
+                },
+                { name: 'coverage', type: 'text', admin: { description: 'One line on hours or focus, e.g. "Gulf business hours, Sunday to Thursday"' } },
+              ],
+            },
             { name: 'foundingYear', type: 'number' },
             {
               name: 'socials',
@@ -83,12 +102,6 @@ export const SiteSettings: GlobalConfig = {
             { name: 'defaultTitle', type: 'text', required: true },
             { name: 'defaultDescription', type: 'textarea', required: true },
             { name: 'defaultOgImage', type: 'upload', relationTo: 'media', admin: { description: '1200×630. A generated image is used when empty.' } },
-            {
-              name: 'areaServed',
-              type: 'text',
-              hasMany: true,
-              admin: { description: 'Countries for Organization schema, e.g. United States, United Kingdom, India.' },
-            },
             {
               type: 'row',
               fields: [

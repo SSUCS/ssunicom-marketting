@@ -444,6 +444,23 @@ export const TrustBadges: Block = {
   ],
 }
 
+export const Markets: Block = {
+  slug: 'markets',
+  interfaceName: 'MarketsBlock',
+  labels: { singular: 'Markets we serve', plural: 'Markets we serve' },
+  fields: [
+    eyebrow,
+    heading,
+    intro,
+    {
+      name: 'note',
+      type: 'ui',
+      admin: { components: { Field: '@/components/admin/MarketsNote#MarketsNote' } },
+    },
+    sectionSettings,
+  ],
+}
+
 export const pageBlocks: Block[] = [
   LogoMarquee,
   SplitFeature,
@@ -463,4 +480,5 @@ export const pageBlocks: Block[] = [
   JobsList,
   FormBlock,
   TrustBadges,
+  Markets,
 ]

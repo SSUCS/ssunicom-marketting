@@ -15,6 +15,10 @@ The starter content was written so the site reads as finished. Some details belo
 
 Confirmed and correct: phone +91 97947 74773, email info@ssunicomservice.com, legal name SS Universal Communication Services Pvt Ltd, Kanpur.
 
+## Markets (Settings → Site settings → Markets we serve)
+
+Middle East (UAE, Saudi Arabia, Qatar, Oman, Bahrain, Kuwait), India, USA, UK, Canada, Australia, as the CEO asked on 28 Oct 2026. The coverage lines (for example, Arabic support for the Middle East) are assumptions to check.
+
 ## Numbers (Pages → Home, About, Why SS Unicom; Service groups)
 
 - Home: 10+ years, 300+ professionals, 24/7 coverage, 120+ clients, 3 countries, 1.5M+ interactions a year, 99.5% SLA adherence
@@ -24,7 +28,7 @@ Confirmed and correct: phone +91 97947 74773, email info@ssunicomservice.com, le
 
 ## Clients and proof (Case studies, Testimonials)
 
-All four case studies and the three testimonials are illustrative. Replace them with real, approved client stories, or unpublish them, before launch. Testimonials use job titles instead of names on purpose.
+All four case studies and the three testimonials are illustrative. They are now spread across the UAE, Canada, the USA and the UK. Replace them with real, approved client stories, or unpublish them, before launch. Testimonials use job titles instead of names on purpose.
 
 ## Security and infrastructure claims (Pages → Trust & security, About, FAQs)
 

@@ -23,7 +23,7 @@ export const CaseStudies: CollectionConfig<'case-studies'> = {
       name: 'client',
       type: 'text',
       required: true,
-      admin: { description: 'How the client is described publicly, e.g. "US multi-location dental group". Name them only with written permission.' },
+      admin: { description: 'How the client is described publicly, e.g. "Multi-location dental group, UAE". Name them only with written permission.' },
     },
     {
       name: 'headlineMetric',

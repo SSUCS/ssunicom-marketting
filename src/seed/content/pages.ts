@@ -45,7 +45,7 @@ export const pages = (refs: Refs) => [
         eyebrow: 'Who we are',
         heading: 'Dependable people. Disciplined process.',
         body: lexical(
-          'SS Unicom brings together trained specialists, documented processes and secure infrastructure to run the work that keeps your business moving. From customer calls to medical claims to code, we deliver from our Kanpur centre for clients in the United States, United Kingdom and India.',
+          'SS Unicom brings together trained specialists, documented processes and secure infrastructure to run the work that keeps your business moving. From customer calls to medical claims to code, we deliver from our Kanpur centre for clients across the Middle East, India, the USA, the UK, Canada and Australia.',
         ),
         image: refs.media('who-we-are'),
         accent: 'amber',
@@ -112,12 +112,19 @@ export const pages = (refs: Refs) => [
           { value: '20', label: 'Specialist services' },
           { value: '24/7', label: 'Coverage available' },
           { value: '120+', label: 'Clients served' },
-          { value: '3', label: 'Countries served' },
+          { value: '6', label: 'Markets served' },
           { value: '1.5M+', label: 'Interactions a year' },
           { value: '99.5%', label: 'SLA adherence' },
         ],
         image: refs.media('waves'),
         settings: settings(),
+      },
+      {
+        blockType: 'markets',
+        eyebrow: 'Markets we serve',
+        heading: 'One delivery centre, six markets',
+        intro: 'Our Kanpur teams work in your time zone and to your local rules, wherever your customers are.',
+        settings: settings('white'),
       },
       {
         blockType: 'serviceDirectory',
@@ -151,7 +158,7 @@ export const pages = (refs: Refs) => [
     ],
     meta: {
       title: 'SS Unicom | BPO & Outsourcing Services Company in India',
-      description: 'SS Unicom is a business process outsourcing company in Kanpur, India: customer support, back office, medical billing, IT and marketing teams for US, UK and Indian businesses.',
+      description: 'SS Unicom is a business process outsourcing company in Kanpur, India: customer support, back office, medical billing, IT and marketing teams for businesses in the Middle East, India, USA, UK, Canada and Australia.',
       focusKeyword: 'business process outsourcing',
       secondaryKeywords: ['BPO company in India', 'outsourcing services India', 'BPO company in Kanpur'],
       image: refs.media('hero'),
@@ -276,7 +283,7 @@ export const pages = (refs: Refs) => [
       type: 'standard',
       eyebrow: 'About SS Unicom',
       heading: 'A Kanpur outsourcing company built on doing the work properly',
-      text: 'Since 2016 we have grown from one calling team into a multi-practice operation serving businesses in the US, UK and India.',
+      text: 'Since 2016 we have grown from one calling team into a multi-practice operation serving businesses across the Middle East, India, the USA, the UK, Canada and Australia.',
       links: [pageLink(refs, 'contact', 'Work with us')],
       media: refs.media('who-we-are'),
     },
@@ -285,7 +292,7 @@ export const pages = (refs: Refs) => [
         blockType: 'splitFeature',
         eyebrow: 'Our story',
         heading: 'From one client to twenty services',
-        body: lexical(`SS Universal Communication Services Pvt Ltd started in Kanpur with a small team answering calls for a single US client. That client stayed with us and grew, and so did we: adding quality, training and back-office teams, then specialist healthcare, insurance, technology and marketing practices.
+        body: lexical(`SS Universal Communication Services Pvt Ltd started in Kanpur with a small team answering calls for a single overseas client. That client stayed with us and grew, and so did we: adding quality, training and back-office teams, then specialist healthcare, insurance, technology and marketing practices.
 
 Today more than 300 people work across three shifts from our Kanpur delivery centre. What has not changed is how we work: written processes, honest reporting and a team that treats your customers as its own.`),
         image: refs.media('tile-people'),
@@ -299,11 +306,18 @@ Today more than 300 people work across three shifts from our Kanpur delivery cen
         stats: [
           { value: '2016', label: 'Founded in Kanpur' },
           { value: '300+', label: 'Trained professionals' },
-          { value: '3', label: 'Shifts, day and night' },
+          { value: '6', label: 'Markets served' },
           { value: '120+', label: 'Clients served' },
         ],
         image: refs.media('silk'),
         settings: settings('white'),
+      },
+      {
+        blockType: 'markets',
+        eyebrow: 'Where our clients are',
+        heading: 'Serving the Middle East, India, USA, UK, Canada and Australia',
+        intro: 'Each market has a team lead who knows its hours, holidays, language and compliance rules.',
+        settings: settings('stone'),
       },
       {
         blockType: 'processSteps',
@@ -327,13 +341,13 @@ Today more than 300 people work across three shifts from our Kanpur delivery cen
           { icon: 'Network', title: 'Redundant connectivity', text: 'Two leased lines from separate providers with automatic failover.' },
           { icon: 'Lock', title: 'Locked-down workstations', text: 'No USB storage, no personal phones on the floor, managed endpoints.' },
           { icon: 'Headset', title: 'Enterprise telephony', text: 'Cloud dialler and call recording, with your own telephony supported.' },
-          { icon: 'Users', title: 'Three shifts', text: 'Day shift for India and the UK, night shift for US business hours.' },
+          { icon: 'Users', title: 'Shifts that follow the sun', text: 'Teams aligned to Gulf, Indian, UK, North American and Australian business hours.' },
         ],
         settings: settings('navy'),
       },
       { blockType: 'ctaBanner', heading: 'Visit us or meet online', text: 'We welcome client visits to our Kanpur centre, and we are always happy to walk you through it on video.', links: [pageLink(refs, 'contact', 'Arrange a visit', 'mint')], style: 'cobalt', width: 'full', settings: settings() },
     ],
-    meta: { title: 'About SS Unicom: Outsourcing Company in Kanpur, India', description: 'SS Universal Communication Services Pvt Ltd is a Kanpur-based outsourcing company with 300+ people serving US, UK and Indian businesses since 2016.', focusKeyword: 'outsourcing company in Kanpur' },
+    meta: { title: 'About SS Unicom: Outsourcing Company in Kanpur, India', description: 'SS Universal Communication Services Pvt Ltd is a Kanpur-based outsourcing company with 300+ people serving businesses in the Middle East, India, USA, UK, Canada and Australia since 2016.', focusKeyword: 'outsourcing company in Kanpur' },
   },
   {
     slug: 'why-ss-unicom',

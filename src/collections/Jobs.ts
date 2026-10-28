@@ -39,7 +39,7 @@ export const Jobs: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        { name: 'shift', type: 'text', admin: { description: 'e.g. US night shift' } },
+        { name: 'shift', type: 'text', admin: { description: 'e.g. UK day shift or rotational' } },
         { name: 'experience', type: 'text', admin: { description: 'e.g. 0–2 years' } },
         { name: 'openings', type: 'number', defaultValue: 1 },
       ],

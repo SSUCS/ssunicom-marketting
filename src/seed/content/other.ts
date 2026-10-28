@@ -9,7 +9,7 @@ export const industries = [
     art: 'industry-healthcare',
     summary: 'Revenue-cycle, patient-access and admin support for practices, clinics, labs and billing companies.',
     heroHeading: 'Healthcare outsourcing for practices, clinics and billing companies',
-    heroText: 'HIPAA-aligned teams for medical billing, patient scheduling, eligibility checks and back-office work, working US hours.',
+    heroText: 'HIPAA-aligned teams for medical billing, patient scheduling, eligibility checks and back-office work, in your time zone.',
     overview: `Healthcare providers are under pressure from every side: payer rules that keep changing, staff shortages and patients who expect quick answers. Outsourcing the administrative load lets clinical teams spend their time on care.
 
 Our healthcare teams are trained on HIPAA, payer workflows and the practice-management systems you already use. We sign a Business Associate Agreement with every client that shares protected health information.`,
@@ -24,7 +24,7 @@ Our healthcare teams are trained on HIPAA, payer workflows and the practice-mana
       { question: 'Can you handle patient calls as well as billing?', answer: 'Yes. Many practices combine patient scheduling and billing-enquiry calls with back-office billing work in one programme.' },
     ],
     metaTitle: 'Healthcare BPO & Medical Outsourcing Services | SS Unicom',
-    metaDescription: 'HIPAA-aligned healthcare outsourcing: medical billing and coding, patient scheduling, eligibility checks and back-office support for US practices.',
+    metaDescription: 'HIPAA-aligned healthcare outsourcing: medical billing and coding, patient scheduling, eligibility checks and back-office support for practices in the USA, Middle East and India.',
     focusKeyword: 'healthcare BPO services',
   },
   {
@@ -98,7 +98,7 @@ Every matter is ring-fenced, conflict-checked and quality-reviewed before delive
     ],
     services: ['legal-process-support', 'virtual-executive-assistants', 'data-entry-processing', 'content-creative'],
     faqs: [
-      { question: 'Do you work for US and UK law firms?', answer: 'Yes. Our teams follow US and UK conventions for review, citation formats and transcription.' },
+      { question: 'Which jurisdictions do you support?', answer: 'Our teams work for firms in the USA, UK, Canada, Australia, India and the Middle East, following each jurisdiction\'s conventions for review, citation formats and transcription.' },
       { question: 'Can you support contract lifecycle management projects?', answer: 'Yes. We abstract legacy contracts into your CLM tool and keep records current as new agreements arrive.' },
     ],
     metaTitle: 'Legal Process Outsourcing for Law Firms | SS Unicom',
@@ -177,7 +177,7 @@ They learn your product in depth, work in your tools and report in your metrics,
     services: ['technical-help-desk', 'outbound-sales-lead-generation', 'qa-software-testing', 'software-web-development', 'it-support-managed-services'],
     faqs: [
       { question: 'Can you support a product with frequent releases?', answer: 'Yes. We join your release notes and training cycle, update the knowledge base with each release and flag new issue trends early.' },
-      { question: 'Do you offer SDRs for US markets?', answer: 'Yes. SDRs work US hours and follow TCPA and DNC rules, logging all activity in your CRM.' },
+      { question: 'Can your SDRs sell into our market?', answer: 'Yes. SDRs work the hours of the market they call, from the Gulf to North America to Australia, follow local do-not-call rules and log all activity in your CRM.' },
     ],
     metaTitle: 'SaaS & Technology Outsourcing: Support, SDRs, QA | SS Unicom',
     metaDescription: 'Outsourcing for SaaS companies: Tier 1–2 technical support, customer onboarding, SDR lead generation, QA testing and dedicated developers.',
@@ -202,7 +202,7 @@ We work in your TMS, WMS and accounting systems and report daily on volumes and 
     ],
     services: ['order-claims-processing', 'data-entry-processing', 'inbound-voice-support', 'bookkeeping-accounting', 'it-support-managed-services'],
     faqs: [
-      { question: 'Can you work nights to cover US freight hours?', answer: 'Yes. Logistics teams commonly work US shifts, including weekends for dispatch and tracking.' },
+      { question: 'Can you cover our freight hours?', answer: 'Yes. Logistics teams work the shifts your lanes need, whether Gulf, UK, North American or Australian hours, including weekends for dispatch and tracking.' },
       { question: 'Which TMS platforms do you know?', answer: 'Examples include McLeod, MercuryGate, Rose Rocket and Descartes, and we train on others during onboarding.' },
     ],
     metaTitle: 'Logistics & Supply Chain Back Office Outsourcing | SS Unicom',
@@ -214,8 +214,8 @@ We work in your TMS, WMS and accounting systems and report daily on volumes and 
 export const caseStudies = [
   {
     slug: 'home-services-marketplace-cost-per-contact',
-    title: 'Cutting cost per contact by 38% for a US home-services marketplace',
-    client: 'US home-services marketplace',
+    title: 'Cutting cost per contact by 38% for a Gulf home-services marketplace',
+    client: 'Home-services marketplace, UAE and Saudi Arabia',
     metric: { value: '38%', label: 'lower cost per contact' },
     summary: 'A fast-growing marketplace needed 24/7 phone and chat coverage without doubling its in-house team. We went live in three weeks and now handle most of its customer contacts.',
     image: 'tile-headset',
@@ -234,12 +234,12 @@ Weekly QA calibration sessions with the client's support lead kept tone and deci
       { value: '4.6/5', label: 'post-contact CSAT' },
       { value: '24/7', label: 'coverage within 3 weeks' },
     ],
-    quote: { text: 'Customers can’t tell where the team sits, and that is exactly the point. Our CSAT went up while our cost went down.', author: 'Director of Customer Operations', role: 'US home-services marketplace' },
+    quote: { text: 'Customers can’t tell where the team sits, and that is exactly the point. Our CSAT went up while our cost went down.', author: 'Director of Customer Operations', role: 'Home-services marketplace, UAE' },
   },
   {
     slug: 'saas-qualified-meetings',
     title: '2.3× more qualified meetings for a B2B SaaS sales team',
-    client: 'B2B SaaS company, United States',
+    client: 'B2B SaaS company, Canada',
     metric: { value: '2.3×', label: 'more qualified meetings' },
     summary: 'An HR-software company wanted more pipeline without hiring another SDR class. Our research and calling team doubled qualified meetings in one quarter.',
     image: 'tile-chart',
@@ -249,7 +249,7 @@ Weekly QA calibration sessions with the client's support lead kept tone and deci
     solution: `We split the work into research and outreach.
 
 - Two researchers built verified contact lists against a tight ideal-customer profile
-- Four callers ran structured call and email sequences during US hours
+- Four callers ran structured call and email sequences during North American business hours
 - Every activity was logged in HubSpot, with a weekly dashboard for the sales leader
 
 We refined the qualification script every fortnight based on what account executives said in their meeting feedback.`,
@@ -311,9 +311,9 @@ Daily progress reports showed records completed, checked and ready to load.`,
 ]
 
 export const testimonials = [
-  { quote: 'SS Unicom treats our customers as if they were their own. The weekly QA reviews give us complete confidence in the team.', name: 'Director of Customer Operations', role: '', company: 'US home-services marketplace' },
+  { quote: 'SS Unicom treats our customers as if they were their own. The weekly QA reviews give us complete confidence in the team.', name: 'Director of Customer Operations', role: '', company: 'Home-services marketplace, UAE' },
   { quote: 'Our month-end close went from twelve days to five. The bookkeeping team is accurate, responsive and easy to work with.', name: 'Managing Partner', role: '', company: 'CPA firm, New Jersey' },
-  { quote: 'We needed developers who would work inside our process, not around it. That is exactly what we got.', name: 'CTO', role: '', company: 'UK property-technology start-up' },
+  { quote: 'We needed developers who would work inside our process, not around it. That is exactly what we got.', name: 'CTO', role: '', company: 'Australian property-technology start-up' },
 ]
 
 export const posts = [
@@ -433,16 +433,16 @@ Many clients start with shared after-hours coverage, then move to a dedicated da
 export const jobs = [
   {
     slug: 'customer-support-associate-us-process',
-    title: 'Customer Support Associate (US Process)',
+    title: 'Customer Support Associate (International Process)',
     department: 'Customer Experience',
-    shift: 'US night shift',
+    shift: 'Rotational: Gulf, UK, North American or Australian hours',
     experience: '0–2 years',
     openings: 12,
     salaryMin: 18000,
     salaryMax: 26000,
-    summary: 'Help customers of US brands by phone, chat and email. Full training is provided; strong spoken English and a calm, helpful manner matter most.',
-    responsibilities: ['Answer customer calls, chats and emails for US clients', 'Resolve order, billing and account questions using client systems', 'Log every interaction accurately in the CRM', 'Escalate complex issues following the agreed process'],
-    requirements: ['Graduate or undergraduate with excellent spoken English', 'Comfortable working US night shifts', 'Basic computer skills and typing speed of 30+ wpm', 'Previous BPO experience is a plus, not a requirement'],
+    summary: 'Help customers of international brands in the Middle East, USA, UK, Canada and Australia by phone, chat and email. Full training is provided; strong spoken English and a calm, helpful manner matter most.',
+    responsibilities: ['Answer customer calls, chats and emails for international clients', 'Resolve order, billing and account questions using client systems', 'Log every interaction accurately in the CRM', 'Escalate complex issues following the agreed process'],
+    requirements: ['Graduate or undergraduate with excellent spoken English', 'Comfortable working rotational shifts, including nights', 'Basic computer skills and typing speed of 30+ wpm', 'Previous BPO experience is a plus, not a requirement'],
   },
   {
     slug: 'medical-billing-executive-ar-follow-up',
@@ -466,7 +466,7 @@ export const jobs = [
     openings: 4,
     salaryMin: 25000,
     salaryMax: 40000,
-    summary: 'Research prospects, run call and email sequences and book qualified meetings for US B2B clients.',
+    summary: 'Research prospects, run call and email sequences and book qualified meetings for B2B clients in the USA, UK, Canada, Australia and the Middle East.',
     responsibilities: ['Make outbound calls and send personalised emails to prospects', 'Qualify interest against client criteria', 'Book meetings into client sales calendars', 'Keep CRM records accurate and complete'],
     requirements: ['1+ year in outbound sales, lead generation or appointment setting', 'Confident, clear spoken English', 'Experience with HubSpot or Salesforce preferred', 'Target-driven and coachable'],
   },

@@ -33,10 +33,19 @@ Every save is kept in **Versions**, so you can compare or restore an older versi
 | Jobs list | Open roles |
 | Form | Any form from the form builder |
 | Trust badges | Small icon badges for certifications and policies |
+| Markets we serve | The markets list from Site settings, as cards |
 
 ## Services and groups
 
 Each service has a **Summary** tab (title, number, group, icon, one-line description, four deliverables), a **Landing page** tab (hero, overview, benefits, process, stats, FAQs) and a **Relationships** tab (industries, related services, case studies). The services menu and directory update themselves.
+
+## Markets we serve
+
+The six markets (Middle East, India, USA, UK, Canada, Australia) are edited in one place: **Settings → Site settings → Company → Markets we serve**. Each row has a name, the countries it covers and one line on hours or focus. Drag rows to reorder them. The change updates the "Markets we serve" sections on Home and About, the "Serving:" line in the footer and the Google structured data.
+
+To show the markets on another page, add the **Markets we serve** block to that page.
+
+Market-specific wording in page text (for example, "Gulf, Indian, UK, North American or Australian time zones") lives in that page's or service's own fields.
 
 ## Menus, footer and company details
 

@@ -227,6 +227,7 @@ export interface Page {
         | JobsListBlock
         | FormBlockBlock
         | TrustBadgesBlock
+        | MarketsBlock
       )[]
     | null;
   publishedAt?: string | null;
@@ -913,7 +914,7 @@ export interface CaseStudy {
   id: number;
   title: string;
   /**
-   * How the client is described publicly, e.g. "US multi-location dental group". Name them only with written permission.
+   * How the client is described publicly, e.g. "Multi-location dental group, UAE". Name them only with written permission.
    */
   client: string;
   headlineMetric: {
@@ -1075,7 +1076,7 @@ export interface Job {
   location: string;
   employmentType?: ('FULL_TIME' | 'PART_TIME' | 'CONTRACTOR' | 'INTERN') | null;
   /**
-   * e.g. US night shift
+   * e.g. UK day shift or rotational
    */
   shift?: string | null;
   /**
@@ -1879,6 +1880,22 @@ export interface TrustBadgesBlock {
   blockType: 'trustBadges';
 }
 /**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarketsBlock".
+ */
+export interface MarketsBlock {
+  /**
+   * Small label above the heading.
+   */
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  settings?: SectionSettings;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'markets';
+}
+/**
  * Target keywords and the page that owns each one. Fill volume, difficulty and CPC from SEMrush / Ahrefs / Keyword Planner, and positions from Google Search Console.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1892,7 +1909,7 @@ export interface Keyword {
    */
   cluster?: string | null;
   intent?: ('commercial' | 'transactional' | 'informational' | 'navigational') | null;
-  market?: ('us' | 'uk' | 'in' | 'global') | null;
+  market?: ('me' | 'in' | 'us' | 'uk' | 'ca' | 'au' | 'global') | null;
   priority?: ('p1' | 'p2' | 'p3') | null;
   status?: ('idea' | 'mapped' | 'live' | 'ranking') | null;
   /**
@@ -2299,6 +2316,7 @@ export interface PagesSelect<T extends boolean = true> {
         jobsList?: T | JobsListBlockSelect<T>;
         formBlock?: T | FormBlockBlockSelect<T>;
         trustBadges?: T | TrustBadgesBlockSelect<T>;
+        markets?: T | MarketsBlockSelect<T>;
       };
   publishedAt?: T;
   generateSlug?: T;
@@ -2644,6 +2662,18 @@ export interface TrustBadgesBlockSelect<T extends boolean = true> {
         text?: T;
         id?: T;
       };
+  settings?: T | SectionSettingsSelect<T>;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarketsBlock_select".
+ */
+export interface MarketsBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
   settings?: T | SectionSettingsSelect<T>;
   id?: T;
   blockName?: T;
@@ -3399,6 +3429,26 @@ export interface SiteSetting {
     mapUrl?: string | null;
   };
   hours?: string | null;
+  /**
+   * Shown in the "Markets we serve" section, the footer and Google structured data. Order matters: the first market is listed first everywhere.
+   */
+  markets?:
+    | {
+        /**
+         * e.g. Middle East
+         */
+        name: string;
+        /**
+         * Comma-separated, e.g. UAE, Saudi Arabia, Qatar
+         */
+        countries?: string | null;
+        /**
+         * One line on hours or focus, e.g. "Gulf business hours, Sunday to Thursday"
+         */
+        coverage?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   foundingYear?: number | null;
   socials?:
     | {
@@ -3417,10 +3467,6 @@ export interface SiteSetting {
    * 1200×630. A generated image is used when empty.
    */
   defaultOgImage?: (number | null) | Media;
-  /**
-   * Countries for Organization schema, e.g. United States, United Kingdom, India.
-   */
-  areaServed?: string[] | null;
   /**
    * Search Console HTML-tag content value.
    */
@@ -3547,6 +3593,14 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         mapUrl?: T;
       };
   hours?: T;
+  markets?:
+    | T
+    | {
+        name?: T;
+        countries?: T;
+        coverage?: T;
+        id?: T;
+      };
   foundingYear?: T;
   socials?:
     | T
@@ -3559,7 +3613,6 @@ export interface SiteSettingsSelect<T extends boolean = true> {
   defaultTitle?: T;
   defaultDescription?: T;
   defaultOgImage?: T;
-  areaServed?: T;
   googleSiteVerification?: T;
   bingSiteVerification?: T;
   gtmId?: T;
