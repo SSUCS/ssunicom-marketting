@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export const viewport: Viewport = { themeColor: '#002551', width: 'device-width', initialScale: 1 }
+export const viewport: Viewport = { themeColor: '#0b2e31', width: 'device-width', initialScale: 1 }
 
 export default async function FrontendLayout({ children }: { children: React.ReactNode }) {
   const site = await getGlobal('site-settings', 0)

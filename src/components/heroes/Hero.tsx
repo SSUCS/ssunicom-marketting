@@ -31,7 +31,7 @@ function HomeHero({ hero }: { hero: Page['hero'] }) {
         <div className="hero-art absolute inset-0">
           <Media resource={hero.media || hero.poster} fill priority imgClassName="object-cover object-[70%_center]" sizes="100vw" />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,22,52,0.92)_0%,rgba(0,22,52,0.72)_38%,rgba(0,22,52,0.15)_75%,transparent_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,34,37,0.92)_0%,rgba(7,34,37,0.72)_38%,rgba(7,34,37,0.15)_75%,transparent_100%)]" />
         <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-cobalt-950/70 to-transparent" />
       </div>
       <div className="light-sweep absolute inset-0 -z-10" />

@@ -11,11 +11,11 @@ export async function Footer() {
   const a = site.address
   return (
     <footer className="relative overflow-hidden bg-cobalt-950 text-white">
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(0,125,255,0.45),transparent_55%),radial-gradient(ellipse_at_0%_100%,rgba(43,214,190,0.12),transparent_50%)]" />
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(24,122,123,0.45),transparent_55%),radial-gradient(ellipse_at_0%_100%,rgba(79,196,164,0.12),transparent_50%)]" />
       <div className="container-x relative grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.3fr_2fr_1fr]">
         <div className="flex flex-col">
           <Link href="/" aria-label="SS Unicom home" className="inline-flex items-center gap-3">
-            <LogoMark className="size-14" />
+            <LogoMark tone="light" className="h-12 w-auto" />
             <span className="text-2xl font-extrabold tracking-tight">SS Unicom</span>
           </Link>
           {footer.blurb && <p className="mt-6 max-w-sm leading-relaxed text-white/70">{footer.blurb}</p>}

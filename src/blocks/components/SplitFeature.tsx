@@ -10,7 +10,7 @@ const accents = {
   cobalt: 'from-cobalt-200 via-cobalt-500 to-cobalt-900',
   teal: 'from-teal-100 via-teal-300 to-teal-600',
 }
-const glows = { amber: 'rgba(245,109,11,0.28)', cobalt: 'rgba(0,125,255,0.25)', teal: 'rgba(43,214,190,0.3)' }
+const glows = { amber: 'rgba(79,135,156,0.28)', cobalt: 'rgba(24,122,123,0.25)', teal: 'rgba(79,196,164,0.3)' }
 
 export function SplitFeature({ eyebrow, heading, body, image, accent = 'amber', imagePosition, links, settings }: SplitFeatureBlock) {
   const a = (accent || 'amber') as keyof typeof accents
