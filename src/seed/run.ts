@@ -12,6 +12,7 @@ import { caseStudies, industries, jobs, posts, testimonials } from './content/ot
 import { pages, type Refs } from './content/pages'
 import { groups, processSteps, services } from './content/services'
 
+// Spread into a fresh object per call: hooks (e.g. cloud storage's skipCloudStorage) write to context.
 const ctx = { disableRevalidate: true }
 const artDir = path.resolve(process.cwd(), 'src/seed/art')
 
@@ -72,7 +73,7 @@ async function seed(payload: Payload) {
   }
   if (process.env.SEED_FRESH) {
     for (const collection of wipe) {
-      await payload.delete({ collection, where: { id: { exists: true } }, context: ctx, overrideAccess: true })
+      await payload.delete({ collection, where: { id: { exists: true } }, context: { ...ctx }, overrideAccess: true })
     }
   }
 
@@ -80,7 +81,7 @@ async function seed(payload: Payload) {
   const media: Record<string, number> = {}
   for (const file of fs.readdirSync(artDir).filter((f) => f.endsWith('.webp')).sort()) {
     const key = file.replace(/\.webp$/, '')
-    const doc = await payload.create({ collection: 'media', data: { alt: altFor(key) }, filePath: path.join(artDir, file), context: ctx })
+    const doc = await payload.create({ collection: 'media', data: { alt: altFor(key) }, filePath: path.join(artDir, file), context: { ...ctx } })
     media[key] = doc.id
   }
   payload.logger.info(`Seed: ${Object.keys(media).length} images`)
@@ -92,7 +93,7 @@ async function seed(payload: Payload) {
     groupByKey[g.key] = g
     const doc = await payload.create({
       collection: 'service-categories',
-      context: ctx,
+      context: { ...ctx },
       data: {
         title: g.title,
         slug: g.slug,
@@ -116,7 +117,7 @@ async function seed(payload: Payload) {
     const g = groupByKey[s.group]
     const doc = await payload.create({
       collection: 'services',
-      context: ctx,
+      context: { ...ctx },
       draft: false,
       data: {
         _status: 'published',
@@ -153,7 +154,7 @@ async function seed(payload: Payload) {
   for (const ind of industries) {
     const doc = await payload.create({
       collection: 'industries',
-      context: ctx,
+      context: { ...ctx },
       draft: false,
       data: {
         _status: 'published',
@@ -180,7 +181,7 @@ async function seed(payload: Payload) {
   for (const [i, c] of caseStudies.entries()) {
     const doc = await payload.create({
       collection: 'case-studies',
-      context: ctx,
+      context: { ...ctx },
       draft: false,
       data: {
         _status: 'published',
@@ -209,7 +210,7 @@ async function seed(payload: Payload) {
     await payload.update({
       collection: 'services',
       id: serviceIds[s.slug],
-      context: ctx,
+      context: { ...ctx },
       data: {
         relatedServices: s.related.map((slug) => serviceIds[slug]).filter(Boolean),
         industries: s.industries.map((slug) => industryIds[slug]).filter(Boolean),
@@ -218,7 +219,7 @@ async function seed(payload: Payload) {
     })
   }
 
-  for (const t of testimonials) await payload.create({ collection: 'testimonials', context: ctx, data: { ...t, featured: true } })
+  for (const t of testimonials) await payload.create({ collection: 'testimonials', context: { ...ctx }, data: { ...t, featured: true } })
 
   // Insights
   const categoryIds: Record<string, number> = {}
@@ -226,14 +227,14 @@ async function seed(payload: Payload) {
     if (!categoryIds[p.category]) {
       const cat = await payload.create({
         collection: 'categories',
-        context: ctx,
+        context: { ...ctx },
         data: { title: p.category, slug: p.category.toLowerCase().replace(/[^a-z0-9]+/g, '-') },
       })
       categoryIds[p.category] = cat.id
     }
     await payload.create({
       collection: 'posts',
-      context: ctx,
+      context: { ...ctx },
       draft: false,
       data: {
         _status: 'published',
@@ -258,7 +259,7 @@ async function seed(payload: Payload) {
   for (const j of jobs) {
     await payload.create({
       collection: 'jobs',
-      context: ctx,
+      context: { ...ctx },
       draft: false,
       data: {
         _status: 'published',
@@ -282,7 +283,7 @@ async function seed(payload: Payload) {
   for (const p of pageSeeds) {
     const doc = await payload.create({
       collection: 'pages',
-      context: ctx,
+      context: { ...ctx },
       draft: false,
       data: { _status: 'published', title: p.title, slug: p.slug, hero: { type: 'none' }, layout: [] } as never,
     })
@@ -291,7 +292,7 @@ async function seed(payload: Payload) {
 
   const contactForm = await payload.create({
     collection: 'forms',
-    context: ctx,
+    context: { ...ctx },
     data: {
       title: 'Contact: request a proposal',
       submitButtonLabel: 'Send my enquiry',
@@ -341,7 +342,7 @@ async function seed(payload: Payload) {
     group: (slug) => must(groupIds, slug, 'service group'),
   }
   for (const p of pages(refs)) {
-    await payload.update({ collection: 'pages', id: pageIds[p.slug], context: ctx, draft: false, data: { ...p, _status: 'published' } as never })
+    await payload.update({ collection: 'pages', id: pageIds[p.slug], context: { ...ctx }, draft: false, data: { ...p, _status: 'published' } as never })
   }
   payload.logger.info(`Seed: ${pageSeeds.length} pages`)
 
@@ -351,7 +352,7 @@ async function seed(payload: Payload) {
 
   await payload.updateGlobal({
     slug: 'site-settings',
-    context: ctx,
+    context: { ...ctx },
     data: {
       siteName: 'SS Unicom',
       legalName: 'SS Universal Communication Services Pvt Ltd',
@@ -383,7 +384,7 @@ async function seed(payload: Payload) {
 
   await payload.updateGlobal({
     slug: 'header',
-    context: ctx,
+    context: { ...ctx },
     data: {
       utilityLinks: [
         { link: pageLink('careers', 'Careers') },
@@ -425,7 +426,7 @@ async function seed(payload: Payload) {
   }
   await payload.updateGlobal({
     slug: 'footer',
-    context: ctx,
+    context: { ...ctx },
     data: {
       blurb:
         'SS Universal Communication Services Pvt Ltd runs customer experience, back-office and technology teams from Kanpur, India, for businesses around the world.',
@@ -508,7 +509,7 @@ async function seed(payload: Payload) {
     seen.add(key)
     await payload.create({
       collection: 'keywords',
-      context: ctx,
+      context: { ...ctx },
       data: { market: 'global', priority: 'p2', status: 'live', source: 'manual', ...k, notes: 'Add volume, KD and CPC from SEMrush.' } as never,
     })
   }
@@ -522,7 +523,7 @@ async function seed(payload: Payload) {
   ] as const) {
     await payload.create({
       collection: 'redirects',
-      context: ctx,
+      context: { ...ctx },
       data: { from, type: '301', to: { type: 'reference', reference: { relationTo: 'pages', value: pageIds[slug] } } },
     })
   }
