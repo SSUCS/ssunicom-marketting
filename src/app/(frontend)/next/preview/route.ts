@@ -8,7 +8,6 @@ import { getPayload } from 'payload'
 export async function GET(req: NextRequest): Promise<Response> {
   const { searchParams } = new URL(req.url)
   const path = searchParams.get('path')
-  if (searchParams.get('previewSecret') !== (process.env.PREVIEW_SECRET || '')) return new Response('Not allowed', { status: 403 })
   if (!path || !path.startsWith('/') || path.startsWith('//')) return new Response('Bad path', { status: 400 })
   const payload = await getPayload({ config: configPromise })
   const { user } = await payload.auth({ headers: req.headers })

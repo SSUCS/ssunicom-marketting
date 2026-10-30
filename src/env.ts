@@ -25,7 +25,10 @@ export const env = createEnv({
     DATABASE_AUTH_TOKEN: required(z.string()),
     // UploadThing
     UPLOADTHING_TOKEN: required(z.string()),
-    PREVIEW_SECRET: required(z.string()),
+    // Resend: form notifications and password resets
+    RESEND_API_KEY: required(z.string()),
+    EMAIL_FROM_ADDRESS: required(z.email()),
+    EMAIL_FROM_NAME: required(z.string()),
   },
   client: {
     NEXT_PUBLIC_SERVER_URL: required(z.url()),

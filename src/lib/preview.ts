@@ -6,6 +6,6 @@ import { pathFor } from './paths'
 export function previewUrl(collection: CollectionSlug, slug?: string | null): string | null {
   if (!slug) return null
   const path = pathFor(collection, slug)
-  const params = new URLSearchParams({ path, previewSecret: process.env.PREVIEW_SECRET || '' })
+  const params = new URLSearchParams({ path })
   return `/next/preview?${params.toString()}`
 }
