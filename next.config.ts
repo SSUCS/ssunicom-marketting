@@ -4,6 +4,8 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 
 import { redirects } from './redirects'
+// Validates environment variables at build and start (strict in production, see src/env.ts)
+import './src/env'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 

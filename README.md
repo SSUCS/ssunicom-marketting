@@ -40,6 +40,8 @@ The first visit to `/admin` asks you to create an admin user (or set `SEED_ADMIN
 4. Set `PAYLOAD_SECRET` (a long random string), `NEXT_PUBLIC_SERVER_URL=https://ssunicomservice.com`, `PREVIEW_SECRET`, and optionally `RESEND_API_KEY` for form emails.
 5. Deploy. The first build creates the tables and loads the starter content.
 
+The production build stops with a list of missing variables if any required one is unset (see `src/env.ts`). Set `SKIP_ENV_VALIDATION=1` to bypass this, for example on a preview deploy without Turso.
+
 **Without a database** (as on preview deployments today) the site still works: the build seeds a SQLite file that is copied to temporary storage when the server starts. The site and the admin work, but edits are lost when the server restarts. Use this only for previews.
 
 Preview deployments send `noindex` and a disallow-all `robots.txt`, so they never compete with the live site in Google.
