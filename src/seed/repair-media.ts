@@ -27,7 +27,17 @@ try {
       payload.logger.warn(`Repair: no artwork found for ${doc.filename}, skipped`)
       continue
     }
-    await payload.update({ collection: 'media', id: doc.id, data: {}, filePath: path.join(artDir, art), context: { disableRevalidate: true } })
+    // Updating the file in place makes the storage plugin delete the old files first, which fails
+    // because they were never stored. Instead, upload a fresh copy, move its file details onto the
+    // original record (so pages keep pointing at the same id), and drop the copy's row without hooks.
+    const fresh = await payload.create({ collection: 'media', data: { alt: doc.alt }, filePath: path.join(artDir, art), context: { disableRevalidate: true } })
+    // Read the copy back from the database so it includes the storage keys written after upload.
+    const stored = await payload.db.findOne({ collection: 'media', where: { id: { equals: fresh.id } } })
+    const { id: _id, alt: _alt, caption: _caption, createdAt: _createdAt, updatedAt: _updatedAt, ...fileFields } = stored as unknown as Record<string, unknown>
+    if (!fileFields._key) throw new Error(`Repair: ${art} uploaded but no storage key was saved`)
+    // Delete the copy's row first: filenames are unique.
+    await payload.db.deleteOne({ collection: 'media', where: { id: { equals: fresh.id } } })
+    await payload.db.updateOne({ collection: 'media', id: doc.id, data: fileFields })
     payload.logger.info(`Repair: re-uploaded ${art}`)
   }
   payload.logger.info('Repair: done')
