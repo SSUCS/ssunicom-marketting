@@ -26,10 +26,6 @@ export const env = createEnv({
     // UploadThing
     UPLOADTHING_TOKEN: required(z.string()),
     PREVIEW_SECRET: required(z.string()),
-    // Optional: form notification emails
-    RESEND_API_KEY: z.string().optional(),
-    EMAIL_FROM_ADDRESS: z.email().optional(),
-    EMAIL_FROM_NAME: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_SERVER_URL: required(z.url()),
