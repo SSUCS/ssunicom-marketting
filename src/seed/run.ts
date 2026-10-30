@@ -1,6 +1,6 @@
 /**
- * Loads the starter content into Payload. Runs on every build (`npm run db:prepare`) but only seeds
- * an empty database, so editors' changes are never overwritten. `npm run seed:fresh` wipes and reseeds.
+ * Loads the starter content into Payload. Run it by hand (`npm run seed`, or `npm run seed:production`
+ * for the live database); it only seeds an empty database, so editors' changes are never overwritten. `npm run seed:fresh` wipes and reseeds.
  */
 import config from '@payload-config'
 import fs from 'fs'

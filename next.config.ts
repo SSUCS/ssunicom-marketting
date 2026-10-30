@@ -14,11 +14,6 @@ const nextConfig: NextConfig = {
     localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/art/**' }],
     formats: ['image/avif', 'image/webp'],
   },
-  // The seeded SQLite database and media travel with the server functions so the
-  // preview deployment works before a hosted database is connected (see README).
-  outputFileTracingIncludes: {
-    '/**': ['./.data/**/*', './media/**/*'],
-  },
   poweredByHeader: false,
   reactStrictMode: true,
   redirects,

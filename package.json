@@ -4,14 +4,15 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=22"
+    "node": "22.x"
   },
   "scripts": {
     "dev": "next dev",
-    "build": "npm run db:prepare && next build",
+    "build": "npm run db:migrate && next build",
     "start": "next start",
-    "db:prepare": "cross-env PAYLOAD_BUILD=1 NODE_OPTIONS=--no-deprecation payload migrate && cross-env PAYLOAD_BUILD=1 NODE_OPTIONS=--no-deprecation payload run src/seed/run.ts",
+    "db:migrate": "cross-env PAYLOAD_BUILD=1 NODE_OPTIONS=--no-deprecation payload migrate",
     "seed": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/run.ts",
+    "seed:production": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload run src/seed/run.ts",
     "seed:fresh": "cross-env SEED_FRESH=1 NODE_OPTIONS=--no-deprecation payload run src/seed/run.ts",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",

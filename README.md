@@ -15,7 +15,8 @@ Requires Node.js 22+.
 ```bash
 npm install
 cp .env.example .env      # optional locally; defaults work
-npm run db:prepare        # create the database and load the starter content
+npm run db:migrate        # create the database tables
+npm run seed              # optional: load the starter content
 npm run dev               # http://localhost:3000, CMS at http://localhost:3000/admin
 ```
 
@@ -24,9 +25,10 @@ The first visit to `/admin` asks you to create an admin user.
 | Script | What it does |
 | --- | --- |
 | `npm run dev` | Development server |
-| `npm run build` | Runs migrations, seeds an empty database, then builds |
+| `npm run build` | Runs migrations, then builds (it never seeds) |
 | `npm start` | Serves the production build |
-| `npm run seed` | Loads starter content if the database is empty |
+| `npm run seed` | Loads starter content into the local database if it is empty |
+| `npm run seed:production` | Same, but into the production database and UploadThing, using `.env.production` |
 | `npm run seed:fresh` | **Deletes all content** and reloads the starter content |
 | `npm run migrate:create` | Creates a migration after you change a collection or block |
 | `npm run generate:types` | Regenerates `src/payload-types.ts` |
@@ -38,11 +40,10 @@ The first visit to `/admin` asks you to create an admin user.
 2. Add a Turso database from the Vercel Marketplace and set `DATABASE_URI` and `DATABASE_AUTH_TOKEN`.
 3. Create an UploadThing app and set `UPLOADTHING_TOKEN` so uploads survive deploys.
 4. Set `PAYLOAD_SECRET` (a long random string), `NEXT_PUBLIC_SERVER_URL=https://www.ssuniversalcommunicationservices.com`, and `RESEND_API_KEY`, `EMAIL_FROM_ADDRESS`, `EMAIL_FROM_NAME` for form emails.
-5. Deploy. The first build creates the tables and loads the starter content.
+5. Deploy. The build creates the tables, and the site starts empty.
+6. Optional: to load the starter content, put the production values in `.env.production` and run `npm run seed:production` once from your machine. It does nothing if the database already has pages.
 
-The production build stops with a list of missing variables if any required one is unset (see `src/env.ts`). Set `SKIP_ENV_VALIDATION=1` to bypass this, for example on a preview deploy without Turso.
-
-**Without a database** (as on preview deployments today) the site still works: the build seeds a SQLite file that is copied to temporary storage when the server starts. The site and the admin work, but edits are lost when the server restarts. Use this only for previews.
+The production build stops with a list of missing variables if any required one is unset (see `src/env.ts`). Set `SKIP_ENV_VALIDATION=1` to bypass this.
 
 Preview deployments send `noindex` and a disallow-all `robots.txt`, so they never compete with the live site in Google.
 
