@@ -1,6 +1,6 @@
 # Editor guide
 
-Sign in at `https://ssunicomservice.com/admin`.
+Sign in at `https://www.ssuniversalcommunicationservices.com/admin`.
 
 ## Edit a page
 

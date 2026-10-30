@@ -1,4 +1,5 @@
 // Page layouts for the seed. `ref(...)` placeholders are resolved to document IDs by run.ts.
+import { getSiteHost } from '../../lib/url'
 import { lexical } from '../lexical'
 
 export type Refs = {
@@ -530,7 +531,7 @@ SS Universal Communication Services Pvt Ltd, 2nd Floor, Universal House, Civil L
     layout: [
       {
         blockType: 'richContent',
-        content: lexical(`These terms govern your use of ssunicomservice.com, operated by SS Universal Communication Services Pvt Ltd.
+        content: lexical(`These terms govern your use of ${getSiteHost()}, operated by SS Universal Communication Services Pvt Ltd.
 
 ## Use of the website
 

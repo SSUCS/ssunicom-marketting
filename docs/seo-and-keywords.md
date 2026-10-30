@@ -3,7 +3,7 @@
 ## What is automatic
 
 - **Metadata:** every page, service, industry, article, case study and job has an SEO tab. Empty fields fall back to Site settings → SEO defaults. Titles use the template `%s | SS Unicom`.
-- **Canonical URLs** always point at `https://ssunicomservice.com` (from `NEXT_PUBLIC_SERVER_URL`), never at preview domains.
+- **Canonical URLs** always point at `https://www.ssuniversalcommunicationservices.com` (from `NEXT_PUBLIC_SERVER_URL`), never at preview domains.
 - **Structured data (JSON-LD):** ProfessionalService organisation with address, phone and area served; WebSite; BreadcrumbList on inner pages; Service on service pages; FAQPage wherever FAQs are shown; ItemList on directories; BlogPosting on articles; JobPosting on job pages (eligible for Google Jobs).
 - **Sitemap** at `/sitemap.xml`, rebuilt hourly and on every publish, excluding noindex pages.
 - **robots.txt** blocks `/admin` and `/api`. Preview deployments block everything and send `noindex`.
@@ -32,7 +32,7 @@ Volume, difficulty and CPC are empty because they must come from a real SEMrush 
 
 1. In SEMrush **Keyword Overview**, paste the keywords from one cluster (export from the admin list view as CSV) and set the database for each market in turn: UAE and Saudi Arabia, India, United States, United Kingdom, Canada and Australia.
 2. Copy volume, KD % and CPC into the matching rows. Set **Source** to SEMrush and **Last checked** to today.
-3. In **Position Tracking**, create a project for `ssunicomservice.com` with the P1 keywords. Each month, copy the current position into the map and update **Status**.
+3. In **Position Tracking**, create a project for `www.ssuniversalcommunicationservices.com` with the P1 keywords. Each month, copy the current position into the map and update **Status**.
 4. Use **Keyword Magic Tool** on each service's focus keyword to find question keywords. Add good ones as FAQ entries on that service page, or as Insights articles (status: Idea).
 5. Run **Site Audit** monthly and fix anything flagged as an error.
 

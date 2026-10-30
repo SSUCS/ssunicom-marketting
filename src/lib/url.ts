@@ -8,6 +8,11 @@ export const getServerSideURL = (): string =>
         : 'http://localhost:3000')
   ).replace(/\/$/, '')
 
-/** Canonical domain for SEO. Preview deployments still point canonicals at the real domain. */
-export const getCanonicalURL = (): string =>
-  (process.env.NEXT_PUBLIC_SERVER_URL || 'https://ssunicomservice.com').replace(/\/$/, '')
+/**
+ * Canonical site URL for SEO, from NEXT_PUBLIC_SERVER_URL. Set it to the real domain on preview
+ * deployments too, so their canonicals point at the live site.
+ */
+export const getCanonicalURL = (): string => getServerSideURL()
+
+/** Bare host of the canonical URL, e.g. www.example.com, for display. */
+export const getSiteHost = (): string => new URL(getCanonicalURL()).host

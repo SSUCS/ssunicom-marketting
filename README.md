@@ -37,7 +37,7 @@ The first visit to `/admin` asks you to create an admin user (or set `SEED_ADMIN
 1. Import the repository in Vercel. The build command is already `npm run build`.
 2. Add a Turso database from the Vercel Marketplace and set `DATABASE_URI` and `DATABASE_AUTH_TOKEN`.
 3. Create an UploadThing app and set `UPLOADTHING_TOKEN` so uploads survive deploys.
-4. Set `PAYLOAD_SECRET` (a long random string), `NEXT_PUBLIC_SERVER_URL=https://ssunicomservice.com`, `PREVIEW_SECRET`, and optionally `RESEND_API_KEY` for form emails.
+4. Set `PAYLOAD_SECRET` (a long random string), `NEXT_PUBLIC_SERVER_URL=https://www.ssuniversalcommunicationservices.com`, `PREVIEW_SECRET`, and optionally `RESEND_API_KEY` for form emails.
 5. Deploy. The first build creates the tables and loads the starter content.
 
 The production build stops with a list of missing variables if any required one is unset (see `src/env.ts`). Set `SKIP_ENV_VALIDATION=1` to bypass this, for example on a preview deploy without Turso.
