@@ -6,7 +6,7 @@ Every word, image, menu, form and SEO setting is editable in the built-in CMS at
 - **Front end:** Next.js 16 (App Router), React 19, Tailwind CSS v4
 - **CMS:** Payload 3 (runs inside the same Next.js app, no separate server)
 - **Database:** SQLite locally, libSQL/Turso in production
-- **Media:** local `./media` folder locally, Vercel Blob in production
+- **Media:** local `./media` folder locally, UploadThing in production
 
 ## Quick start
 
@@ -36,7 +36,7 @@ The first visit to `/admin` asks you to create an admin user (or set `SEED_ADMIN
 
 1. Import the repository in Vercel. The build command is already `npm run build`.
 2. Add a Turso database from the Vercel Marketplace and set `DATABASE_URI` and `DATABASE_AUTH_TOKEN`.
-3. Add a Vercel Blob store (sets `BLOB_READ_WRITE_TOKEN`) so uploads survive deploys.
+3. Create an UploadThing app and set `UPLOADTHING_TOKEN` so uploads survive deploys.
 4. Set `PAYLOAD_SECRET` (a long random string), `NEXT_PUBLIC_SERVER_URL=https://ssunicomservice.com`, `PREVIEW_SECRET`, and optionally `RESEND_API_KEY` for form emails.
 5. Deploy. The first build creates the tables and loads the starter content.
 

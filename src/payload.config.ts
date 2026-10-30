@@ -4,7 +4,7 @@ import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
 import { seoPlugin } from '@payloadcms/plugin-seo'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
 import crypto from 'crypto'
 import path from 'path'
 import type { Field } from 'payload'
@@ -127,10 +127,13 @@ export default buildConfig({
         hooks: { beforeChange: [rejectSpam] },
       },
     }),
-    vercelBlobStorage({
-      enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+    // Uploads go to UploadThing when a token is set; without one they stay on local disk (./media).
+    uploadthingStorage({
+      enabled: Boolean(process.env.UPLOADTHING_TOKEN),
+      alwaysInsertFields: true,
+      clientUploads: true,
       collections: { media: true },
-      token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      options: { token: process.env.UPLOADTHING_TOKEN, acl: 'public-read' },
     }),
   ],
   secret: process.env.PAYLOAD_SECRET || fallbackSecret(),
