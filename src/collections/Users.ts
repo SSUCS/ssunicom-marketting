@@ -27,12 +27,13 @@ export const Users: CollectionConfig = {
   ],
   hooks: {
     beforeChange: [
-      // On a hosted deploy, nobody may claim the first admin account through the public sign-up screen.
-      // Set SEED_ADMIN_EMAIL/SEED_ADMIN_PASSWORD (created at build) or ALLOW_FIRST_USER=1 for a one-off sign-up.
-      ({ operation, req }) => {
-        if (operation === 'create' && !req.user && process.env.VERCEL && !process.env.PAYLOAD_BUILD && process.env.ALLOW_FIRST_USER !== '1') {
-          throw new APIError('Creating the first user is disabled on this deployment.', 403)
-        }
+      // The first visit to /admin on a fresh site creates the first user, who becomes an admin.
+      // Once any user exists, new users can only be added by someone who is signed in.
+      async ({ operation, req, data }) => {
+        if (operation !== 'create' || req.user) return data
+        const { totalDocs } = await req.payload.count({ collection: 'users', req })
+        if (totalDocs > 0) throw new APIError('Sign in to add users.', 403)
+        return { ...data, role: 'admin' }
       },
     ],
   },

@@ -26,13 +26,10 @@ export const env = createEnv({
     // UploadThing
     UPLOADTHING_TOKEN: required(z.string()),
     PREVIEW_SECRET: required(z.string()),
-    // Optional: form notification emails and scheduled jobs
+    // Optional: form notification emails
     RESEND_API_KEY: z.string().optional(),
     EMAIL_FROM_ADDRESS: z.email().optional(),
     EMAIL_FROM_NAME: z.string().optional(),
-    CRON_SECRET: z.string().optional(),
-    SEED_ADMIN_EMAIL: z.email().optional(),
-    SEED_ADMIN_PASSWORD: z.string().optional(),
   },
   client: {
     NEXT_PUBLIC_SERVER_URL: required(z.url()),

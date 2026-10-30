@@ -19,7 +19,7 @@ npm run db:prepare        # create the database and load the starter content
 npm run dev               # http://localhost:3000, CMS at http://localhost:3000/admin
 ```
 
-The first visit to `/admin` asks you to create an admin user (or set `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` before seeding).
+The first visit to `/admin` asks you to create an admin user.
 
 | Script | What it does |
 | --- | --- |

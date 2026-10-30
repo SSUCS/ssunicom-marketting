@@ -76,12 +76,6 @@ async function seed(payload: Payload) {
     }
   }
 
-  const { SEED_ADMIN_EMAIL: email, SEED_ADMIN_PASSWORD: password } = process.env
-  if (email && password) {
-    const users = await payload.count({ collection: 'users', where: { email: { equals: email } } })
-    if (!users.totalDocs) await payload.create({ collection: 'users', data: { email, password, name: 'Site admin', role: 'admin' } })
-  }
-
   // Media
   const media: Record<string, number> = {}
   for (const file of fs.readdirSync(artDir).filter((f) => f.endsWith('.webp')).sort()) {
