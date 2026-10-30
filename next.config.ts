@@ -12,6 +12,11 @@ const dirname = path.dirname(fileURLToPath(import.meta.url))
 const nextConfig: NextConfig = {
   images: {
     localPatterns: [{ pathname: '/api/media/file/**' }, { pathname: '/art/**' }],
+    // Uploaded media is served from UploadThing in production.
+    remotePatterns: [
+      { protocol: 'https', hostname: 'utfs.io', pathname: '/f/**' },
+      { protocol: 'https', hostname: '*.ufs.sh', pathname: '/f/**' },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   poweredByHeader: false,

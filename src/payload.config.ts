@@ -132,7 +132,9 @@ export default buildConfig({
       enabled: Boolean(process.env.UPLOADTHING_TOKEN),
       alwaysInsertFields: true,
       clientUploads: true,
-      collections: { media: true },
+      // Serve files straight from UploadThing's CDN. Proxying through /api/media/file sends an empty
+      // body, because UploadThing's HEAD response has no content-length for Payload to size it with.
+      collections: { media: { disablePayloadAccessControl: true } },
       options: { token: process.env.UPLOADTHING_TOKEN, acl: 'public-read' },
     }),
   ],
