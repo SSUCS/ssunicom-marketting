@@ -46,7 +46,25 @@ export const getSlugs = async (collection: CollectionSlug): Promise<string[]> =>
   return res.docs.map((d) => (d as unknown as { slug: string }).slug).filter(Boolean)
 }
 
+/**
+ * Fallbacks for the site settings fields marked required, so pages still render (and the build
+ * still passes) before anyone has saved Site settings in the CMS.
+ */
+const siteSettingsFallback = {
+  siteName: 'SS Unicom',
+  legalName: 'SS Universal Communication Services Pvt Ltd',
+  phone: '+91 97947 74773',
+  email: 'info@ssunicomservice.com',
+  titleTemplate: '%s | SS Unicom',
+  defaultTitle: 'SS Unicom',
+  defaultDescription: '',
+}
+
 export const getGlobal = cache(async <G extends keyof Config['globals']>(slug: G, depth = 1): Promise<Config['globals'][G]> => {
   const payload = await getPayloadClient()
-  return (await payload.findGlobal({ slug, depth })) as Config['globals'][G]
+  const doc = (await payload.findGlobal({ slug, depth })) as Config['globals'][G]
+  if (slug !== 'site-settings') return doc
+  const filled = { ...doc } as Record<string, unknown>
+  for (const [key, value] of Object.entries(siteSettingsFallback)) filled[key] ??= value
+  return filled as unknown as Config['globals'][G]
 })

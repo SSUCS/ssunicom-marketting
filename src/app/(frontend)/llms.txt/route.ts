@@ -13,16 +13,17 @@ export async function GET() {
     getAll('services', 0, { _status: { equals: 'published' } }, 'number'),
     getAll('industries', 0, { _status: { equals: 'published' } }, 'order'),
   ])
+  // Site settings may be empty before content is added, so skip anything that is missing.
+  const contact = [site.phone, site.email, `${site.address?.locality || 'Kanpur'}, India`].filter(Boolean).join(' · ')
   const lines = [
-    `# ${site.siteName} (${site.legalName})`,
+    `# ${site.siteName || 'SS Unicom'}${site.legalName ? ` (${site.legalName})` : ''}`,
     '',
-    `> ${site.defaultDescription}`,
-    '',
-    `Contact: ${site.phone} · ${site.email} · ${site.address?.locality || 'Kanpur'}, India`,
+    ...(site.defaultDescription ? [`> ${site.defaultDescription}`, ''] : []),
+    `Contact: ${contact}`,
     '',
     ...groups.flatMap((g) => [
       `## ${g.title}`,
-      `${g.tagline}`,
+      ...(g.tagline ? [g.tagline] : []),
       ...services
         .filter((s) => (typeof s.category === 'object' ? s.category.id : s.category) === g.id)
         .map((s) => `- [${s.title}](${base}${pathFor('services', s.slug)}): ${s.shortDescription}`),
