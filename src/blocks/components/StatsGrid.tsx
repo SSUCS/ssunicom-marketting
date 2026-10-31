@@ -6,7 +6,7 @@ import type { StatsGridBlock } from '@/payload-types'
 export function StatsGrid({ heading, intro, stats, image, settings }: StatsGridBlock) {
   return (
     <Section settings={settings}>
-      <div aria-hidden className="orb pointer-events-none absolute top-40 -left-40 size-[30rem] rounded-full bg-amber-200/40 blur-3xl" />
+      <div aria-hidden className="orb pointer-events-none absolute top-40 -left-40 size-[30rem] rounded-full bg-coral-200/40 blur-3xl" />
       <div className="container-x relative">
         {heading && (
           <h2 data-reveal className="h-section mb-4 text-center !text-ink">

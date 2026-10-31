@@ -5,7 +5,7 @@ import type { CtaBannerBlock } from '@/payload-types'
 
 export function CtaBanner({ heading, text, links, style, width, settings }: CtaBannerBlock) {
   const full = width === 'full'
-  const surface = style === 'navy' ? 'bg-cobalt-950' : 'cta-gradient'
+  const surface = style === 'navy' ? 'bg-navy-900' : 'cta-gradient'
   const inner = (
     <div className={cn('light-sweep relative overflow-hidden text-center text-white', surface, full ? 'py-16 sm:py-20' : 'rounded-sm px-6 py-12 sm:px-12 sm:py-14')}>
       <svg aria-hidden className="pointer-events-none absolute inset-0 h-full w-full opacity-30" preserveAspectRatio="none" viewBox="0 0 1200 300">

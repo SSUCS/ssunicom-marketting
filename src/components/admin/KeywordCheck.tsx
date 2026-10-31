@@ -34,7 +34,7 @@ export function KeywordCheck() {
       </strong>
       <ul style={{ listStyle: 'none', margin: '6px 0 0', padding: 0 }}>
         {checks.map(([label, ok]) => (
-          <li key={label} style={{ color: ok ? 'var(--theme-success-500)' : 'var(--theme-warning-600, #b45309)' }}>
+          <li key={label} style={{ color: ok ? 'var(--theme-success-500)' : 'var(--theme-warning-600, #a35406)' }}>
             {ok ? '✓' : '•'} {label}
           </li>
         ))}

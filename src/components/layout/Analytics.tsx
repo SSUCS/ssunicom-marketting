@@ -73,15 +73,15 @@ export function Analytics({ ids, banner, text }: { ids: Ids; banner: boolean; te
       )}
 
       {banner && hasTags && ready && consent === null && (
-        <div role="dialog" aria-live="polite" aria-label="Cookie preferences" className="fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-3xl rounded-lg border border-line bg-white p-5 shadow-2xl shadow-cobalt-950/20 sm:inset-x-6 sm:bottom-6 sm:flex sm:items-center sm:gap-6">
+        <div role="dialog" aria-live="polite" aria-label="Cookie preferences" className="fixed inset-x-3 bottom-3 z-[70] mx-auto max-w-3xl rounded-lg border border-line bg-white p-5 shadow-2xl shadow-navy-900/20 sm:inset-x-6 sm:bottom-6 sm:flex sm:items-center sm:gap-6">
           <p className="text-[0.95rem] leading-relaxed text-ink/85">
             {text || 'We use cookies to measure how the site is used and to improve it.'}{' '}
-            <Link href="/cookie-policy" className="font-semibold text-cobalt-800 underline">
+            <Link href="/cookie-policy" className="font-semibold text-brand-800 underline">
               Cookie policy
             </Link>
           </p>
           <div className="mt-4 flex shrink-0 gap-3 sm:mt-0">
-            <button type="button" onClick={() => choose('denied')} className="btn btn-outline !py-2.5 text-cobalt-950">
+            <button type="button" onClick={() => choose('denied')} className="btn btn-outline !py-2.5 text-navy-900">
               Reject
             </button>
             <button type="button" onClick={() => choose('granted')} className="btn btn-primary !py-2.5">

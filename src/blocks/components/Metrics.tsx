@@ -16,10 +16,10 @@ export function Metrics({ eyebrow, heading, intro, items, settings }: MetricsBlo
             const cs = m.caseStudy && typeof m.caseStudy === 'object' ? m.caseStudy : null
             return (
               <div key={m.id || i} data-reveal style={stagger(i)} className="px-6 py-8 text-center sm:py-4">
-                <CountUp value={m.value} className="display block text-5xl text-cobalt-700 sm:text-[4.2rem]" />
+                <CountUp value={m.value} className="display block text-5xl text-brand-700 sm:text-[4.2rem]" />
                 <p className="mt-4 text-2xl font-medium text-ink sm:text-[1.7rem]">{m.label}</p>
                 {cs && (
-                  <Link href={pathFor('case-studies', cs.slug)} className="group mt-4 inline-flex items-center gap-1.5 text-cobalt-700 hover:text-cobalt-950">
+                  <Link href={pathFor('case-studies', cs.slug)} className="group mt-4 inline-flex items-center gap-1.5 text-brand-700 hover:text-navy-900">
                     Read the case study <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 )}

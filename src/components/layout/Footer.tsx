@@ -10,12 +10,12 @@ export async function Footer() {
   const [footer, site] = await Promise.all([getGlobal('footer', 1), getGlobal('site-settings', 0)])
   const a = site.address
   return (
-    <footer className="relative overflow-hidden bg-cobalt-950 text-white">
-      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(0,125,255,0.45),transparent_55%),radial-gradient(ellipse_at_0%_100%,rgba(43,214,190,0.12),transparent_50%)]" />
+    <footer className="relative overflow-hidden bg-navy-900 text-white">
+      <div aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_80%_0%,rgba(24,122,123,0.45),transparent_55%),radial-gradient(ellipse_at_0%_100%,rgba(108,198,192,0.12),transparent_50%)]" />
       <div className="container-x relative grid gap-12 py-16 sm:py-20 lg:grid-cols-[1.3fr_2fr_1fr]">
         <div className="flex flex-col">
           <Link href="/" aria-label="SS Unicom home" className="inline-flex items-center gap-3">
-            <LogoMark className="size-14" />
+            <LogoMark tone="light" className="h-12 w-auto" />
             <span className="text-2xl font-extrabold tracking-tight">SS Unicom</span>
           </Link>
           {footer.blurb && <p className="mt-6 max-w-sm leading-relaxed text-white/70">{footer.blurb}</p>}
@@ -31,10 +31,10 @@ export async function Footer() {
             <span className="block">
               {[a?.locality, a?.region, a?.postalCode].filter(Boolean).join(', ')}, India
             </span>
-            <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="block pt-2 text-white hover:text-teal-300">
+            <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="block pt-2 text-white hover:text-brand-300">
               {site.phone}
             </a>
-            <a href={`mailto:${site.email}`} className="block text-white hover:text-teal-300">
+            <a href={`mailto:${site.email}`} className="block text-white hover:text-brand-300">
               {site.email}
             </a>
           </address>
@@ -57,7 +57,7 @@ export async function Footer() {
           {footer.actions?.map((act) => (
             <div key={act.id}>
               <h2 className="mb-3 text-base font-bold text-white">{act.heading}</h2>
-              <Link href={hrefFor(act.link)} className="btn border border-white/60 !py-2.5 text-[0.95rem] text-white hover:border-teal-300 hover:bg-white/5 hover:text-teal-300">
+              <Link href={hrefFor(act.link)} className="btn border border-white/60 !py-2.5 text-[0.95rem] text-white hover:border-brand-300 hover:bg-white/5 hover:text-brand-300">
                 {act.link.label}
               </Link>
             </div>
@@ -68,7 +68,7 @@ export async function Footer() {
               <ul className="flex gap-4">
                 {site.socials.map((s) => (
                   <li key={s.id}>
-                    <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.platform} className="block text-white/80 transition hover:-translate-y-0.5 hover:text-teal-300">
+                    <a href={s.url} target="_blank" rel="noopener noreferrer" aria-label={s.platform} className="block text-white/80 transition hover:-translate-y-0.5 hover:text-brand-300">
                       <SocialIcon platform={s.platform} />
                     </a>
                   </li>
@@ -94,7 +94,7 @@ export async function Footer() {
         <div className="relative bg-[#0d0d0f]">
           <div className="container-x flex items-center gap-6 py-6">
             <p className="shrink-0 text-lg font-medium sm:text-2xl">
-              {footer.band.text} <span className="text-cobalt-400">{footer.band.highlight}</span>
+              {footer.band.text} <span className="text-brand-400">{footer.band.highlight}</span>
             </p>
             <span aria-hidden className="hidden h-px flex-1 bg-white/40 sm:block" />
           </div>

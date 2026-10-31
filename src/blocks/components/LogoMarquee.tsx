@@ -8,7 +8,7 @@ export function LogoMarquee({ eyebrow, items, settings }: LogoMarqueeBlock) {
   return (
     <Section settings={{ spacing: 'compact', ...settings }}>
       {eyebrow && (
-        <p data-reveal className="container-x mb-8 text-center text-[0.72rem] font-bold tracking-[0.16em] text-stone-500 uppercase">
+        <p data-reveal className="container-x mb-8 text-center text-[0.72rem] font-bold tracking-[0.16em] text-mist-500 uppercase">
           {eyebrow}
         </p>
       )}
@@ -19,7 +19,7 @@ export function LogoMarquee({ eyebrow, items, settings }: LogoMarqueeBlock) {
               {item.logo && typeof item.logo === 'object' ? (
                 <Media resource={item.logo} imgClassName="h-9 w-auto opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0" sizes="160px" />
               ) : (
-                <span className="text-xl font-bold tracking-tight whitespace-nowrap text-ink/45 transition-colors hover:text-cobalt-900 sm:text-2xl">
+                <span className="text-xl font-bold tracking-tight whitespace-nowrap text-ink/45 transition-colors hover:text-brand-900 sm:text-2xl">
                   {item.name}
                 </span>
               )}

@@ -44,8 +44,8 @@ export default async function IndustryPage({ params }: Args) {
     <>
       {draft && <LivePreviewListener />}
       {faqs.length > 0 && <JsonLd data={faqSchema(faqs)} />}
-      <section className="relative overflow-hidden bg-stone-50">
-        <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-cobalt-100/70 blur-3xl" />
+      <section className="relative overflow-hidden bg-mist-50">
+        <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-brand-100/70 blur-3xl" />
         <div className="container-x relative grid items-center gap-10 pt-10 pb-16 sm:pt-14 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:pb-24">
           <div>
             <Breadcrumbs items={[{ label: 'Industries', href: '/industries' }, { label: ind.title, href: pathFor('industries', ind.slug) }]} />
@@ -79,14 +79,14 @@ export default async function IndustryPage({ params }: Args) {
       )}
 
       {ind.challenges?.length ? (
-        <section className="relative overflow-hidden bg-cobalt-50 py-16 sm:py-24">
+        <section className="relative overflow-hidden bg-brand-50 py-16 sm:py-24">
           <div className="container-x relative">
             <SectionHeader heading={`${ind.title} problems we take off your desk`} />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {ind.challenges.map((c, i) => (
                 <div key={c.id} data-reveal style={stagger(i % 3)} className="rounded-xl border border-white/80 bg-white/50 p-2 backdrop-blur">
                   <div className="lift h-full rounded-lg bg-white p-7">
-                    <Icon name={c.icon} className="size-12 text-cobalt-900" strokeWidth={1.2} />
+                    <Icon name={c.icon} className="size-12 text-brand-900" strokeWidth={1.2} />
                     <h3 className="mt-5 text-xl">{c.title}</h3>
                     {c.text && <p className="mt-3 leading-relaxed text-ink/80">{c.text}</p>}
                   </div>
@@ -104,9 +104,9 @@ export default async function IndustryPage({ params }: Args) {
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {services.map((s, i) => (
                 <Link key={s.id} href={pathFor('services', s.slug)} data-reveal style={stagger(i % 3)} className="group lift card flex gap-4 p-6">
-                  <Icon name={s.icon} className="size-9 shrink-0 text-cobalt-800" strokeWidth={1.3} />
+                  <Icon name={s.icon} className="size-9 shrink-0 text-brand-800" strokeWidth={1.3} />
                   <span>
-                    <span className="block text-lg font-semibold text-cobalt-950">{s.title}</span>
+                    <span className="block text-lg font-semibold text-navy-900">{s.title}</span>
                     <span className="mt-1 block text-[0.97rem] leading-relaxed text-ink/75">{s.shortDescription}</span>
                   </span>
                 </Link>
@@ -117,7 +117,7 @@ export default async function IndustryPage({ params }: Args) {
       )}
 
       {faqs.length > 0 && (
-        <section className="bg-cobalt-50 py-16 sm:py-24">
+        <section className="bg-brand-50 py-16 sm:py-24">
           <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.9fr] lg:gap-16">
             <h2 data-reveal className="h-section">
               {ind.title} outsourcing FAQs

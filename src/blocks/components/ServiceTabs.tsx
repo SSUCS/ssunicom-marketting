@@ -32,7 +32,7 @@ export function ServiceTabs({ groups }: { groups: Group[] }) {
             onClick={() => setActive(i)}
             className={cn(
               'group flex shrink-0 items-center gap-3 rounded-md border px-4 py-3 text-left transition-all duration-300 lg:px-5 lg:py-4',
-              i === active ? 'border-cobalt-700 bg-cobalt-950 text-white shadow-lg shadow-cobalt-950/20' : 'border-line bg-white text-ink hover:border-cobalt-300',
+              i === active ? 'border-brand-700 bg-navy-900 text-white shadow-lg shadow-navy-900/20' : 'border-line bg-white text-ink hover:border-brand-300',
             )}
           >
             {i === active ? grp.activeIcon : grp.icon}
@@ -56,7 +56,7 @@ export function ServiceTabs({ groups }: { groups: Group[] }) {
               {s.icon}
               <span>
                 <span className="block text-[0.72rem] font-bold tracking-[0.14em] text-ink/40">{String(s.number).padStart(2, '0')}</span>
-                <span className="block text-lg font-semibold text-cobalt-950">{s.title}</span>
+                <span className="block text-lg font-semibold text-navy-900">{s.title}</span>
                 <span className="mt-1 block text-[0.97rem] leading-relaxed text-ink/75">{s.text}</span>
               </span>
             </Link>

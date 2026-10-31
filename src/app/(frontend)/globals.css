@@ -4,42 +4,56 @@
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-archivo), var(--font-figtree), ui-sans-serif, sans-serif;
 
-  --color-cobalt-50: #e9f8ff;
-  --color-cobalt-100: #ceeeff;
-  --color-cobalt-200: #a7e2ff;
-  --color-cobalt-300: #6bd2ff;
-  --color-cobalt-400: #26b9ff;
-  --color-cobalt-500: #009bff;
-  --color-cobalt-600: #008aff;
-  --color-cobalt-700: #007dff;
-  --color-cobalt-800: #006ae6;
-  --color-cobalt-900: #0057b3;
-  --color-cobalt-950: #002551;
+  /* SS Unicom brand palette, option B "Teal & Navy". Documented at /brand. */
+  /* Brand teal: taken from the crown logo. 700 is the main brand colour. */
+  --color-brand-50: #ebf7f6;
+  --color-brand-100: #cfeeeb;
+  --color-brand-200: #a2ddd8;
+  --color-brand-300: #6cc6c0;
+  --color-brand-400: #3daea9;
+  --color-brand-500: #27999a;
+  --color-brand-600: #1f8b8c;
+  --color-brand-700: #187a7b;
+  --color-brand-800: #146667;
+  --color-brand-900: #115254;
+  --color-brand-950: #0b2e31;
 
-  --color-stone-50: #f9f7f5;
-  --color-stone-100: #efeae5;
-  --color-stone-200: #ded4ca;
-  --color-stone-300: #cab7a7;
-  --color-stone-500: #a47f6b;
-  --color-stone-700: #7e5b50;
+  /* Navy: headings, dark sections, footer. */
+  --color-navy-50: #f0f4fa;
+  --color-navy-100: #dfe6f1;
+  --color-navy-200: #bccbe2;
+  --color-navy-300: #8ea6c9;
+  --color-navy-500: #34507e;
+  --color-navy-700: #1f3a64;
+  --color-navy-800: #182f55;
+  --color-navy-900: #13294b;
+  --color-navy-950: #0b1a33;
 
-  --color-teal-50: #f0fdfa;
-  --color-teal-100: #cbfcf1;
-  --color-teal-200: #98f7e3;
-  --color-teal-300: #5cecd3;
-  --color-teal-400: #2bd6be;
-  --color-teal-600: #0b9687;
-  --color-teal-700: #0e776d;
+  /* Coral: accent for highlights. Use 600 for text and for white-text buttons. */
+  --color-coral-50: #fef3f0;
+  --color-coral-200: #fbc5b9;
+  --color-coral-400: #ee8a76;
+  --color-coral-500: #e8664f;
+  --color-coral-600: #c2412d;
+  --color-coral-700: #a2321f;
 
-  --color-amber-50: #fff7eb;
-  --color-amber-200: #fdce8a;
-  --color-amber-400: #fb9224;
-  --color-amber-500: #f56d0b;
-  --color-amber-600: #d94b06;
+  /* Mist: cool slate neutrals for backgrounds and borders. */
+  --color-mist-50: #f7f9fb;
+  --color-mist-100: #edf1f5;
+  --color-mist-200: #d9e0e8;
+  --color-mist-300: #b7c2cf;
+  --color-mist-500: #7a8696;
+  --color-mist-700: #4a5565;
 
-  --color-ink: #1a1a1a;
-  --color-muted: #575757;
-  --color-line: #e6e1dc;
+  /* Status colours. */
+  --color-success: #1a7f4b;
+  --color-warning: #a35406;
+  --color-danger: #c0352b;
+  --color-info: #2a64c5;
+
+  --color-ink: #111827;
+  --color-muted: #4a5565;
+  --color-line: #d9e0e8;
 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -56,7 +70,7 @@
     scroll-padding-top: 7rem;
   }
   body {
-    @apply bg-stone-50 font-sans text-ink antialiased;
+    @apply bg-mist-50 font-sans text-ink antialiased;
     font-size: 1.0625rem;
     line-height: 1.6;
   }
@@ -64,7 +78,7 @@
   h2,
   h3,
   h4 {
-    @apply text-cobalt-950;
+    @apply text-navy-900;
     font-weight: 700;
     letter-spacing: -0.015em;
     line-height: 1.12;
@@ -74,11 +88,11 @@
     text-wrap: pretty;
   }
   :focus-visible {
-    outline: 3px solid var(--color-cobalt-400);
+    outline: 3px solid var(--color-brand-400);
     outline-offset: 2px;
   }
   ::selection {
-    background: var(--color-cobalt-200);
+    background: var(--color-brand-200);
   }
 }
 
@@ -87,10 +101,10 @@
     @apply mx-auto w-full max-w-[82rem] px-5 sm:px-8 lg:px-10;
   }
   .eyebrow {
-    @apply inline-flex items-center rounded-full bg-cobalt-50 px-3 py-1 text-[0.7rem] font-bold tracking-[0.12em] text-cobalt-900 uppercase;
+    @apply inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-[0.7rem] font-bold tracking-[0.12em] text-brand-900 uppercase;
   }
   .eyebrow-plain {
-    @apply text-[0.72rem] font-bold tracking-[0.14em] text-teal-700 uppercase;
+    @apply text-[0.72rem] font-bold tracking-[0.14em] text-brand-700 uppercase;
   }
   .display {
     font-family: var(--font-display);
@@ -117,26 +131,29 @@
     transform: translateX(4px);
   }
   .btn-primary {
-    @apply bg-cobalt-700 text-white hover:bg-cobalt-900;
+    @apply bg-brand-700 text-white hover:bg-brand-900;
   }
   .btn-dark {
-    @apply bg-cobalt-950 text-white hover:bg-cobalt-900;
+    @apply bg-navy-900 text-white hover:bg-brand-900;
   }
   .btn-mint {
-    @apply bg-teal-300 text-cobalt-950 hover:bg-teal-200;
+    @apply bg-brand-300 text-navy-900 hover:bg-brand-200;
+  }
+  .btn-coral {
+    @apply bg-coral-600 text-white hover:bg-coral-700;
   }
   .btn-outline {
     @apply border border-current bg-transparent hover:bg-white/10;
   }
   .btn-arrow {
-    @apply gap-1.5 px-0 py-1 text-cobalt-700 hover:text-cobalt-950;
+    @apply gap-1.5 px-0 py-1 text-brand-700 hover:text-navy-900;
   }
 
   .card {
-    @apply rounded-lg bg-white shadow-[0_1px_2px_rgba(0,37,81,0.06),0_12px_32px_-12px_rgba(0,37,81,0.14)];
+    @apply rounded-lg bg-white shadow-[0_1px_2px_rgba(19,41,75,0.06),0_12px_32px_-12px_rgba(19,41,75,0.14)];
   }
   .card-frame {
-    @apply rounded-xl border border-white/80 bg-white/60 p-2 shadow-[0_30px_80px_-30px_rgba(245,109,11,0.35)] backdrop-blur;
+    @apply rounded-xl border border-white/80 bg-white/60 p-2 shadow-[0_30px_80px_-30px_rgba(232,102,79,0.35)] backdrop-blur;
   }
   .lift {
     transition:
@@ -146,8 +163,8 @@
   .lift:hover {
     transform: translateY(-6px);
     box-shadow:
-      0 1px 2px rgba(0, 37, 81, 0.06),
-      0 24px 48px -16px rgba(0, 37, 81, 0.22);
+      0 1px 2px rgba(19,41,75, 0.06),
+      0 24px 48px -16px rgba(19,41,75, 0.22);
   }
 
   .prose-cms {
@@ -163,7 +180,7 @@
     @apply mt-9 text-xl sm:text-2xl;
   }
   .prose-cms a {
-    @apply text-cobalt-800 underline underline-offset-2 hover:text-cobalt-950;
+    @apply text-brand-800 underline underline-offset-2 hover:text-navy-900;
   }
   .prose-cms ul {
     @apply list-disc pl-6;
@@ -175,10 +192,10 @@
     margin-top: 0.4em;
   }
   .prose-cms blockquote {
-    @apply border-l-4 border-cobalt-700 pl-5 text-xl text-cobalt-950;
+    @apply border-l-4 border-brand-700 pl-5 text-xl text-navy-900;
   }
   .prose-cms strong {
-    @apply font-semibold text-cobalt-950;
+    @apply font-semibold text-navy-900;
   }
 }
 
@@ -290,7 +307,7 @@
   }
 }
 .cta-gradient {
-  background-image: linear-gradient(110deg, #00b4ff, #007dff 40%, #0057b3 70%, #26b9ff);
+  background-image: linear-gradient(110deg, #27999a, #187a7b 40%, #115254 70%, #3daea9);
   background-size: 220% 100%;
   animation: glow-pan 9s ease-in-out infinite alternate;
 }

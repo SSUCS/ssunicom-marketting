@@ -52,26 +52,26 @@ export default async function JobPage({ params }: Args) {
           url: `${getCanonicalURL()}${pathFor('jobs', job.slug)}`,
         }}
       />
-      <section className="bg-stone-50">
+      <section className="bg-mist-50">
         <div className="container-x max-w-[56rem] pt-10 pb-12 sm:pt-14">
           <Breadcrumbs items={[{ label: 'Careers', href: '/careers' }, { label: job.title, href: pathFor('jobs', job.slug) }]} />
-          <p className="mt-10 text-[0.75rem] font-bold tracking-[0.14em] text-teal-700 uppercase">{job.department}</p>
+          <p className="mt-10 text-[0.75rem] font-bold tracking-[0.14em] text-brand-700 uppercase">{job.department}</p>
           <h1 className="mt-3 text-[2.2rem] leading-[1.1] sm:text-[3rem]">{job.title}</h1>
           <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-ink/75">
             <li className="inline-flex items-center gap-2">
-              <MapPin className="size-4 text-cobalt-700" /> {job.location}
+              <MapPin className="size-4 text-brand-700" /> {job.location}
             </li>
             <li className="inline-flex items-center gap-2">
-              <Briefcase className="size-4 text-cobalt-700" /> {typeLabel[job.employmentType || 'FULL_TIME']}
+              <Briefcase className="size-4 text-brand-700" /> {typeLabel[job.employmentType || 'FULL_TIME']}
             </li>
             {job.shift && (
               <li className="inline-flex items-center gap-2">
-                <Clock className="size-4 text-cobalt-700" /> {job.shift}
+                <Clock className="size-4 text-brand-700" /> {job.shift}
               </li>
             )}
             {job.experience && (
               <li className="inline-flex items-center gap-2">
-                <Users className="size-4 text-cobalt-700" /> {job.experience}
+                <Users className="size-4 text-brand-700" /> {job.experience}
               </li>
             )}
           </ul>
@@ -103,7 +103,7 @@ export default async function JobPage({ params }: Args) {
             ) : null}
           </div>
           <aside className="lg:sticky lg:top-32 lg:self-start">
-            <div className="rounded-lg bg-cobalt-950 p-7 text-white">
+            <div className="rounded-lg bg-navy-900 p-7 text-white">
               <p className="text-lg font-semibold">Apply for this role</p>
               <p className="mt-2 text-white/75">Email your CV with the role title in the subject line. We reply to every application within a week.</p>
               <a href={`mailto:${applyEmail}?subject=${encodeURIComponent(`Application: ${job.title}`)}`} className="btn btn-mint mt-6 w-full">

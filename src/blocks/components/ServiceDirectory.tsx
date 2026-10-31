@@ -49,15 +49,15 @@ export async function ServiceDirectory({ eyebrow, heading, intro, layout, catego
               code: category.code || '',
               tagline: category.tagline,
               href: pathFor('service-categories', category.slug),
-              icon: <Icon name={category.icon} className="size-6 shrink-0 text-cobalt-700" />,
-              activeIcon: <Icon name={category.icon} className="size-6 shrink-0 text-teal-300" />,
+              icon: <Icon name={category.icon} className="size-6 shrink-0 text-brand-700" />,
+              activeIcon: <Icon name={category.icon} className="size-6 shrink-0 text-brand-300" />,
               services: services.map((s) => ({
                 id: String(s.id),
                 number: s.number,
                 title: s.title,
                 text: s.shortDescription,
                 href: pathFor('services', s.slug),
-                icon: <Icon name={s.icon} className="size-9 shrink-0 text-cobalt-800" strokeWidth={1.3} />,
+                icon: <Icon name={s.icon} className="size-9 shrink-0 text-brand-800" strokeWidth={1.3} />,
               })),
             }))}
           />
@@ -71,8 +71,8 @@ export function ServiceListCard({ service: s, index = 0 }: { service: Service; i
   return (
     <Link href={pathFor('services', s.slug)} data-reveal style={stagger(index % 2)} className="group lift card flex flex-col p-7 sm:p-8">
       <div className="flex items-start justify-between">
-        <Icon name={s.icon} className="size-11 text-cobalt-800" strokeWidth={1.3} />
-        <span className="display text-2xl text-cobalt-100 transition-colors group-hover:text-cobalt-300">{String(s.number).padStart(2, '0')}</span>
+        <Icon name={s.icon} className="size-11 text-brand-800" strokeWidth={1.3} />
+        <span className="display text-2xl text-brand-100 transition-colors group-hover:text-brand-300">{String(s.number).padStart(2, '0')}</span>
       </div>
       <h3 className="mt-5 text-[1.45rem]">{s.title}</h3>
       <p className="mt-2 text-ink/80">{s.shortDescription}</p>
@@ -80,13 +80,13 @@ export function ServiceListCard({ service: s, index = 0 }: { service: Service; i
         <ul className="mt-5 grid gap-2 text-[0.97rem] sm:grid-cols-2">
           {s.deliverables.map((d) => (
             <li key={d.id} className="flex gap-2">
-              <Check className="mt-1 size-4 shrink-0 text-teal-600" />
+              <Check className="mt-1 size-4 shrink-0 text-brand-600" />
               {d.item}
             </li>
           ))}
         </ul>
       ) : null}
-      <span className="mt-auto inline-flex items-center gap-1.5 pt-6 font-semibold text-cobalt-700">
+      <span className="mt-auto inline-flex items-center gap-1.5 pt-6 font-semibold text-brand-700">
         Discuss this service <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
       </span>
     </Link>

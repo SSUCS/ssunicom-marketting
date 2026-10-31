@@ -1,4 +1,10 @@
-// Brand the CMS with the site's cobalt accent.
+// Brand the CMS with the site's brand teal (from the logo).
 :root {
-  --theme-success-500: #0b9687;
+  --theme-success-500: #1a7f4b;
+}
+
+.ssu-admin-mark {
+  display: block;
+  width: 100%;
+  height: auto;
 }

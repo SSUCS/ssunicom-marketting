@@ -25,7 +25,7 @@ export function Breadcrumbs({ items, tone = 'dark' }: { items: Crumb[]; tone?: '
             <li key={c.href} className="flex items-center gap-1.5">
               {i > 0 && <ChevronRight className="size-3.5 opacity-60" />}
               {i === all.length - 1 ? (
-                <span aria-current="page" className={tone === 'light' ? 'text-white' : 'text-cobalt-950'}>
+                <span aria-current="page" className={tone === 'light' ? 'text-white' : 'text-navy-900'}>
                   {c.label}
                 </span>
               ) : (

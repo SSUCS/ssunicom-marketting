@@ -2,10 +2,10 @@ import { cn } from '@/lib/cn'
 import type { SectionSettings } from '@/payload-types'
 
 const bg: Record<string, string> = {
-  stone: 'bg-stone-50',
+  stone: 'bg-mist-50',
   white: 'bg-white',
-  sky: 'bg-cobalt-50',
-  navy: 'bg-cobalt-950 text-white [&_h2]:text-white [&_h3]:text-white [&_.lead]:text-white/80',
+  sky: 'bg-brand-50',
+  navy: 'bg-navy-900 text-white [&_h2]:text-white [&_h3]:text-white [&_.lead]:text-white/80',
 }
 const pad: Record<string, string> = {
   compact: 'py-12 sm:py-16',
@@ -32,8 +32,8 @@ export function Section({
     >
       {b === 'sky' && (
         <>
-          <div aria-hidden className="orb pointer-events-none absolute -top-24 -right-24 size-[28rem] rounded-full bg-cobalt-200/60 blur-3xl" />
-          <div aria-hidden className="orb pointer-events-none absolute -bottom-32 -left-24 size-[24rem] rounded-full bg-cobalt-300/40 blur-3xl [animation-delay:-6s]" />
+          <div aria-hidden className="orb pointer-events-none absolute -top-24 -right-24 size-[28rem] rounded-full bg-brand-200/60 blur-3xl" />
+          <div aria-hidden className="orb pointer-events-none absolute -bottom-32 -left-24 size-[24rem] rounded-full bg-brand-300/40 blur-3xl [animation-delay:-6s]" />
         </>
       )}
       <div className="relative">{children}</div>

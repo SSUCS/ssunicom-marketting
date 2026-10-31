@@ -36,20 +36,20 @@ export async function FormBlock({ eyebrow, heading, intro, form, showContactDeta
           {showContactDetails && (
             <ul data-reveal style={stagger(3)} className="mt-10 space-y-5 text-[1.02rem]">
               <li className="flex gap-4">
-                <Phone className="mt-1 size-5 shrink-0 text-cobalt-700" />
-                <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="font-semibold text-cobalt-950 hover:text-cobalt-700">
+                <Phone className="mt-1 size-5 shrink-0 text-brand-700" />
+                <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="font-semibold text-navy-900 hover:text-brand-700">
                   {site.phone}
                 </a>
               </li>
               <li className="flex gap-4">
-                <Mail className="mt-1 size-5 shrink-0 text-cobalt-700" />
-                <a href={`mailto:${site.email}`} className="font-semibold text-cobalt-950 hover:text-cobalt-700">
+                <Mail className="mt-1 size-5 shrink-0 text-brand-700" />
+                <a href={`mailto:${site.email}`} className="font-semibold text-navy-900 hover:text-brand-700">
                   {site.email}
                 </a>
               </li>
               {a?.street && (
                 <li className="flex gap-4">
-                  <MapPin className="mt-1 size-5 shrink-0 text-cobalt-700" />
+                  <MapPin className="mt-1 size-5 shrink-0 text-brand-700" />
                   <span>
                     {site.legalName}
                     <br />
@@ -59,14 +59,14 @@ export async function FormBlock({ eyebrow, heading, intro, form, showContactDeta
               )}
               {site.hours && (
                 <li className="flex gap-4">
-                  <Clock className="mt-1 size-5 shrink-0 text-cobalt-700" />
+                  <Clock className="mt-1 size-5 shrink-0 text-brand-700" />
                   <span>{site.hours}</span>
                 </li>
               )}
             </ul>
           )}
         </div>
-        <div id="form" data-reveal style={stagger(1)} className="relative scroll-mt-32 rounded-lg border border-line bg-stone-50 p-6 sm:p-10">
+        <div id="form" data-reveal style={stagger(1)} className="relative scroll-mt-32 rounded-lg border border-line bg-mist-50 p-6 sm:p-10">
           <FormRenderer form={form} redirectTo={redirectTo} confirmation={<RichText data={form.confirmationMessage} />} />
         </div>
       </div>

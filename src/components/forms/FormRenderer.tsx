@@ -14,7 +14,7 @@ type Props = {
 }
 
 const inputCls =
-  'w-full rounded-sm border border-line bg-white px-4 py-3 text-[1rem] text-ink outline-none transition focus:border-cobalt-700 focus:ring-4 focus:ring-cobalt-100'
+  'w-full rounded-sm border border-line bg-white px-4 py-3 text-[1rem] text-ink outline-none transition focus:border-brand-700 focus:ring-4 focus:ring-brand-100'
 
 function utm() {
   if (typeof window === 'undefined') return {}
@@ -91,8 +91,8 @@ export function FormRenderer({ form, confirmation, redirectTo }: Props) {
 
   if (state === 'done') {
     return (
-      <div role="status" className="flex flex-col items-start gap-4 rounded-md bg-teal-50 p-8">
-        <CheckCircle2 className="size-10 text-teal-600" />
+      <div role="status" className="flex flex-col items-start gap-4 rounded-md bg-brand-50 p-8">
+        <CheckCircle2 className="size-10 text-brand-600" />
         <div className="prose-cms">{confirmation}</div>
       </div>
     )
@@ -106,15 +106,15 @@ export function FormRenderer({ form, confirmation, redirectTo }: Props) {
         const span = width <= 50 ? 'col-span-6 sm:col-span-3' : 'col-span-6'
         const id = `f-${form.id}-${f.name}`
         const label = (
-          <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-cobalt-950">
+          <label htmlFor={id} className="mb-1.5 block text-sm font-semibold text-navy-900">
             {f.label || f.name}
-            {f.required && <span className="text-amber-600"> *</span>}
+            {f.required && <span className="text-coral-600"> *</span>}
           </label>
         )
         if (f.blockType === 'checkbox') {
           return (
             <label key={i} className="col-span-6 flex items-start gap-3 text-[0.95rem] text-ink/80">
-              <input id={id} name={f.name} type="checkbox" required={!!f.required} defaultChecked={!!f.defaultValue} className="mt-1 size-4 accent-cobalt-700" />
+              <input id={id} name={f.name} type="checkbox" required={!!f.required} defaultChecked={!!f.defaultValue} className="mt-1 size-4 accent-brand-700" />
               {f.label}
             </label>
           )
@@ -161,7 +161,7 @@ export function FormRenderer({ form, confirmation, redirectTo }: Props) {
           {state !== 'sending' && <ArrowRight className="size-4" />}
         </button>
         {state === 'error' && (
-          <p role="alert" className="text-[0.95rem] text-amber-600">
+          <p role="alert" className="text-[0.95rem] text-danger">
             {error} Please try again, or email us directly.
           </p>
         )}

@@ -9,20 +9,20 @@ const W = +params.get('w') || 1600
 const H = +params.get('h') || 1000
 
 const C = {
-  cobalt: '#007DFF',
-  cobaltDeep: '#0057B3',
-  sky: '#6BD2FF',
-  ice: '#CEEEFF',
-  teal: '#2BD6BE',
-  mint: '#98F7E3',
-  amber: '#FB9224',
-  orange: '#F56D0B',
-  peach: '#FDCE8A',
-  pink: '#F472B6',
-  violet: '#8B7CF6',
-  navy: '#002551',
+  cobalt: '#27999A',
+  cobaltDeep: '#146667',
+  sky: '#6CC6C0',
+  ice: '#CFEEEB',
+  teal: '#A2DDD8',
+  mint: '#CFEEEB',
+  amber: '#E8664F',
+  orange: '#C2412D',
+  peach: '#FBC5B9',
+  pink: '#EE8A76',
+  violet: '#34507E',
+  navy: '#13294B',
   white: '#FFFFFF',
-  stone: '#EFEAE5',
+  stone: '#EDF1F5',
 }
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true })
@@ -43,7 +43,7 @@ function light() {
   const key = new THREE.DirectionalLight('#ffffff', 2.2)
   key.position.set(4, 8, 6)
   scene.add(key)
-  const rim = new THREE.DirectionalLight('#bfe6ff', 1.2)
+  const rim = new THREE.DirectionalLight('#C8ECE8', 1.2)
   rim.position.set(-6, 3, -4)
   scene.add(rim)
   scene.add(new THREE.AmbientLight('#ffffff', 0.35))
@@ -52,7 +52,7 @@ function light() {
 const glossy = (color, extra = {}) =>
   new THREE.MeshPhysicalMaterial({ color, roughness: 0.22, metalness: 0.05, clearcoat: 1, clearcoatRoughness: 0.12, ...extra })
 
-const glass = (tint = '#dff4ff') =>
+const glass = (tint = '#E3F4F2') =>
   new THREE.MeshPhysicalMaterial({
     color: tint,
     roughness: 0.06,
@@ -217,7 +217,7 @@ const glyphs = {
     const heights = [7, 5, 3]
     heights.forEach((n, col) => {
       for (let i = 0; i < n; i++) {
-        const c = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.16, 64), glossy(i % 2 ? '#FFD27A' : C.amber, { metalness: 0.5, roughness: 0.25 }))
+        const c = new THREE.Mesh(new THREE.CylinderGeometry(0.55, 0.55, 0.16, 64), glossy(i % 2 ? '#F4B3A4' : C.amber, { metalness: 0.5, roughness: 0.25 }))
         c.position.set(-1.2 + col * 1.2, -1 + i * 0.19, col === 1 ? 0.4 : 0)
         g.add(c)
       }
@@ -318,7 +318,7 @@ const glyphs = {
   documents() {
     const g = new THREE.Group()
     for (let i = 0; i < 4; i++) {
-      const m = new THREE.Mesh(new RoundedBoxGeometry(1.7, 2.2, 0.08, 4, 0.03), glossy(i === 3 ? C.white : ['#DDEFFC', '#C9E8FF', '#B7E0FF'][i]))
+      const m = new THREE.Mesh(new RoundedBoxGeometry(1.7, 2.2, 0.08, 4, 0.03), glossy(i === 3 ? C.white : ['#E3F1F0', '#CFEEEB', '#B7E3DF'][i]))
       m.position.set(-0.45 + i * 0.3, -0.15 + i * 0.1, -0.6 + i * 0.3)
       m.rotation.z = 0.12 - i * 0.06
       g.add(m)
@@ -467,13 +467,13 @@ const glyphs = {
 }
 
 const tileBackgrounds = {
-  cobalt: 'linear-gradient(160deg,#E9F8FF 0%,#A7E2FF 55%,#6BD2FF 100%)',
-  amber: 'linear-gradient(160deg,#FFF7EB 0%,#FDCE8A 60%,#FB9224 100%)',
-  teal: 'linear-gradient(160deg,#F0FDFA 0%,#98F7E3 60%,#2BD6BE 100%)',
-  pink: 'linear-gradient(160deg,#FFF1F7 0%,#FBCFE8 55%,#F9A8D4 100%)',
-  violet: 'linear-gradient(160deg,#F3F1FF 0%,#D5CCFF 60%,#A99BFF 100%)',
-  stone: 'linear-gradient(160deg,#F9F7F5 0%,#EFEAE5 55%,#DED4CA 100%)',
-  navy: 'linear-gradient(160deg,#0A3A75 0%,#002551 70%,#001634 100%)',
+  cobalt: 'linear-gradient(160deg,#EBF7F6 0%,#A2DDD8 55%,#6CC6C0 100%)',
+  amber: 'linear-gradient(160deg,#FEF3F0 0%,#FBC5B9 60%,#E8664F 100%)',
+  teal: 'linear-gradient(160deg,#EBF7F6 0%,#CFEEEB 60%,#A2DDD8 100%)',
+  pink: 'linear-gradient(160deg,#FEF3F0 0%,#FBC5B9 55%,#EE8A76 100%)',
+  violet: 'linear-gradient(160deg,#F0F4FA 0%,#BCCBE2 60%,#8EA6C9 100%)',
+  stone: 'linear-gradient(160deg,#F7F9FB 0%,#EDF1F5 55%,#D9E0E8 100%)',
+  navy: 'linear-gradient(160deg,#1F3A64 0%,#13294B 70%,#0B1A33 100%)',
 }
 
 function groundShadow(y = -1.75) {
@@ -551,7 +551,7 @@ function ribbon({ colors, width = 9, length = 16, phase = 0, amp = 0.8, twist = 
 const compositions = {
   // Home hero: rows of glossy data blocks under a glass slab
   hero() {
-    setBackground('linear-gradient(180deg,#0B1F3F 0%,#06264F 45%,#0A4A8F 100%)')
+    setBackground('linear-gradient(180deg,#0B1A33 0%,#13294B 45%,#146667 100%)')
     light()
     const palette = [C.cobaltDeep, C.cobalt, C.cobalt, C.sky, C.ice, C.white, C.white, C.teal, C.sky, C.amber]
     const rng = mulberry(7)
@@ -572,7 +572,7 @@ const compositions = {
     }
     group.rotation.y = -0.62
     scene.add(group)
-    const slab = new THREE.Mesh(new RoundedBoxGeometry(7.5, 0.35, 5.5, 6, 0.12), glass('#cfefff'))
+    const slab = new THREE.Mesh(new RoundedBoxGeometry(7.5, 0.35, 5.5, 6, 0.12), glass('#DFF2F1'))
     slab.position.set(-2.4, 2.3, 3.2)
     slab.rotation.y = -0.62
     scene.add(slab)
@@ -580,15 +580,15 @@ const compositions = {
     ring.position.set(3.2, 3.6, 2.5)
     ring.rotation.set(1.1, 0.3, 0.2)
     scene.add(ring)
-    scene.fog = new THREE.Fog('#0A3A75', 18, 40)
+    scene.fog = new THREE.Fog('#1F3A64', 18, 40)
     camera.fov = 32
     camera.updateProjectionMatrix()
     camera.position.set(-1, 5.2, 12.5)
     camera.lookAt(0.5, 0.6, 0)
   },
-  // Warm panel with a glass ring and floating dashboard cards (Who we are)
+  // Navy panel with a teal ring and floating dashboard cards (Who we are)
   ring() {
-    setBackground('linear-gradient(135deg,#FDCE8A 0%,#FB9224 45%,#D94B06 100%)')
+    setBackground('linear-gradient(135deg,#8EA6C9 0%,#34507E 45%,#13294B 100%)')
     light()
     const t = new THREE.Mesh(new THREE.TorusGeometry(1.5, 0.42, 64, 220), glossy(C.cobalt, { emissive: C.cobaltDeep, emissiveIntensity: 0.12 }))
     t.rotation.set(1.15, 0.2, 0.4)
@@ -603,47 +603,47 @@ const compositions = {
     camera.position.set(0, 0, 9)
     camera.lookAt(0, 0, 0)
   },
-  // Sky-to-sunset silk (vertical)
+  // Teal-to-coral silk (vertical)
   silk() {
-    setBackground('linear-gradient(180deg,#A7E2FF 0%,#E9F8FF 45%,#FDCE8A 80%,#FB9224 100%)')
+    setBackground('linear-gradient(180deg,#A2DDD8 0%,#EBF7F6 45%,#FBC5B9 80%,#E8664F 100%)')
     light()
     ribbon({ colors: [C.white, C.peach, C.amber], phase: 0.3, y: 0.2, amp: 1.0, rot: 1.25 })
     ribbon({ colors: [C.ice, C.white, C.peach], phase: 1.6, y: -0.6, z: -1.2, amp: 0.8, rot: 1.35 })
     camera.position.set(0, 0, 11)
     camera.lookAt(0, 0, 0)
   },
-  // Pink / orange silk waves (stats panel)
+  // Teal silk waves (stats panel)
   waves() {
-    setBackground('linear-gradient(200deg,#FBCFE8 0%,#F9A8D4 35%,#FDCE8A 70%,#FB9224 100%)')
+    setBackground('linear-gradient(200deg,#CFEEEB 0%,#A2DDD8 35%,#6CC6C0 70%,#27999A 100%)')
     light()
-    ribbon({ colors: ['#ffffff', '#F9A8D4', C.orange], phase: 0.0, y: 0.8, amp: 0.9, rot: 0.9 })
-    ribbon({ colors: ['#FBCFE8', '#ffffff', C.amber], phase: 1.2, y: -0.4, z: -0.8, amp: 0.7, rot: 1.05 })
-    ribbon({ colors: [C.peach, '#F472B6', '#ffffff'], phase: 2.3, y: -1.6, z: -1.6, amp: 0.8, rot: 1.2 })
+    ribbon({ colors: ['#ffffff', '#A2DDD8', C.cobaltDeep], phase: 0.0, y: 0.8, amp: 0.9, rot: 0.9 })
+    ribbon({ colors: ['#FBC5B9', '#ffffff', C.amber], phase: 1.2, y: -0.4, z: -0.8, amp: 0.7, rot: 1.05 })
+    ribbon({ colors: [C.ice, C.sky, '#ffffff'], phase: 2.3, y: -1.6, z: -1.6, amp: 0.8, rot: 1.2 })
     camera.position.set(0, 0, 10)
     camera.lookAt(0, 0, 0)
   },
   // Cobalt banner background (CTA)
   bannerCobalt() {
-    setBackground('linear-gradient(110deg,#00B4FF 0%,#007DFF 55%,#0057B3 100%)')
+    setBackground('linear-gradient(110deg,#3DAEA9 0%,#27999A 55%,#146667 100%)')
     light()
-    ribbon({ colors: ['#A7E2FF', '#ffffff', '#6BD2FF'], phase: 0.7, y: 0.4, amp: 0.7, rot: 0.15, width: 6 })
-    ribbon({ colors: ['#6BD2FF', '#CEEEFF', '#26B9FF'], phase: 2.1, y: -1.1, z: -1, amp: 0.6, rot: 0.1, width: 5 })
+    ribbon({ colors: ['#A2DDD8', '#ffffff', '#6CC6C0'], phase: 0.7, y: 0.4, amp: 0.7, rot: 0.15, width: 6 })
+    ribbon({ colors: ['#6CC6C0', '#CFEEEB', '#3DAEA9'], phase: 2.1, y: -1.1, z: -1, amp: 0.6, rot: 0.1, width: 5 })
     scene.children.filter((o) => o.isMesh).forEach((m) => (m.material.opacity = 0.55, m.material.transparent = true))
     camera.position.set(0, 0, 9)
     camera.lookAt(0, 0, 0)
   },
   // Navy, used behind the footer and dark sections
   navyGlass() {
-    setBackground('linear-gradient(135deg,#0A3A75 0%,#002551 60%,#001634 100%)')
+    setBackground('linear-gradient(135deg,#1F3A64 0%,#13294B 60%,#0B1A33 100%)')
     light()
-    ribbon({ colors: ['#0057B3', '#26B9FF', '#002551'], phase: 0.9, y: 0.2, amp: 0.8, rot: 0.2, width: 6 })
+    ribbon({ colors: ['#146667', '#3DAEA9', '#13294B'], phase: 0.9, y: 0.2, amp: 0.8, rot: 0.2, width: 6 })
     scene.children.filter((o) => o.isMesh).forEach((m) => (m.material.opacity = 0.5, m.material.transparent = true))
     camera.position.set(0, 0, 9)
     camera.lookAt(0, 0, 0)
   },
   // Ask our experts: headset on a cobalt-to-amber tile
   experts() {
-    setBackground('linear-gradient(180deg,#A7E2FF 0%,#E9F8FF 50%,#FDCE8A 100%)')
+    setBackground('linear-gradient(180deg,#A2DDD8 0%,#EBF7F6 50%,#FBC5B9 100%)')
     light()
     const h = glyphs.headset()
     h.scale.setScalar(1.25)

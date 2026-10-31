@@ -6,11 +6,11 @@ import { cn } from '@/lib/cn'
 import type { SplitFeatureBlock } from '@/payload-types'
 
 const accents = {
-  amber: 'from-amber-200 via-amber-400 to-amber-600',
-  cobalt: 'from-cobalt-200 via-cobalt-500 to-cobalt-900',
-  teal: 'from-teal-100 via-teal-300 to-teal-600',
+  amber: 'from-coral-200 via-coral-400 to-coral-600',
+  cobalt: 'from-brand-200 via-brand-500 to-brand-900',
+  teal: 'from-brand-100 via-brand-300 to-brand-600',
 }
-const glows = { amber: 'rgba(245,109,11,0.28)', cobalt: 'rgba(0,125,255,0.25)', teal: 'rgba(43,214,190,0.3)' }
+const glows = { amber: 'rgba(232,102,79,0.28)', cobalt: 'rgba(24,122,123,0.25)', teal: 'rgba(108,198,192,0.3)' }
 
 export function SplitFeature({ eyebrow, heading, body, image, accent = 'amber', imagePosition, links, settings }: SplitFeatureBlock) {
   const a = (accent || 'amber') as keyof typeof accents

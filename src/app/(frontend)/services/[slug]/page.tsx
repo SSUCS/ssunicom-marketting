@@ -84,8 +84,8 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
       {faqs.length > 0 && <JsonLd data={faqSchema(faqs)} />}
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-stone-50">
-        <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-cobalt-100/70 blur-3xl" />
+      <section className="relative overflow-hidden bg-mist-50">
+        <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-brand-100/70 blur-3xl" />
         <div className="container-x relative grid items-center gap-10 pt-10 pb-16 sm:pt-14 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:pb-24">
           <div>
             <Breadcrumbs
@@ -97,7 +97,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
             />
             <p data-reveal className="mt-8 mb-5 flex items-center gap-3">
               <span className="eyebrow">{group?.title || 'Service'}</span>
-              <span className="display text-lg text-cobalt-300">{String(s.number).padStart(2, '0')}</span>
+              <span className="display text-lg text-brand-300">{String(s.number).padStart(2, '0')}</span>
             </p>
             <h1 className="text-[2.3rem] leading-[1.06] sm:text-[3.1rem] lg:text-[3.6rem]">{s.heroHeading || s.title}</h1>
             <p data-reveal style={stagger(2)} className="lead mt-6 max-w-2xl">
@@ -107,17 +107,17 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
               <Link href={contactHref} className="btn btn-primary">
                 Discuss this service <ArrowRight className="size-4" />
               </Link>
-              <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="btn btn-outline text-cobalt-950">
+              <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="btn btn-outline text-navy-900">
                 <Phone className="size-4" /> {site.phone}
               </a>
             </div>
           </div>
           <div data-reveal="scale" style={stagger(2)} className="card-frame">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-cobalt-50">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-lg bg-brand-50">
               <Media resource={s.image || group?.image} fill priority imgClassName="object-cover hero-art" sizes="(min-width:1024px) 520px, 100vw" />
               <div className="absolute bottom-4 left-4 flex items-center gap-3 rounded-md bg-white/90 px-4 py-3 shadow-lg backdrop-blur">
-                <Icon name={s.icon} className="size-7 text-cobalt-800" />
-                <span className="text-sm font-semibold text-cobalt-950">{s.title}</span>
+                <Icon name={s.icon} className="size-7 text-brand-800" />
+                <span className="text-sm font-semibold text-navy-900">{s.title}</span>
               </div>
             </div>
           </div>
@@ -131,11 +131,11 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
             <SectionHeader eyebrow="What's included" heading={`What our ${s.title.toLowerCase()} team handles`} align="left" />
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {s.deliverables.map((d, i) => (
-                <li key={d.id} data-reveal style={stagger(i)} className="lift rounded-lg border border-line bg-stone-50 p-6">
-                  <span className="grid size-10 place-items-center rounded-full bg-cobalt-950 text-teal-300">
+                <li key={d.id} data-reveal style={stagger(i)} className="lift rounded-lg border border-line bg-mist-50 p-6">
+                  <span className="grid size-10 place-items-center rounded-full bg-navy-900 text-brand-300">
                     <Check className="size-5" />
                   </span>
-                  <p className="mt-5 text-lg leading-snug font-semibold text-cobalt-950">{d.item}</p>
+                  <p className="mt-5 text-lg leading-snug font-semibold text-navy-900">{d.item}</p>
                 </li>
               ))}
             </ul>
@@ -151,8 +151,8 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
               <RichText data={s.overview} />
             </div>
             <aside className="lg:sticky lg:top-32 lg:self-start">
-              <div data-reveal className="rounded-lg bg-cobalt-950 p-7 text-white sm:p-8">
-                <p className="text-[0.72rem] font-bold tracking-[0.14em] text-teal-300 uppercase">At a glance</p>
+              <div data-reveal className="rounded-lg bg-navy-900 p-7 text-white sm:p-8">
+                <p className="text-[0.72rem] font-bold tracking-[0.14em] text-brand-300 uppercase">At a glance</p>
                 <dl className="mt-5 space-y-4 text-[0.98rem]">
                   {[
                     ['Team model', 'Dedicated or shared agents'],
@@ -181,7 +181,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
           <div className="container-x grid gap-8 text-center sm:grid-cols-3">
             {s.stats.map((st, i) => (
               <div key={st.id} data-reveal style={stagger(i)}>
-                <CountUp value={st.value} className="display block text-5xl text-cobalt-700" />
+                <CountUp value={st.value} className="display block text-5xl text-brand-700" />
                 <p className="mt-3 text-lg font-medium">{st.label}</p>
               </div>
             ))}
@@ -191,15 +191,15 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
 
       {/* Benefits */}
       {s.benefits?.length ? (
-        <section className="relative overflow-hidden bg-cobalt-50 py-16 sm:py-24">
-          <div aria-hidden className="orb pointer-events-none absolute -top-24 -right-24 size-[28rem] rounded-full bg-cobalt-200/60 blur-3xl" />
+        <section className="relative overflow-hidden bg-brand-50 py-16 sm:py-24">
+          <div aria-hidden className="orb pointer-events-none absolute -top-24 -right-24 size-[28rem] rounded-full bg-brand-200/60 blur-3xl" />
           <div className="container-x relative">
             <SectionHeader heading={`Why teams choose SS Unicom for ${s.title.toLowerCase()}`} />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
               {s.benefits.map((b, i) => (
                 <div key={b.id} data-reveal style={stagger(i)} className="rounded-xl border border-white/80 bg-white/50 p-2 backdrop-blur">
                   <div className="lift h-full rounded-lg bg-white p-7">
-                    <Icon name={b.icon} className="size-12 text-cobalt-900" strokeWidth={1.2} />
+                    <Icon name={b.icon} className="size-12 text-brand-900" strokeWidth={1.2} />
                     <h3 className="mt-5 text-xl">{b.title}</h3>
                     {b.text && <p className="mt-3 leading-relaxed text-ink/80">{b.text}</p>}
                   </div>
@@ -218,7 +218,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
             <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               {s.process.map((p, i) => (
                 <li key={p.id} data-reveal style={stagger(i)} className="relative rounded-lg border border-line bg-white p-7">
-                  <span className="display text-4xl text-cobalt-100">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="display text-4xl text-brand-100">{String(i + 1).padStart(2, '0')}</span>
                   <h3 className="mt-3 text-xl">{p.title}</h3>
                   {p.text && <p className="mt-2 leading-relaxed text-ink/80">{p.text}</p>}
                 </li>
@@ -242,7 +242,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
       )}
 
       {faqs.length > 0 && (
-        <section className="relative overflow-hidden bg-cobalt-50 py-16 sm:py-24">
+        <section className="relative overflow-hidden bg-brand-50 py-16 sm:py-24">
           <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.9fr] lg:gap-16">
             <div>
               <h2 data-reveal className="h-section">
@@ -279,10 +279,10 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
             <div className="grid gap-5 md:grid-cols-3">
               {related.map((r, i) => (
                 <Link key={r.id} href={pathFor('services', r.slug)} data-reveal style={stagger(i)} className="group lift card flex flex-col p-7">
-                  <Icon name={r.icon} className="size-10 text-cobalt-800" strokeWidth={1.3} />
+                  <Icon name={r.icon} className="size-10 text-brand-800" strokeWidth={1.3} />
                   <h3 className="mt-5 text-xl">{r.title}</h3>
                   <p className="mt-2 text-ink/75">{r.shortDescription}</p>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 font-semibold text-cobalt-700">
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 font-semibold text-brand-700">
                     Learn more <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </Link>
@@ -311,8 +311,8 @@ async function GroupView({ group }: { group: ServiceCategory }) {
           itemListElement: services.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: `${getCanonicalURL()}${pathFor('services', s.slug)}` })),
         }}
       />
-      <section className="relative overflow-hidden bg-stone-50">
-        <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-cobalt-100/70 blur-3xl" />
+      <section className="relative overflow-hidden bg-mist-50">
+        <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-brand-100/70 blur-3xl" />
         <div className="container-x relative grid items-center gap-10 pt-10 pb-16 sm:pt-14 lg:grid-cols-[1.25fr_1fr] lg:gap-16 lg:pb-24">
           <div>
             <Breadcrumbs items={[{ label: 'Services', href: '/services' }, { label: group.title, href: pathFor('service-categories', group.slug) }]} />
@@ -353,7 +353,7 @@ async function GroupView({ group }: { group: ServiceCategory }) {
         </div>
       </section>
       {faqs.length > 0 && (
-        <section className="bg-cobalt-50 py-16 sm:py-24">
+        <section className="bg-brand-50 py-16 sm:py-24">
           <div className="container-x grid gap-10 lg:grid-cols-[1fr_1.9fr] lg:gap-16">
             <h2 data-reveal className="h-section">
               {group.title}: common questions

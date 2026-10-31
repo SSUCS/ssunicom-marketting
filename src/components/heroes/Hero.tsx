@@ -26,20 +26,20 @@ export function Hero({ hero, crumbs }: { hero: Page['hero']; crumbs?: Crumb[] })
 
 function HomeHero({ hero }: { hero: Page['hero'] }) {
   return (
-    <section className="relative isolate overflow-hidden bg-cobalt-950 text-white">
+    <section className="relative isolate overflow-hidden bg-navy-900 text-white">
       <div className="absolute inset-0 -z-10">
         <div className="hero-art absolute inset-0">
           <Media resource={hero.media || hero.poster} fill priority imgClassName="object-cover object-[70%_center]" sizes="100vw" />
         </div>
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(0,22,52,0.92)_0%,rgba(0,22,52,0.72)_38%,rgba(0,22,52,0.15)_75%,transparent_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-cobalt-950/70 to-transparent" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(11,26,51,0.92)_0%,rgba(11,26,51,0.72)_38%,rgba(11,26,51,0.15)_75%,transparent_100%)]" />
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-navy-900/70 to-transparent" />
       </div>
       <div className="light-sweep absolute inset-0 -z-10" />
       <div className="container-x flex min-h-[620px] flex-col justify-center py-24 sm:min-h-[700px] lg:min-h-[min(82vh,760px)]">
         <div className="max-w-[44rem]">
           {hero.eyebrow && (
-            <p data-reveal className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.16em] text-teal-200 uppercase backdrop-blur">
-              <span className="size-1.5 animate-pulse rounded-full bg-teal-300" />
+            <p data-reveal className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.16em] text-brand-200 uppercase backdrop-blur">
+              <span className="size-1.5 animate-pulse rounded-full bg-brand-300" />
               {hero.eyebrow}
             </p>
           )}
@@ -64,9 +64,9 @@ function HomeHero({ hero }: { hero: Page['hero'] }) {
 
 function StandardHero({ hero, crumbs }: { hero: Page['hero']; crumbs?: Crumb[] }) {
   return (
-    <section className="relative overflow-hidden bg-stone-50">
-      <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-cobalt-100/70 blur-3xl" />
-      <div aria-hidden className="orb pointer-events-none absolute top-20 -right-20 size-[22rem] rounded-full bg-amber-200/40 blur-3xl [animation-delay:-5s]" />
+    <section className="relative overflow-hidden bg-mist-50">
+      <div aria-hidden className="orb pointer-events-none absolute -top-32 left-1/3 size-[36rem] rounded-full bg-brand-100/70 blur-3xl" />
+      <div aria-hidden className="orb pointer-events-none absolute top-20 -right-20 size-[22rem] rounded-full bg-coral-200/40 blur-3xl [animation-delay:-5s]" />
       <div className="container-x relative grid items-center gap-10 pt-10 pb-16 sm:pt-14 lg:grid-cols-[1.2fr_1fr] lg:gap-16 lg:pb-24">
         <div>
           {crumbs && <Breadcrumbs items={crumbs} />}
@@ -103,8 +103,8 @@ function StandardHero({ hero, crumbs }: { hero: Page['hero']; crumbs?: Crumb[] }
 
 function SimpleHero({ hero, crumbs }: { hero: Page['hero']; crumbs?: Crumb[] }) {
   return (
-    <section className="relative overflow-hidden bg-stone-50">
-      <div aria-hidden className="orb pointer-events-none absolute -top-40 right-0 size-[30rem] rounded-full bg-cobalt-100/60 blur-3xl" />
+    <section className="relative overflow-hidden bg-mist-50">
+      <div aria-hidden className="orb pointer-events-none absolute -top-40 right-0 size-[30rem] rounded-full bg-brand-100/60 blur-3xl" />
       <div className="container-x relative pt-10 pb-12 sm:pt-14 sm:pb-16">
         {crumbs && <Breadcrumbs items={crumbs} />}
         {hero.eyebrow && (

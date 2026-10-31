@@ -64,18 +64,18 @@ export default async function PostPage({ params }: Args) {
         }}
       />
       <article>
-        <header className="relative overflow-hidden bg-stone-50">
-          <div aria-hidden className="orb pointer-events-none absolute -top-40 right-0 size-[30rem] rounded-full bg-cobalt-100/60 blur-3xl" />
+        <header className="relative overflow-hidden bg-mist-50">
+          <div aria-hidden className="orb pointer-events-none absolute -top-40 right-0 size-[30rem] rounded-full bg-brand-100/60 blur-3xl" />
           <div className="container-x relative max-w-[56rem] pt-10 pb-12 sm:pt-14">
             <Breadcrumbs items={[{ label: 'Insights', href: '/insights' }, { label: post.title, href: pathFor('posts', post.slug) }]} />
-            <p className="mt-10 text-[0.75rem] font-bold tracking-[0.14em] text-teal-700 uppercase">
+            <p className="mt-10 text-[0.75rem] font-bold tracking-[0.14em] text-brand-700 uppercase">
               {topic && typeof topic === 'object' ? `${topic.title} · ` : ''}
               {formatDate(post.publishedAt)} · {readingTime(post.content)} min read
             </p>
             <h1 className="mt-4 text-[2.2rem] leading-[1.1] sm:text-[3rem]">{post.title}</h1>
             <p className="lead mt-5">{post.excerpt}</p>
             <p className="mt-6 text-[0.95rem]">
-              By <strong className="text-cobalt-950">{post.authorName || 'SS Unicom Team'}</strong>
+              By <strong className="text-navy-900">{post.authorName || 'SS Unicom Team'}</strong>
               {post.authorRole && <span className="text-ink/60">, {post.authorRole}</span>}
             </p>
           </div>
@@ -98,7 +98,7 @@ export default async function PostPage({ params }: Args) {
                 <ul className="mt-3 space-y-2">
                   {services.map((s) => (
                     <li key={s.id}>
-                      <Link href={pathFor('services', s.slug)} className="group inline-flex items-center gap-1 font-semibold text-cobalt-800">
+                      <Link href={pathFor('services', s.slug)} className="group inline-flex items-center gap-1 font-semibold text-brand-800">
                         {s.title} <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-1" />
                       </Link>
                     </li>
