@@ -33,8 +33,8 @@ const imageUrl = (img?: number | Media | null) => {
 }
 
 export function applyTemplate(site: SiteSetting, title: string) {
-  const tpl = site.titleTemplate || '%s | SS Unicom'
-  return title.includes('SS Unicom') ? title : tpl.replace('%s', title)
+  const tpl = site.titleTemplate || '%s | SS Universal'
+  return title.includes('SS Universal') ? title : tpl.replace('%s', title)
 }
 
 export async function buildMetadata({ collection, doc, fallbackTitle, fallbackDescription, fallbackImage, type = 'website', publishedTime }: Args): Promise<Metadata> {

@@ -1470,7 +1470,7 @@ export interface FaqAccordionBlock {
         question: string;
         answer: string;
         /**
-         * Optional attribution, e.g. "Operations Head, SS Unicom".
+         * Optional attribution, e.g. "Operations Head, SS Universal".
          */
         expert?: string | null;
         id?: string | null;

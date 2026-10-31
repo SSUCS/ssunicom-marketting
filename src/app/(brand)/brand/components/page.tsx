@@ -22,7 +22,7 @@ const ALERTS = [
   { icon: CheckCircle2, title: 'Thanks, your message is on its way.', text: 'A specialist will reply within one working day.', fg: 'text-success', bg: 'bg-[#e3f4ea]' },
   { icon: TriangleAlert, title: 'Your session is about to expire.', text: 'Save your changes to keep them.', fg: 'text-warning', bg: 'bg-[#fdf0dc]' },
   { icon: CircleAlert, title: 'We couldn’t send your message.', text: 'Check your connection and try again, or email info@ssunicomservice.com.', fg: 'text-danger', bg: 'bg-[#fbe4e1]' },
-  { icon: Info, title: 'Our Kanpur centre runs 24/7.', text: 'Calls outside Indian hours are answered by the night shift.', fg: 'text-info', bg: 'bg-[#e3ecfa]' },
+  { icon: Info, title: 'Our centre in India runs 24/7.', text: 'Calls outside Indian hours are answered by the night shift.', fg: 'text-info', bg: 'bg-[#e3ecfa]' },
 ]
 
 export default function ComponentsPage() {
@@ -114,7 +114,7 @@ export default function ComponentsPage() {
           </div>
           <label className="flex items-start gap-3 text-[0.95rem] text-ink/80 sm:col-span-2">
             <input type="checkbox" defaultChecked className="mt-1 size-4 accent-brand-700" />
-            Send me occasional updates about SS Unicom services.
+            Send me occasional updates about SS Universal services.
           </label>
         </div>
       </Block>

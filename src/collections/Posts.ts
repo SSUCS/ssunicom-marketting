@@ -28,7 +28,7 @@ export const Posts: CollectionConfig<'posts'> = {
     {
       type: 'row',
       fields: [
-        { name: 'authorName', type: 'text', defaultValue: 'SS Unicom Team' },
+        { name: 'authorName', type: 'text', defaultValue: 'SS Universal Team' },
         { name: 'authorRole', type: 'text' },
       ],
     },

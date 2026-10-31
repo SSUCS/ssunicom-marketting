@@ -2,7 +2,7 @@
 
 ## What is automatic
 
-- **Metadata:** every page, service, industry, article, case study and job has an SEO tab. Empty fields fall back to Site settings → SEO defaults. Titles use the template `%s | SS Unicom`.
+- **Metadata:** every page, service, industry, article, case study and job has an SEO tab. Empty fields fall back to Site settings → SEO defaults. Titles use the template `%s | SS Universal`.
 - **Canonical URLs** always point at `https://www.ssuniversalcommunicationservices.com` (from `NEXT_PUBLIC_SERVER_URL`), never at preview domains.
 - **Structured data (JSON-LD):** ProfessionalService organisation with address, phone and area served; WebSite; BreadcrumbList on inner pages; Service on service pages; FAQPage wherever FAQs are shown; ItemList on directories; BlogPosting on articles; JobPosting on job pages (eligible for Google Jobs).
 - **Sitemap** at `/sitemap.xml`, rebuilt hourly and on every publish, excluding noindex pages.
@@ -45,16 +45,16 @@ The focus keyword field on every SEO tab shows a live check: whether the keyword
 - **Money pages:** each of the 20 services targets a commercial "<service> outsourcing / services" keyword, with 2–3 secondary variants (often "India" variants, which signal offshore buyers).
 - **Group pages** target the broader category (for example "customer experience outsourcing").
 - **Industry pages** target "<industry> BPO / outsourcing services".
-- **Local:** "BPO company in Kanpur", "call center in Kanpur" and "BPO jobs in Kanpur" for the About and Careers pages, supported by a Google Business Profile.
+- **Local:** "BPO company India", "call center company India" and "BPO jobs in India" for the About and Careers pages. Kanpur appears only in the company address (footer, Contact page, schema and the Google Business Profile), never in headings or copy.
 - **Markets:** eight starter keywords, at least one per market (for example "BPO services for UAE businesses" and "call center outsourcing Canada"), all pointing at the home page for now. Once one market brings real enquiries, give it its own landing page.
-- **Brand:** "SS Unicom", "SS Unicom Service", "SS Universal Communication Services".
+- **Brand:** "SS Universal", "SS Universal BPO", "SS Universal Communication Services".
 - **Content:** Insights articles target informational questions buyers ask before choosing a vendor, and link to the matching service.
 
 ## Launch checklist
 
 1. Set `NEXT_PUBLIC_SERVER_URL` to the live domain and redeploy.
 2. Verify the domain in Google Search Console and Bing Webmaster Tools (paste the verification codes in Site settings → SEO defaults) and submit `/sitemap.xml`.
-3. Create or claim the Google Business Profile for the Kanpur office, with the same name, address and phone as the website, and add the Maps link in Site settings.
+3. Create or claim the Google Business Profile for the office, with the same name, address and phone as the website, and add the Maps link in Site settings.
 4. Add the GTM container ID (or GA4 ID) in Site settings → Analytics. Mark `generate_lead` as a key event in GA4.
 5. Add redirects for any old URLs that had traffic (SEO → Redirects).
 6. Replace the placeholder details listed in `content-to-confirm.md`.

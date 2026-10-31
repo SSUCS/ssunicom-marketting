@@ -1,6 +1,6 @@
-# SS Unicom: marketing website and CMS
+# SS Universal: marketing website and CMS
 
-The website for SS Universal Communication Services Pvt Ltd (SS Unicom), a business process outsourcing company in Kanpur, India.
+The website for SS Universal Communication Services Pvt Ltd (SS Universal), a business process outsourcing company in India.
 Every word, image, menu, form and SEO setting is editable in the built-in CMS at `/admin`.
 
 - **Front end:** Next.js 16 (App Router), React 19, Tailwind CSS v4

@@ -14,7 +14,7 @@ const figtree = Figtree({ subsets: ['latin'], variable: '--font-figtree', displa
 const archivo = Archivo({ subsets: ['latin'], variable: '--font-archivo', axes: ['wdth'], display: 'swap' })
 
 export const metadata: Metadata = {
-  title: { default: 'Brand guide | SS Unicom', template: '%s | SS Unicom brand guide' },
+  title: { default: 'Brand guide | SS Universal', template: '%s | SS Universal brand guide' },
   robots: { index: false, follow: false },
 }
 export const viewport: Viewport = { themeColor: '#13294b' }
@@ -36,7 +36,7 @@ export default async function BrandLayout({ children }: { children: React.ReactN
               <Link href="/brand" className="flex items-center gap-3">
                 <LogoMark tone="light" className="h-9 w-auto" />
                 <span className="leading-none">
-                  <span className="block text-lg font-extrabold tracking-tight">SS Unicom</span>
+                  <span className="block text-lg font-extrabold tracking-tight">SS Universal</span>
                   <span className="mt-1 block text-[0.6rem] font-bold tracking-[0.18em] text-white/60 uppercase">Brand guide · Internal</span>
                 </span>
               </Link>

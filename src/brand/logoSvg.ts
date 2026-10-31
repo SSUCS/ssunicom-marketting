@@ -20,5 +20,5 @@ export function logoSvg(file: LogoFile) {
   }
   const name = tone === 'light' ? '#ffffff' : '#13294b'
   const sub = tone === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(17,24,39,0.5)'
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 20 470 94" width="940" height="188">${grad}${mark}<text x="160" y="72" font-family="Figtree, Arial, sans-serif" font-weight="800" font-size="44" letter-spacing="-0.6" fill="${name}">SS Unicom</text><text x="162" y="100" font-family="Figtree, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3.4" fill="${sub}">OUTSOURCING · KANPUR</text></svg>`
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 20 470 94" width="940" height="188">${grad}${mark}<text x="160" y="72" font-family="Figtree, Arial, sans-serif" font-weight="800" font-size="44" letter-spacing="-0.6" fill="${name}">SS Universal</text><text x="162" y="100" font-family="Figtree, Arial, sans-serif" font-weight="700" font-size="14" letter-spacing="3.4" fill="${sub}">OUTSOURCING · INDIA</text></svg>`
 }

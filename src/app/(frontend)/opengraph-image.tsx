@@ -4,7 +4,7 @@ import { MARK_PATHS, MARK_VIEWBOX } from '@/components/layout/Logo'
 
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
-export const alt = 'SS Unicom: outsourcing for customer experience, back office and technology'
+export const alt = 'SS Universal: outsourcing for customer experience, back office and technology'
 
 export default function OgImage() {
   return new ImageResponse(
@@ -16,13 +16,13 @@ export default function OgImage() {
               <path key={d} d={d} fill="none" stroke="#a2ddd8" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
             ))}
           </svg>
-          <div style={{ fontSize: 40, fontWeight: 800 }}>SS Unicom</div>
+          <div style={{ fontSize: 40, fontWeight: 800 }}>SS Universal</div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.05, maxWidth: 950 }}>Outsourcing your customers and auditors can trust.</div>
           <div style={{ fontSize: 30, marginTop: 24, color: '#a2ddd8' }}>Customer experience · Back office · Industry operations · Technology</div>
         </div>
-        <div style={{ fontSize: 24, color: 'rgba(255,255,255,0.75)' }}>ssunicomservice.com · Kanpur, India</div>
+        <div style={{ fontSize: 24, color: 'rgba(255,255,255,0.75)' }}>ssunicomservice.com · India</div>
       </div>
     ),
     size,

@@ -198,7 +198,7 @@ async function seed(payload: Payload) {
         industry: industryIds[c.industry],
         services: c.services.map((slug) => serviceIds[slug]).filter(Boolean),
         publishedAt: new Date(Date.UTC(2026, 8 - i, 10)).toISOString(),
-        meta: { title: `${c.title} | SS Unicom`, description: c.summary.slice(0, 158), image: media[c.image] },
+        meta: { title: `${c.title} | SS Universal`, description: c.summary.slice(0, 158), image: media[c.image] },
       },
     })
     caseIds[c.slug] = doc.id
@@ -264,14 +264,14 @@ async function seed(payload: Payload) {
       data: {
         _status: 'published',
         ...j,
-        location: 'Kanpur, Uttar Pradesh',
+        location: 'India',
         employmentType: 'FULL_TIME',
         responsibilities: j.responsibilities.map((item) => ({ item })),
         requirements: j.requirements.map((item) => ({ item })),
         open: true,
         datePosted: posted.toISOString(),
         validThrough: validThrough.toISOString(),
-        meta: { title: `${j.title} job in Kanpur | SS Unicom Careers`, description: j.summary.slice(0, 158) },
+        meta: { title: `${j.title} job in India | SS Universal Careers`, description: j.summary.slice(0, 158) },
       },
     } as never)
   }
@@ -318,7 +318,7 @@ async function seed(payload: Payload) {
         {
           blockType: 'checkbox',
           name: 'consent',
-          label: 'I agree to SS Unicom contacting me about this enquiry, as described in the privacy policy.',
+          label: 'I agree to SS Universal contacting me about this enquiry, as described in the privacy policy.',
           required: true,
           width: 100,
         },
@@ -354,9 +354,9 @@ async function seed(payload: Payload) {
     slug: 'site-settings',
     context: { ...ctx },
     data: {
-      siteName: 'SS Unicom',
+      siteName: 'SS Universal',
       legalName: 'SS Universal Communication Services Pvt Ltd',
-      tagline: 'Business process outsourcing from Kanpur, India',
+      tagline: 'Business process outsourcing from India',
       phone: '+91 97947 74773',
       whatsapp: '919794774773',
       email: 'info@ssunicomservice.com',
@@ -371,10 +371,10 @@ async function seed(payload: Payload) {
       hours: 'Mon–Sat, 10:00–19:00 IST. Delivery teams work around the clock.',
       foundingYear: 2016,
       socials: [{ platform: 'linkedin', url: 'https://www.linkedin.com/company/ssunicomservice' }],
-      titleTemplate: '%s | SS Unicom',
-      defaultTitle: 'SS Unicom: Business Process Outsourcing Company in India',
+      titleTemplate: '%s | SS Universal',
+      defaultTitle: 'SS Universal: Business Process Outsourcing Company in India',
       defaultDescription:
-        'SS Unicom provides customer experience, back-office, industry, technology and marketing outsourcing from Kanpur, India, for businesses in the Middle East, India, USA, UK, Canada and Australia.',
+        'SS Universal provides customer experience, back-office, industry, technology and marketing outsourcing from India, for businesses in the Middle East, India, USA, UK, Canada and Australia.',
       markets,
       cookieBanner: true,
       cookieText: 'We use cookies to measure how the site is used and to improve it. You can accept or decline analytics cookies.',
@@ -391,7 +391,7 @@ async function seed(payload: Payload) {
         { link: pageLink('trust-and-security', 'Trust & security') },
       ],
       navItems: [
-        { label: 'Why SS Unicom', menu: 'link', link: pageLink('why-ss-unicom', 'Why SS Unicom') },
+        { label: 'Why SS Universal', menu: 'link', link: pageLink('why-ss-universal', 'Why SS Universal') },
         {
           label: 'Services',
           menu: 'services',
@@ -429,7 +429,7 @@ async function seed(payload: Payload) {
     context: { ...ctx },
     data: {
       blurb:
-        'SS Universal Communication Services Pvt Ltd runs customer experience, back-office and technology teams from Kanpur, India, for businesses around the world.',
+        'SS Universal Communication Services Pvt Ltd runs customer experience, back-office and technology teams from India, for businesses around the world.',
       columns: [
         {
           heading: 'Services',
@@ -443,7 +443,7 @@ async function seed(payload: Payload) {
           heading: 'Company',
           links: [
             { link: pageLink('about', 'About us') },
-            { link: pageLink('why-ss-unicom', 'Why SS Unicom') },
+            { link: pageLink('why-ss-universal', 'Why SS Universal') },
             { link: pageLink('trust-and-security', 'Trust & security') },
             { link: pageLink('case-studies', 'Case studies') },
             { link: pageLink('careers', 'Careers') },
@@ -473,7 +473,7 @@ async function seed(payload: Payload) {
     const cluster = groupByKey[s.group].title
     const target = { relationTo: 'services', value: serviceIds[s.slug] }
     kws.push({ keyword: s.focusKeyword, cluster, intent: 'commercial', priority: 'p1', target })
-    for (const k of s.secondary ?? []) kws.push({ keyword: k, cluster, intent: /india|kanpur/i.test(k) ? 'transactional' : 'commercial', priority: 'p2', target })
+    for (const k of s.secondary ?? []) kws.push({ keyword: k, cluster, intent: /india/i.test(k) ? 'transactional' : 'commercial', priority: 'p2', target })
   }
   for (const ind of industries) kws.push({ keyword: ind.focusKeyword, cluster: 'Industries', intent: 'commercial', priority: 'p2', target: { relationTo: 'industries', value: industryIds[ind.slug] } })
   for (const p of pageSeeds) {
@@ -481,12 +481,12 @@ async function seed(payload: Payload) {
     if (!meta?.focusKeyword) continue
     const target = { relationTo: 'pages', value: pageIds[p.slug] }
     kws.push({ keyword: meta.focusKeyword, cluster: 'Core pages', intent: p.slug === 'contact' ? 'navigational' : 'commercial', priority: 'p1', target })
-    for (const k of meta.secondaryKeywords ?? []) kws.push({ keyword: k, cluster: 'Core pages', intent: 'commercial', priority: 'p2', market: /kanpur|india/i.test(k) ? 'in' : 'global', target })
+    for (const k of meta.secondaryKeywords ?? []) kws.push({ keyword: k, cluster: 'Core pages', intent: 'commercial', priority: 'p2', market: /india/i.test(k) ? 'in' : 'global', target })
   }
-  for (const k of ['SS Unicom', 'SS Unicom Service', 'SS Universal Communication Services']) {
+  for (const k of ['SS Universal', 'SS Universal BPO', 'SS Universal Communication Services']) {
     kws.push({ keyword: k, cluster: 'Brand', intent: 'navigational', market: 'global', priority: 'p1', target: { relationTo: 'pages', value: pageIds.home } })
   }
-  for (const k of ['BPO company in Kanpur', 'call center in Kanpur', 'outsourcing company Uttar Pradesh']) {
+  for (const k of ['BPO company India', 'call center company India', 'outsourcing company India']) {
     kws.push({ keyword: k, cluster: 'Local', intent: 'transactional', market: 'in', priority: 'p2', target: { relationTo: 'pages', value: pageIds.about } })
   }
   const marketKeywords: [string, string][] = [

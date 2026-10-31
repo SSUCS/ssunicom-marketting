@@ -22,7 +22,7 @@ export const Jobs: CollectionConfig = {
       type: 'row',
       fields: [
         { name: 'department', type: 'text', required: true },
-        { name: 'location', type: 'text', required: true, defaultValue: 'Kanpur, Uttar Pradesh' },
+        { name: 'location', type: 'text', required: true, defaultValue: 'India' },
         {
           name: 'employmentType',
           type: 'select',

@@ -97,7 +97,7 @@ export function HeaderClient({ data }: { data: NavData }) {
             </a>
           </div>
           <div className="flex h-[4.5rem] items-center justify-between gap-6">
-            <Link href="/" aria-label="SS Unicom home" className="shrink-0">
+            <Link href="/" aria-label="SS Universal home" className="shrink-0">
               <Logo />
             </Link>
             <nav aria-label="Main" className="hidden h-full lg:block">

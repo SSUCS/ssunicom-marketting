@@ -1,6 +1,6 @@
 import { cn } from '@/lib/cn'
 
-// The SS Unicom crown mark, traced from the brand logo (150px artwork, cropped to the mark).
+// The SS Universal crown mark, traced from the brand logo (150px artwork, cropped to the mark).
 export const MARK_VIEWBOX = '8 20 134 94'
 export const MARK_PATHS = [
   'M12.5 50 28.5 95 75 110 121.5 95 137.5 50',
@@ -41,9 +41,9 @@ export function Logo({ tone = 'dark', className }: { tone?: 'dark' | 'light'; cl
     <span className={cn('inline-flex items-center gap-3', className)}>
       <LogoMark tone={tone} className="h-9 w-auto shrink-0 sm:h-10" />
       <span className="leading-none">
-        <span className={cn('block text-[1.3rem] font-extrabold tracking-tight', tone === 'light' ? 'text-white' : 'text-navy-900')}>SS Unicom</span>
+        <span className={cn('block text-[1.3rem] font-extrabold tracking-tight', tone === 'light' ? 'text-white' : 'text-navy-900')}>SS Universal</span>
         <span className={cn('mt-1 block text-[0.6rem] font-bold tracking-[0.18em] uppercase', tone === 'light' ? 'text-white/60' : 'text-ink/50')}>
-          Outsourcing · Kanpur
+          Outsourcing · India
         </span>
       </span>
     </span>

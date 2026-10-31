@@ -16,7 +16,7 @@ export async function GET() {
   // Site settings may be empty before content is added, so skip anything that is missing.
   const contact = [site.phone, site.email, `${site.address?.locality || 'Kanpur'}, India`].filter(Boolean).join(' · ')
   const lines = [
-    `# ${site.siteName || 'SS Unicom'}${site.legalName ? ` (${site.legalName})` : ''}`,
+    `# ${site.siteName || 'SS Universal'}${site.legalName ? ` (${site.legalName})` : ''}`,
     '',
     ...(site.defaultDescription ? [`> ${site.defaultDescription}`, ''] : []),
     `Contact: ${contact}`,
@@ -34,7 +34,7 @@ export async function GET() {
     '',
     '## Company',
     `- [About](${base}/about)`,
-    `- [Why SS Unicom](${base}/why-ss-unicom)`,
+    `- [Why SS Universal](${base}/why-ss-universal)`,
     `- [Trust & security](${base}/trust-and-security)`,
     `- [Case studies](${base}/case-studies)`,
     `- [Careers](${base}/careers)`,

@@ -6,7 +6,7 @@ export function Logo() {
       <div style={{ width: 48, display: 'flex' }}>
         <LogoMark className="ssu-admin-mark" />
       </div>
-      <span style={{ fontWeight: 700, fontSize: 22, letterSpacing: '-0.01em' }}>SS Unicom</span>
+      <span style={{ fontWeight: 700, fontSize: 22, letterSpacing: '-0.01em' }}>SS Universal</span>
     </div>
   )
 }

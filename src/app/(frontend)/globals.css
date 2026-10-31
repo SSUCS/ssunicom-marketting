@@ -4,7 +4,7 @@
   --font-sans: var(--font-figtree), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-archivo), var(--font-figtree), ui-sans-serif, sans-serif;
 
-  /* SS Unicom brand palette, option B "Teal & Navy". Documented at /brand. */
+  /* SS Universal brand palette, option B "Teal & Navy". Documented at /brand. */
   /* Brand teal: taken from the crown logo. 700 is the main brand colour. */
   --color-brand-50: #ebf7f6;
   --color-brand-100: #cfeeeb;

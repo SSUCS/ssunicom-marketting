@@ -63,7 +63,7 @@ export default function TypographyPage() {
                 {w.w} · {w.label}
               </span>
               <span className="text-2xl text-navy-900" style={{ fontWeight: w.w }}>
-                Customer experience from Kanpur
+                Customer experience from India
               </span>
             </div>
           ))}

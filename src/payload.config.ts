@@ -57,7 +57,7 @@ export default buildConfig({
     user: Users.slug,
     avatar: 'default',
     importMap: { baseDir: path.resolve(dirname) },
-    meta: { titleSuffix: ' · SS Unicom CMS' },
+    meta: { titleSuffix: ' · SS Universal CMS' },
     components: {
       beforeDashboard: ['@/components/admin/Welcome#Welcome'],
       graphics: { Logo: '@/components/admin/Brand#Logo', Icon: '@/components/admin/Brand#Icon' },
@@ -82,7 +82,7 @@ export default buildConfig({
     ? resendAdapter({
         apiKey: process.env.RESEND_API_KEY,
         defaultFromAddress: process.env.EMAIL_FROM_ADDRESS || 'website@ssunicomservice.com',
-        defaultFromName: process.env.EMAIL_FROM_NAME || 'SS Unicom Website',
+        defaultFromName: process.env.EMAIL_FROM_NAME || 'SS Universal Website',
       })
     : undefined,
   plugins: [

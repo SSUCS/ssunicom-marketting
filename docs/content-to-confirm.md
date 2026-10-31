@@ -19,11 +19,11 @@ Confirmed and correct: phone +91 97947 74773, email info@ssunicomservice.com, le
 
 Middle East (UAE, Saudi Arabia, Qatar, Oman, Bahrain, Kuwait), India, USA, UK, Canada, Australia, as the CEO asked on 28 Oct 2026. The coverage lines (for example, Arabic support for the Middle East) are assumptions to check.
 
-## Numbers (Pages → Home, About, Why SS Unicom; Service groups)
+## Numbers (Pages → Home, About, Why SS Universal; Service groups)
 
 - Home: 10+ years, 300+ professionals, 24/7 coverage, 120+ clients, 3 countries, 1.5M+ interactions a year, 99.5% SLA adherence
 - About: 3 shifts, 120+ clients
-- Why SS Unicom: 40% lower operating cost, 3 weeks to go live, 96% client retention
+- Why SS Universal: 40% lower operating cost, 3 weeks to go live, 96% client retention
 - Group stats shown on every service page, for example 92% calls answered in 30 seconds, 4.6/5 CSAT, 99.6% accuracy, 35% faster collections, 2 weeks to place an engineer
 
 ## Clients and proof (Case studies, Testimonials)

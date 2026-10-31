@@ -15,7 +15,7 @@ export type ColourFamily = {
 export const COLOURS: ColourFamily[] = [
   {
     id: 'brand',
-    name: 'Unicom Teal',
+    name: 'Universal Teal',
     role: 'Primary. Taken from the crown logo. Buttons, links, key numbers, icons.',
     token: 'brand',
     main: '700',
@@ -35,7 +35,7 @@ export const COLOURS: ColourFamily[] = [
   },
   {
     id: 'navy',
-    name: 'Kanpur Navy',
+    name: 'Deep Navy',
     role: 'Secondary. Headings, dark sections, footer, the hero overlay.',
     token: 'navy',
     main: '900',

@@ -58,7 +58,7 @@ export default async function PostPage({ params }: Args) {
           image: img?.url ? `${getServerSideURL()}${img.url}` : undefined,
           datePublished: post.publishedAt,
           dateModified: post.updatedAt,
-          author: { '@type': 'Person', name: post.authorName || 'SS Unicom Team', jobTitle: post.authorRole || undefined },
+          author: { '@type': 'Person', name: post.authorName || 'SS Universal Team', jobTitle: post.authorRole || undefined },
           publisher: { '@id': `${getCanonicalURL()}/#organization` },
           mainEntityOfPage: `${getCanonicalURL()}${pathFor('posts', post.slug)}`,
         }}
@@ -75,7 +75,7 @@ export default async function PostPage({ params }: Args) {
             <h1 className="mt-4 text-[2.2rem] leading-[1.1] sm:text-[3rem]">{post.title}</h1>
             <p className="lead mt-5">{post.excerpt}</p>
             <p className="mt-6 text-[0.95rem]">
-              By <strong className="text-navy-900">{post.authorName || 'SS Unicom Team'}</strong>
+              By <strong className="text-navy-900">{post.authorName || 'SS Universal Team'}</strong>
               {post.authorRole && <span className="text-ink/60">, {post.authorRole}</span>}
             </p>
           </div>

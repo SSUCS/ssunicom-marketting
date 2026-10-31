@@ -21,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(getCanonicalURL()),
     applicationName: site.siteName,
-    title: { default: site.defaultTitle, template: site.titleTemplate || '%s | SS Unicom' },
+    title: { default: site.defaultTitle, template: site.titleTemplate || '%s | SS Universal' },
     description: site.defaultDescription,
     verification: {
       google: site.googleSiteVerification || undefined,

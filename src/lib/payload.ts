@@ -51,12 +51,12 @@ export const getSlugs = async (collection: CollectionSlug): Promise<string[]> =>
  * still passes) before anyone has saved Site settings in the CMS.
  */
 const siteSettingsFallback = {
-  siteName: 'SS Unicom',
+  siteName: 'SS Universal',
   legalName: 'SS Universal Communication Services Pvt Ltd',
   phone: '+91 97947 74773',
   email: 'info@ssunicomservice.com',
-  titleTemplate: '%s | SS Unicom',
-  defaultTitle: 'SS Unicom',
+  titleTemplate: '%s | SS Universal',
+  defaultTitle: 'SS Universal',
   defaultDescription: '',
 }
 

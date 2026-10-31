@@ -194,7 +194,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
         <section className="relative overflow-hidden bg-brand-50 py-16 sm:py-24">
           <div aria-hidden className="orb pointer-events-none absolute -top-24 -right-24 size-[28rem] rounded-full bg-brand-200/60 blur-3xl" />
           <div className="container-x relative">
-            <SectionHeader heading={`Why teams choose SS Unicom for ${s.title.toLowerCase()}`} />
+            <SectionHeader heading={`Why teams choose SS Universal for ${s.title.toLowerCase()}`} />
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
               {s.benefits.map((b, i) => (
                 <div key={b.id} data-reveal style={stagger(i)} className="rounded-xl border border-white/80 bg-white/50 p-2 backdrop-blur">
@@ -249,7 +249,7 @@ async function ServiceView({ service: s, draft }: { service: Service; draft: boo
                 Questions buyers ask us
               </h2>
               <p data-reveal className="mt-5 text-lg text-ink/80">
-                Straight answers about {s.title.toLowerCase()} with SS Unicom.
+                Straight answers about {s.title.toLowerCase()} with SS Universal.
               </p>
             </div>
             <div data-reveal>

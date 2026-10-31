@@ -312,7 +312,7 @@ export const FaqAccordion: Block = {
       fields: [
         { name: 'question', type: 'text', required: true },
         { name: 'answer', type: 'textarea', required: true },
-        { name: 'expert', type: 'text', admin: { description: 'Optional attribution, e.g. "Operations Head, SS Unicom".' } },
+        { name: 'expert', type: 'text', admin: { description: 'Optional attribution, e.g. "Operations Head, SS Universal".' } },
       ],
     },
     {
