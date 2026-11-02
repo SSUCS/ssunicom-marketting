@@ -18,6 +18,7 @@
     "media:recolour:production": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload run src/seed/recolour-media.ts",
     "content:rename": "cross-env NODE_OPTIONS=--no-deprecation payload run src/seed/rename-brand-content.ts",
     "content:rename:production": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload run src/seed/rename-brand-content.ts",
+    "media:restore-who-we-are:production": "cross-env NODE_ENV=production NODE_OPTIONS=--no-deprecation payload run src/seed/restore-who-we-are.ts",
     "seed:fresh": "cross-env SEED_FRESH=1 NODE_OPTIONS=--no-deprecation payload run src/seed/run.ts",
     "migrate": "cross-env NODE_OPTIONS=--no-deprecation payload migrate",
     "migrate:create": "cross-env NODE_OPTIONS=--no-deprecation payload migrate:create",
