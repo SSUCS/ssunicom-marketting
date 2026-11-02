@@ -59,47 +59,75 @@ function changes(doc: Record<string, Json>) {
 const label = (doc: Record<string, Json>) => String(doc.title ?? doc.name ?? doc.keyword ?? doc.slug ?? doc.alt ?? doc.from ?? doc.id)
 
 const payload = await getPayload({ config })
+const log = (msg: string) => console.log(msg)
 try {
-  let total = 0
   const context = { disableRevalidate: true }
+  const started = Date.now()
+
+  // 1. Scan everything first, so the total is known before anything is written.
+  log('Rename: scanning the CMS for "SS Unicom" and Kanpur...')
+  type Job = { kind: 'doc'; collection: string; id: number; name: string; data: Record<string, Json>; keyword?: Json } | { kind: 'global'; slug: string; name: string; data: Record<string, Json> }
+  const jobs: Job[] = []
   for (const collection of payload.config.collections.map((c) => c.slug)) {
     if (SKIP.has(collection)) continue
     const { docs } = await payload.find({ collection, depth: 0, limit: 0, pagination: false, draft: false, overrideAccess: true } as never)
+    let found = 0
     for (const doc of docs as unknown as Record<string, Json>[]) {
       const data = changes(doc)
-      const fields = Object.keys(data)
-      if (!fields.length) continue
-      total++
-      payload.logger.info(`Rename: ${collection} "${label(doc)}" → ${fields.join(', ')}${dryRun ? ' (dry run)' : ''}`)
-      if (dryRun) continue
-      try {
-        await payload.update({ collection, id: doc.id as number, data, depth: 0, draft: false, overrideAccess: true, context } as never)
-      } catch (err) {
-        // Two old keywords can become the same new keyword (keywords are unique): keep one.
-        if (collection === 'keywords' && typeof data.keyword === 'string') {
-          const dup = await payload.find({ collection: 'keywords', where: { keyword: { equals: data.keyword } }, limit: 1, depth: 0 })
-          if (dup.docs.length) {
-            await payload.delete({ collection: 'keywords', id: doc.id as number, context })
-            payload.logger.info(`Rename: removed duplicate keyword "${doc.keyword}" (now "${data.keyword}")`)
-            continue
-          }
-        }
-        throw err
-      }
+      if (!Object.keys(data).length) continue
+      found++
+      jobs.push({ kind: 'doc', collection, id: doc.id as number, name: label(doc), data, keyword: doc.keyword })
     }
+    log(`  ${collection.padEnd(20)} ${String(docs.length).padStart(4)} checked, ${String(found).padStart(3)} to fix`)
   }
   for (const slug of payload.config.globals.map((g) => g.slug)) {
     const doc = (await payload.findGlobal({ slug, depth: 0, draft: false, overrideAccess: true } as never)) as unknown as Record<string, Json>
     const data = changes(doc)
-    const fields = Object.keys(data)
-    if (!fields.length) continue
-    total++
-    payload.logger.info(`Rename: ${slug} → ${fields.join(', ')}${dryRun ? ' (dry run)' : ''}`)
-    if (!dryRun) await payload.updateGlobal({ slug, data, depth: 0, draft: false, overrideAccess: true, context } as never)
+    const found = Object.keys(data).length ? 1 : 0
+    if (found) jobs.push({ kind: 'global', slug, name: slug, data })
+    log(`  ${slug.padEnd(20)}    1 checked, ${String(found).padStart(3)} to fix`)
   }
-  payload.logger.info(`Rename: ${dryRun ? 'would update' : 'updated'} ${total} documents. Done.`)
+
+  const total = jobs.length
+  if (!total) {
+    log('Rename: nothing left to change. Everything already says SS Universal. Done.')
+    process.exit(0)
+  }
+  log(`Rename: ${total} documents to update${dryRun ? ' (dry run, nothing will be written)' : ''}.`)
+
+  // 2. Update them one by one, showing how many are left.
+  let done = 0
+  let removed = 0
+  for (const job of jobs) {
+    const where = job.kind === 'doc' ? `${job.collection} "${job.name}"` : `${job.name} (settings)`
+    const fields = Object.keys(job.data).join(', ')
+    if (!dryRun) {
+      if (job.kind === 'global') {
+        await payload.updateGlobal({ slug: job.slug, data: job.data, depth: 0, draft: false, overrideAccess: true, context } as never)
+      } else {
+        try {
+          await payload.update({ collection: job.collection, id: job.id, data: job.data, depth: 0, draft: false, overrideAccess: true, context } as never)
+        } catch (err) {
+          // Two old keywords can become the same new keyword (keywords are unique): keep one.
+          const dup = job.collection === 'keywords' && typeof job.data.keyword === 'string'
+            ? await payload.find({ collection: 'keywords', where: { keyword: { equals: job.data.keyword } }, limit: 1, depth: 0 })
+            : null
+          if (!dup?.docs.length) throw err
+          await payload.delete({ collection: 'keywords', id: job.id, context })
+          removed++
+        }
+      }
+    }
+    done++
+    const pct = Math.round((done / total) * 100)
+    log(`[${String(done).padStart(String(total).length)}/${total}] ${String(pct).padStart(3)}%  ${total - done} left  ·  ${where} → ${fields}`)
+  }
+  const secs = Math.round((Date.now() - started) / 1000)
+  log(`Rename: ${dryRun ? 'would update' : 'updated'} ${done} of ${total} documents in ${secs}s${removed ? ` (${removed} duplicate keywords removed)` : ''}. 0 left. Done.`)
+  if (!dryRun) log('Next: git push origin main, so Vercel rebuilds the site with the new text.')
   process.exit(0)
 } catch (err) {
+  console.error('Rename: stopped with an error. Nothing is lost: run the same command again and it carries on with what is left.')
   payload.logger.error(err)
   process.exit(1)
 }
