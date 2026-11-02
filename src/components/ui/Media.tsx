@@ -23,6 +23,8 @@ export function Media({ resource, className, imgClassName, sizes = '100vw', prio
       </video>
     )
   }
+  // The image optimiser rejects SVG, so SVG uploads (logos) are served as they are.
+  const unoptimized = resource.mimeType === 'image/svg+xml'
   const focal = resource.focalX != null && resource.focalY != null ? `${resource.focalX}% ${resource.focalY}%` : undefined
   if (fill) {
     return (
@@ -32,6 +34,7 @@ export function Media({ resource, className, imgClassName, sizes = '100vw', prio
         fill
         sizes={sizes}
         priority={priority}
+        unoptimized={unoptimized}
         className={imgClassName}
         style={focal ? { objectPosition: focal } : undefined}
       />
@@ -46,6 +49,7 @@ export function Media({ resource, className, imgClassName, sizes = '100vw', prio
         height={resource.height || 800}
         sizes={sizes}
         priority={priority}
+        unoptimized={unoptimized}
         className={imgClassName}
       />
     </span>
