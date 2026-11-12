@@ -15,11 +15,13 @@ import { fileURLToPath } from 'url'
 import { CaseStudies } from './collections/CaseStudies'
 import { Categories } from './collections/Categories'
 import { Industries } from './collections/Industries'
+import { JobApplications } from './collections/JobApplications'
 import { Jobs } from './collections/Jobs'
 import { Keywords } from './collections/Keywords'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
+import { Resumes } from './collections/Resumes'
 import { ServiceCategories } from './collections/ServiceCategories'
 import { Services } from './collections/Services'
 import { Testimonials } from './collections/Testimonials'
@@ -76,7 +78,7 @@ export default buildConfig({
     migrationDir: path.resolve(dirname, 'migrations'),
     push: false,
   }),
-  collections: [Pages, Services, ServiceCategories, Industries, CaseStudies, Testimonials, Posts, Categories, Jobs, Keywords, Media, Users],
+  collections: [Pages, Services, ServiceCategories, Industries, CaseStudies, Testimonials, Posts, Categories, Jobs, JobApplications, Resumes, Keywords, Media, Users],
   globals: [Header, Footer, SiteSettings],
   email: process.env.RESEND_API_KEY
     ? resendAdapter({
@@ -134,7 +136,7 @@ export default buildConfig({
       clientUploads: true,
       // Serve files straight from UploadThing's CDN. Proxying through /api/media/file sends an empty
       // body, because UploadThing's HEAD response has no content-length for Payload to size it with.
-      collections: { media: { disablePayloadAccessControl: true } },
+      collections: { media: { disablePayloadAccessControl: true }, resumes: { disablePayloadAccessControl: true } },
       options: { token: process.env.UPLOADTHING_TOKEN, acl: 'public-read' },
     }),
   ],

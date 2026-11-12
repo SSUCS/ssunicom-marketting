@@ -2,6 +2,7 @@ import { Briefcase, Clock, MapPin, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
+import { JobApplicationForm } from '@/components/forms/JobApplicationForm'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { pathFor } from '@/lib/paths'
@@ -27,7 +28,6 @@ export default async function JobPage({ params }: Args) {
   if (!job || !job.open) notFound()
   const site = await getGlobal('site-settings', 0)
   const a = site.address
-  const applyEmail = site.careersEmail || site.email
   return (
     <>
       <JsonLd
@@ -105,15 +105,24 @@ export default async function JobPage({ params }: Args) {
           <aside className="lg:sticky lg:top-32 lg:self-start">
             <div className="rounded-lg bg-navy-900 p-7 text-white">
               <p className="text-lg font-semibold">Apply for this role</p>
-              <p className="mt-2 text-white/75">Email your CV with the role title in the subject line. We reply to every application within a week.</p>
-              <a href={`mailto:${applyEmail}?subject=${encodeURIComponent(`Application: ${job.title}`)}`} className="btn btn-mint mt-6 w-full">
-                Apply by email
+              <p className="mt-2 text-white/75">Fill in the short form on this page. It takes about two minutes, and our team calls shortlisted candidates.</p>
+              <a href="#apply" className="btn btn-mint mt-6 w-full">
+                Apply now
               </a>
               <a href={`tel:${site.phone.replace(/\s/g, '')}`} className="mt-3 block text-center text-sm text-white/75 hover:text-white">
                 or call {site.phone}
               </a>
             </div>
           </aside>
+        </div>
+      </section>
+      <section id="apply" className="scroll-mt-28 bg-mist-50 py-14 sm:py-20">
+        <div className="container-x max-w-[48rem]">
+          <h2 className="text-[1.8rem] leading-tight sm:text-[2.2rem]">Apply for {job.title}</h2>
+          <p className="mt-3 text-ink/75">Share your details and we will get back to you. Fields marked * are required.</p>
+          <div className="relative mt-8 overflow-hidden rounded-lg bg-white p-6 shadow-sm sm:p-8">
+            <JobApplicationForm jobId={job.id} jobTitle={job.title} />
+          </div>
         </div>
       </section>
     </>

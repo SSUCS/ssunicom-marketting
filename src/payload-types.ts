@@ -89,6 +89,8 @@ export interface Config {
     posts: Post;
     categories: Category;
     jobs: Job;
+    'job-applications': JobApplication;
+    resumes: Resume;
     keywords: Keyword;
     media: Media;
     users: User;
@@ -112,6 +114,8 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     jobs: JobsSelect<false> | JobsSelect<true>;
+    'job-applications': JobApplicationsSelect<false> | JobApplicationsSelect<true>;
+    resumes: ResumesSelect<false> | ResumesSelect<true>;
     keywords: KeywordsSelect<false> | KeywordsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -1896,6 +1900,55 @@ export interface MarketsBlock {
   blockType: 'markets';
 }
 /**
+ * Candidates who applied through the website. Newest first.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "job-applications".
+ */
+export interface JobApplication {
+  id: number;
+  name: string;
+  phone: string;
+  email?: string | null;
+  city?: string | null;
+  experience?: ('fresher' | 'under-1' | '1-3' | '3-5' | '5-plus') | null;
+  message?: string | null;
+  resume?: (number | null) | Resume;
+  status: 'new' | 'shortlisted' | 'interview' | 'hired' | 'rejected';
+  job?: (number | null) | Job;
+  /**
+   * Kept even if the job opening is later deleted.
+   */
+  jobTitle?: string | null;
+  /**
+   * Internal notes. Never shown to the candidate.
+   */
+  notes?: string | null;
+  pageUrl?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Files uploaded by candidates. Open a job application to see whose CV it is.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resumes".
+ */
+export interface Resume {
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
  * Target keywords and the page that owns each one. Fill volume, difficulty and CPC from SEMrush / Ahrefs / Keyword Planner, and positions from Google Search Console.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2206,6 +2259,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'jobs';
         value: number | Job;
+      } | null)
+    | ({
+        relationTo: 'job-applications';
+        value: number | JobApplication;
+      } | null)
+    | ({
+        relationTo: 'resumes';
+        value: number | Resume;
       } | null)
     | ({
         relationTo: 'keywords';
@@ -2971,6 +3032,43 @@ export interface JobsSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "job-applications_select".
+ */
+export interface JobApplicationsSelect<T extends boolean = true> {
+  name?: T;
+  phone?: T;
+  email?: T;
+  city?: T;
+  experience?: T;
+  message?: T;
+  resume?: T;
+  status?: T;
+  job?: T;
+  jobTitle?: T;
+  notes?: T;
+  pageUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resumes_select".
+ */
+export interface ResumesSelect<T extends boolean = true> {
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -3,6 +3,7 @@ import * as migration_20261028_095805_add_markets from './20261028_095805_add_ma
 import * as migration_20261028_095819_drop_area_served from './20261028_095819_drop_area_served';
 import * as migration_20261030_135905_uploadthing_fields from './20261030_135905_uploadthing_fields';
 import * as migration_20261031_120652_brand_name_defaults from './20261031_120652_brand_name_defaults';
+import * as migration_20261112_122134_job_applications from './20261112_122134_job_applications';
 
 export const migrations = [
   {
@@ -28,6 +29,11 @@ export const migrations = [
   {
     up: migration_20261031_120652_brand_name_defaults.up,
     down: migration_20261031_120652_brand_name_defaults.down,
-    name: '20261031_120652_brand_name_defaults'
+    name: '20261031_120652_brand_name_defaults',
+  },
+  {
+    up: migration_20261112_122134_job_applications.up,
+    down: migration_20261112_122134_job_applications.down,
+    name: '20261112_122134_job_applications'
   },
 ];
