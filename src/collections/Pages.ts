@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { authenticated, authenticatedOrPublished } from '@/access'
+import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { pageBlocks } from '@/blocks/config'
 import { hero } from '@/fields/hero'
 import { populatePublishedAt } from '@/hooks/populatePublishedAt'
@@ -11,6 +11,7 @@ import { previewUrl } from '@/lib/preview'
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   admin: {
+    hidden: hiddenFromHR,
     group: 'Content',
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', '_status', 'updatedAt'],
@@ -19,7 +20,7 @@ export const Pages: CollectionConfig<'pages'> = {
     description: 'Every marketing page. The page with slug "home" is the homepage.',
   },
   defaultPopulate: { title: true, slug: true },
-  access: { create: authenticated, delete: authenticated, read: authenticatedOrPublished, update: authenticated },
+  access: { create: websiteStaff, delete: websiteStaff, read: websiteStaffOrPublished, update: websiteStaff },
   fields: [
     { name: 'title', type: 'text', required: true, admin: { description: 'Internal name, also used in breadcrumbs and the default SEO title.' } },
     {

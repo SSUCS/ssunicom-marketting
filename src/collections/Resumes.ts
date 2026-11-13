@@ -1,7 +1,7 @@
 import path from 'path'
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '@/access'
+import { careersStaff } from '@/access'
 
 /** CVs sent with job applications. Only logged-in staff can list or open them. */
 export const Resumes: CollectionConfig = {
@@ -12,7 +12,7 @@ export const Resumes: CollectionConfig = {
     defaultColumns: ['filename', 'createdAt'],
     description: 'Files uploaded by candidates. Open a job application to see whose CV it is.',
   },
-  access: { create: authenticated, delete: authenticated, read: authenticated, update: authenticated },
+  access: { create: careersStaff, delete: careersStaff, read: careersStaff, update: careersStaff },
   fields: [],
   upload: {
     staticDir: path.join(process.cwd(), 'resumes'),

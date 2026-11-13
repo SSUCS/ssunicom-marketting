@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { anyone, authenticated } from '@/access'
+import { anyone, careersStaff } from '@/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
 
 export const Jobs: CollectionConfig = {
@@ -15,7 +15,7 @@ export const Jobs: CollectionConfig = {
   },
   defaultPopulate: { title: true, slug: true, department: true, location: true },
   defaultSort: '-datePosted',
-  access: { create: authenticated, delete: authenticated, read: anyone, update: authenticated },
+  access: { create: careersStaff, delete: careersStaff, read: anyone, update: careersStaff },
   fields: [
     { name: 'title', type: 'text', required: true },
     {

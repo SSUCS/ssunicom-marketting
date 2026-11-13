@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '@/access'
+import { hiddenFromHR, websiteStaff } from '@/access'
 
 /**
  * A SEMrush-style keyword map kept next to the content. Record research from SEMrush,
@@ -11,6 +11,7 @@ export const Keywords: CollectionConfig = {
   slug: 'keywords',
   labels: { singular: 'Keyword', plural: 'Keyword map' },
   admin: {
+    hidden: hiddenFromHR,
     group: 'SEO',
     useAsTitle: 'keyword',
     defaultColumns: ['keyword', 'cluster', 'intent', 'searchVolume', 'difficulty', 'priority', 'target', 'status'],
@@ -18,7 +19,7 @@ export const Keywords: CollectionConfig = {
     description:
       'Target keywords and the page that owns each one. Fill volume, difficulty and CPC from SEMrush / Ahrefs / Keyword Planner, and positions from Google Search Console.',
   },
-  access: { create: authenticated, delete: authenticated, read: authenticated, update: authenticated },
+  access: { create: websiteStaff, delete: websiteStaff, read: websiteStaff, update: websiteStaff },
   fields: [
     {
       type: 'row',

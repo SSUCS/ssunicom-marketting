@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone, authenticated } from '@/access'
+import { anyone, hiddenFromHR, websiteStaff } from '@/access'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
 
 export const Testimonials: CollectionConfig = {
   slug: 'testimonials',
-  admin: { group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'company', 'featured'] },
-  access: { create: authenticated, delete: authenticated, read: anyone, update: authenticated },
+  admin: { hidden: hiddenFromHR, group: 'Content', useAsTitle: 'name', defaultColumns: ['name', 'company', 'featured'] },
+  access: { create: websiteStaff, delete: websiteStaff, read: anyone, update: websiteStaff },
   fields: [
     { name: 'quote', type: 'textarea', required: true },
     {

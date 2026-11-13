@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { anyone, authenticated } from '@/access'
+import { anyone, hiddenFromHR, websiteStaff } from '@/access'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
   labels: { singular: 'Insight topic', plural: 'Insight topics' },
-  admin: { useAsTitle: 'title', group: 'Insights' },
-  access: { create: authenticated, delete: authenticated, read: anyone, update: authenticated },
+  admin: { hidden: hiddenFromHR, useAsTitle: 'title', group: 'Insights' },
+  access: { create: websiteStaff, delete: websiteStaff, read: anyone, update: websiteStaff },
   fields: [{ name: 'title', type: 'text', required: true }, slugField()],
 }

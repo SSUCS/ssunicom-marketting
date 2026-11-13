@@ -1,17 +1,18 @@
 import { APIError, type CollectionConfig } from 'payload'
 
-import { authenticated } from '@/access'
+import { hiddenFromHR, websiteStaff, websiteStaffField, websiteStaffOrSelf } from '@/access'
 
 export const Users: CollectionConfig = {
   slug: 'users',
-  admin: { useAsTitle: 'name', defaultColumns: ['name', 'email', 'role'], group: 'Settings' },
+  admin: { hidden: hiddenFromHR, useAsTitle: 'name', defaultColumns: ['name', 'email', 'role'], group: 'Settings' },
   auth: { useAPIKey: false, maxLoginAttempts: 8, lockTime: 10 * 60 * 1000 },
   access: {
     admin: ({ req: { user } }) => Boolean(user),
-    create: authenticated,
-    delete: authenticated,
-    read: authenticated,
-    update: authenticated,
+    create: websiteStaff,
+    delete: websiteStaff,
+    // HR can open and update only their own account (name, password), never other users.
+    read: websiteStaffOrSelf,
+    update: websiteStaffOrSelf,
   },
   fields: [
     { name: 'name', type: 'text', required: true },
@@ -22,7 +23,11 @@ export const Users: CollectionConfig = {
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
+        { label: 'HR (Careers only)', value: 'hr' },
       ],
+      // Stops an HR user from promoting themselves.
+      access: { update: websiteStaffField },
+      admin: { description: 'Admin and Editor manage the whole website. HR sees only the Careers section.' },
     },
   ],
   hooks: {

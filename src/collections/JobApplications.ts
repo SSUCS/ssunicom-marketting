@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '@/access'
+import { careersStaff } from '@/access'
 
 export const experienceOptions = [
   { label: 'Fresher', value: 'fresher' },
@@ -24,7 +24,7 @@ export const JobApplications: CollectionConfig = {
     description: 'Candidates who applied through the website. Newest first.',
   },
   defaultSort: '-createdAt',
-  access: { create: authenticated, delete: authenticated, read: authenticated, update: authenticated },
+  access: { create: careersStaff, delete: careersStaff, read: careersStaff, update: careersStaff },
   fields: [
     {
       type: 'row',

@@ -25,6 +25,7 @@ import { Resumes } from './collections/Resumes'
 import { ServiceCategories } from './collections/ServiceCategories'
 import { Services } from './collections/Services'
 import { Testimonials } from './collections/Testimonials'
+import { anyone, hiddenFromHR, websiteStaff } from './access'
 import { Users } from './collections/Users'
 import { Footer } from './globals/Footer'
 import { Header } from './globals/Header'
@@ -101,7 +102,8 @@ export default buildConfig({
       collections: ['pages', 'services', 'service-categories', 'industries', 'posts', 'case-studies'],
       redirectTypes: ['301', '302'],
       overrides: {
-        admin: { group: 'SEO' },
+        admin: { group: 'SEO', hidden: hiddenFromHR },
+        access: { create: websiteStaff, delete: websiteStaff, read: anyone, update: websiteStaff },
         hooks: { afterChange: [revalidateAfterChange] },
       },
     }),
@@ -109,9 +111,14 @@ export default buildConfig({
       fields: { payment: false, state: false, country: false },
       redirectRelationships: ['pages'],
       defaultToEmail: 'info@ssunicomservice.com',
-      formOverrides: { admin: { group: 'Forms' } },
+      formOverrides: {
+        admin: { group: 'Forms', hidden: hiddenFromHR },
+        access: { create: websiteStaff, delete: websiteStaff, read: anyone, update: websiteStaff },
+      },
       formSubmissionOverrides: {
-        admin: { group: 'Forms', defaultColumns: ['form', 'createdAt', 'pageUrl', 'utmSource'] },
+        admin: { group: 'Forms', hidden: hiddenFromHR, defaultColumns: ['form', 'createdAt', 'pageUrl', 'utmSource'] },
+        // The public can send an enquiry; only website staff can read or delete what was sent.
+        access: { create: anyone, delete: websiteStaff, read: websiteStaff, update: () => false },
         fields: ({ defaultFields }) => [
           ...defaultFields,
           { name: 'pageUrl', type: 'text', admin: { readOnly: true } },

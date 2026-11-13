@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { authenticated, authenticatedOrPublished } from '@/access'
+import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { populatePublishedAt } from '@/hooks/populatePublishedAt'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
 import { previewUrl } from '@/lib/preview'
@@ -10,6 +10,7 @@ export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   labels: { singular: 'Insight', plural: 'Insights' },
   admin: {
+    hidden: hiddenFromHR,
     group: 'Insights',
     useAsTitle: 'title',
     defaultColumns: ['title', 'categories', 'publishedAt', '_status'],
@@ -19,7 +20,7 @@ export const Posts: CollectionConfig<'posts'> = {
   },
   defaultPopulate: { title: true, slug: true, excerpt: true, heroImage: true, publishedAt: true, categories: true },
   defaultSort: '-publishedAt',
-  access: { create: authenticated, delete: authenticated, read: authenticatedOrPublished, update: authenticated },
+  access: { create: websiteStaff, delete: websiteStaff, read: websiteStaffOrPublished, update: websiteStaff },
   fields: [
     { name: 'title', type: 'text', required: true },
     { name: 'excerpt', type: 'textarea', required: true, admin: { description: 'Shown on cards and used as the fallback meta description.' } },

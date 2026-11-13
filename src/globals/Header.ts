@@ -1,12 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
+import { hiddenFromHR, websiteStaff } from '@/access'
 import { link } from '@/fields/link'
 import { revalidateGlobal } from '@/hooks/revalidate'
 
 export const Header: GlobalConfig = {
   slug: 'header',
-  admin: { group: 'Settings' },
-  access: { read: () => true },
+  admin: { hidden: hiddenFromHR, group: 'Settings' },
+  access: { read: () => true, update: websiteStaff },
   fields: [
     {
       name: 'utilityLinks',

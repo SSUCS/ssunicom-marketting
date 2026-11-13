@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { authenticated, authenticatedOrPublished } from '@/access'
+import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { faqsField } from '@/fields/faqs'
 import { iconField } from '@/fields/icon'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
@@ -10,6 +10,7 @@ import { previewUrl } from '@/lib/preview'
 export const Industries: CollectionConfig<'industries'> = {
   slug: 'industries',
   admin: {
+    hidden: hiddenFromHR,
     group: 'Content',
     useAsTitle: 'title',
     defaultColumns: ['order', 'title', '_status', 'updatedAt'],
@@ -18,7 +19,7 @@ export const Industries: CollectionConfig<'industries'> = {
   },
   defaultPopulate: { title: true, slug: true, summary: true, image: true, icon: true, order: true },
   defaultSort: 'order',
-  access: { create: authenticated, delete: authenticated, read: authenticatedOrPublished, update: authenticated },
+  access: { create: websiteStaff, delete: websiteStaff, read: websiteStaffOrPublished, update: websiteStaff },
   fields: [
     {
       type: 'row',

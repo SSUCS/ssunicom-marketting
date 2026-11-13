@@ -1,12 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
-import { anyone, authenticated } from '@/access'
+import { anyone, hiddenFromHR, websiteStaff } from '@/access'
 import { resolveMediaDir } from '@/lib/database'
 
 export const Media: CollectionConfig = {
   slug: 'media',
-  admin: { group: 'Content', defaultColumns: ['filename', 'alt', 'updatedAt'] },
-  access: { create: authenticated, delete: authenticated, read: anyone, update: authenticated },
+  admin: { hidden: hiddenFromHR, group: 'Content', defaultColumns: ['filename', 'alt', 'updatedAt'] },
+  access: { create: websiteStaff, delete: websiteStaff, read: anyone, update: websiteStaff },
   fields: [
     {
       name: 'alt',

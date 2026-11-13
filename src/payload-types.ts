@@ -2022,7 +2022,10 @@ export interface Keyword {
 export interface User {
   id: number;
   name: string;
-  role?: ('admin' | 'editor') | null;
+  /**
+   * Admin and Editor manage the whole website. HR sees only the Careers section.
+   */
+  role?: ('admin' | 'editor' | 'hr') | null;
   updatedAt: string;
   createdAt: string;
   email: string;
