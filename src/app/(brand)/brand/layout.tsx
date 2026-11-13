@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
+import { canSeeBrandGuide, canUseCMS } from '@/access'
 import { BrandNav } from '@/brand/BrandNav'
 import { LogoMark } from '@/components/layout/Logo'
 import { getPayloadClient } from '@/lib/payload'
@@ -20,11 +21,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { themeColor: '#13294b' }
 export const dynamic = 'force-dynamic'
 
-// Internal: only people who can sign in to the website's CMS can open the brand guide.
+// Internal: signed-in admins, editors and designers. HR accounts are limited to Careers in the CMS.
 export default async function BrandLayout({ children }: { children: React.ReactNode }) {
   const payload = await getPayloadClient()
   const { user } = await payload.auth({ headers: await headers() })
   if (!user) redirect('/admin/login?redirect=%2Fbrand')
+  if (!canSeeBrandGuide(user)) redirect('/admin')
+  const cms = canUseCMS({ req: { user } as never })
 
   return (
     <html lang="en-IN" className={`${figtree.variable} ${archivo.variable}`}>
@@ -47,10 +50,18 @@ export default async function BrandLayout({ children }: { children: React.ReactN
                   <Link href="/" className="font-semibold text-brand-300 hover:text-white">
                     Open the website
                   </Link>
+                  {cms && (
+                    <>
+                      <span aria-hidden> · </span>
+                      <Link href="/admin" className="font-semibold text-brand-300 hover:text-white">
+                        CMS
+                      </Link>
+                    </>
+                  )}
                   <span aria-hidden> · </span>
-                  <Link href="/admin" className="font-semibold text-brand-300 hover:text-white">
-                    CMS
-                  </Link>
+                  <a href="/admin/logout" className="font-semibold text-brand-300 hover:text-white">
+                    Sign out
+                  </a>
                 </p>
               </div>
             </div>

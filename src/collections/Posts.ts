@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { populatePublishedAt } from '@/hooks/populatePublishedAt'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
 import { previewUrl } from '@/lib/preview'
@@ -10,7 +10,7 @@ export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
   labels: { singular: 'Insight', plural: 'Insights' },
   admin: {
-    hidden: hiddenFromHR,
+    hidden: hiddenFromLimitedRoles,
     group: 'Insights',
     useAsTitle: 'title',
     defaultColumns: ['title', 'categories', 'publishedAt', '_status'],

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { pageBlocks } from '@/blocks/config'
 import { hero } from '@/fields/hero'
 import { populatePublishedAt } from '@/hooks/populatePublishedAt'
@@ -11,7 +11,7 @@ import { previewUrl } from '@/lib/preview'
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
   admin: {
-    hidden: hiddenFromHR,
+    hidden: hiddenFromLimitedRoles,
     group: 'Content',
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug', '_status', 'updatedAt'],

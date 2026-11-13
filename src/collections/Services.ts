@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { faqsField } from '@/fields/faqs'
 import { iconField } from '@/fields/icon'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
@@ -10,7 +10,7 @@ import { previewUrl } from '@/lib/preview'
 export const Services: CollectionConfig<'services'> = {
   slug: 'services',
   admin: {
-    hidden: hiddenFromHR,
+    hidden: hiddenFromLimitedRoles,
     group: 'Services',
     useAsTitle: 'title',
     defaultColumns: ['number', 'title', 'category', '_status', 'updatedAt'],

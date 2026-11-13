@@ -2023,9 +2023,9 @@ export interface User {
   id: number;
   name: string;
   /**
-   * Admin and Editor manage the whole website. HR sees only the Careers section.
+   * Admin and Editor manage the whole website. HR sees only the Careers section. Designer can only open the brand guide at /brand.
    */
-  role?: ('admin' | 'editor' | 'hr') | null;
+  role?: ('admin' | 'editor' | 'hr' | 'designer') | null;
   updatedAt: string;
   createdAt: string;
   email: string;

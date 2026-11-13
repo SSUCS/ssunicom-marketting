@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { anyone, hiddenFromHR, websiteStaff } from '@/access'
+import { anyone, hiddenFromLimitedRoles, websiteStaff } from '@/access'
 import { faqsField } from '@/fields/faqs'
 import { iconField } from '@/fields/icon'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
@@ -11,7 +11,7 @@ export const ServiceCategories: CollectionConfig<'service-categories'> = {
   slug: 'service-categories',
   labels: { singular: 'Service group', plural: 'Service groups' },
   admin: {
-    hidden: hiddenFromHR,
+    hidden: hiddenFromLimitedRoles,
     group: 'Services',
     useAsTitle: 'title',
     defaultColumns: ['order', 'title', 'code', 'updatedAt'],

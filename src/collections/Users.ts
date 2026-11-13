@@ -1,13 +1,14 @@
 import { APIError, type CollectionConfig } from 'payload'
 
-import { hiddenFromHR, websiteStaff, websiteStaffField, websiteStaffOrSelf } from '@/access'
+import { canUseCMS, hiddenFromLimitedRoles, websiteStaff, websiteStaffField, websiteStaffOrSelf } from '@/access'
 
 export const Users: CollectionConfig = {
   slug: 'users',
-  admin: { hidden: hiddenFromHR, useAsTitle: 'name', defaultColumns: ['name', 'email', 'role'], group: 'Settings' },
+  admin: { hidden: hiddenFromLimitedRoles, useAsTitle: 'name', defaultColumns: ['name', 'email', 'role'], group: 'Settings' },
   auth: { useAPIKey: false, maxLoginAttempts: 8, lockTime: 10 * 60 * 1000 },
   access: {
-    admin: ({ req: { user } }) => Boolean(user),
+    // Designers sign in here only to reach the brand guide at /brand; the CMS itself is closed to them.
+    admin: canUseCMS,
     create: websiteStaff,
     delete: websiteStaff,
     // HR can open and update only their own account (name, password), never other users.
@@ -24,10 +25,11 @@ export const Users: CollectionConfig = {
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
         { label: 'HR (Careers only)', value: 'hr' },
+        { label: 'Designer (brand guide only)', value: 'designer' },
       ],
-      // Stops an HR user from promoting themselves.
+      // Stops an HR or designer user from promoting themselves.
       access: { update: websiteStaffField },
-      admin: { description: 'Admin and Editor manage the whole website. HR sees only the Careers section.' },
+      admin: { description: 'Admin and Editor manage the whole website. HR sees only the Careers section. Designer can only open the brand guide at /brand.' },
     },
   ],
   hooks: {

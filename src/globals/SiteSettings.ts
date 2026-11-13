@@ -1,13 +1,13 @@
 import type { GlobalConfig } from 'payload'
 
-import { hiddenFromHR, websiteStaff } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff } from '@/access'
 import { link } from '@/fields/link'
 import { revalidateGlobal } from '@/hooks/revalidate'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   label: 'Site settings',
-  admin: { hidden: hiddenFromHR, group: 'Settings', description: 'Company details, default SEO, tracking codes and the cookie banner.' },
+  admin: { hidden: hiddenFromLimitedRoles, group: 'Settings', description: 'Company details, default SEO, tracking codes and the cookie banner.' },
   access: { read: () => true, update: websiteStaff },
   fields: [
     {

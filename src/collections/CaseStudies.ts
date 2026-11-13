@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { slugField } from 'payload'
 
-import { hiddenFromHR, websiteStaff, websiteStaffOrPublished } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff, websiteStaffOrPublished } from '@/access'
 import { populatePublishedAt } from '@/hooks/populatePublishedAt'
 import { revalidateAfterChange, revalidateAfterDelete } from '@/hooks/revalidate'
 import { previewUrl } from '@/lib/preview'
@@ -9,7 +9,7 @@ import { previewUrl } from '@/lib/preview'
 export const CaseStudies: CollectionConfig<'case-studies'> = {
   slug: 'case-studies',
   admin: {
-    hidden: hiddenFromHR,
+    hidden: hiddenFromLimitedRoles,
     group: 'Content',
     useAsTitle: 'title',
     defaultColumns: ['title', 'client', '_status', 'updatedAt'],

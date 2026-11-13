@@ -1,12 +1,12 @@
 import type { GlobalConfig } from 'payload'
 
-import { hiddenFromHR, websiteStaff } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff } from '@/access'
 import { link } from '@/fields/link'
 import { revalidateGlobal } from '@/hooks/revalidate'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
-  admin: { hidden: hiddenFromHR, group: 'Settings' },
+  admin: { hidden: hiddenFromLimitedRoles, group: 'Settings' },
   access: { read: () => true, update: websiteStaff },
   fields: [
     { name: 'blurb', type: 'textarea' },

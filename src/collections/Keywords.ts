@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload'
 
-import { hiddenFromHR, websiteStaff } from '@/access'
+import { hiddenFromLimitedRoles, websiteStaff } from '@/access'
 
 /**
  * A SEMrush-style keyword map kept next to the content. Record research from SEMrush,
@@ -11,7 +11,7 @@ export const Keywords: CollectionConfig = {
   slug: 'keywords',
   labels: { singular: 'Keyword', plural: 'Keyword map' },
   admin: {
-    hidden: hiddenFromHR,
+    hidden: hiddenFromLimitedRoles,
     group: 'SEO',
     useAsTitle: 'keyword',
     defaultColumns: ['keyword', 'cluster', 'intent', 'searchVolume', 'difficulty', 'priority', 'target', 'status'],
