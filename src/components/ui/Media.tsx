@@ -12,6 +12,8 @@ type Props = {
   alt?: string
   /** Still image shown while a video loads. */
   poster?: string
+  /** Optional phone cut of a video, played below 768px wide. */
+  mobile?: number | MediaDoc | null
 }
 
 export function isVideoMedia(resource?: number | MediaDoc | null): resource is MediaDoc {
@@ -19,9 +21,12 @@ export function isVideoMedia(resource?: number | MediaDoc | null): resource is M
 }
 
 /** Renders a CMS upload (image or looping video) with next/image. */
-export function Media({ resource, className, imgClassName, sizes = '100vw', priority, fill, alt, poster }: Props) {
+export function Media({ resource, className, imgClassName, sizes = '100vw', priority, fill, alt, poster, mobile }: Props) {
   if (!resource || typeof resource !== 'object' || !resource.url) return null
   if (resource.mimeType?.startsWith('video/')) {
+    // Sources are tried in order. Phones skip the first (its media query fails) and play the phone
+    // cut; browsers that ignore `media` on <source> always play the first, the full-width film.
+    const phone = isVideoMedia(mobile) ? mobile : null
     return (
       <video
         className={fill ? `absolute inset-0 size-full ${imgClassName ?? ''}` : imgClassName}
@@ -33,7 +38,8 @@ export function Media({ resource, className, imgClassName, sizes = '100vw', prio
         poster={poster}
         aria-hidden="true"
       >
-        <source src={resource.url} type={resource.mimeType || 'video/mp4'} />
+        <source src={resource.url} type={resource.mimeType || 'video/mp4'} media={phone ? '(min-width: 768px)' : undefined} />
+        {phone && <source src={phone.url!} type={phone.mimeType || 'video/mp4'} />}
       </video>
     )
   }

@@ -41,10 +41,12 @@ function Eyebrow({ text }: { text: string }) {
  */
 function VideoHero({ hero }: { hero: Page['hero'] }) {
   const poster = hero.poster && typeof hero.poster === 'object' && hero.poster.url ? hero.poster.url : undefined
+  // With a square phone cut, the frame is square on phones so that film is shown whole too.
+  const frame = isVideoMedia(hero.mediaMobile) ? 'aspect-square md:aspect-video' : 'aspect-video'
   return (
     <section className="relative isolate bg-navy-900 text-white">
-      <div className="relative aspect-video max-h-[calc(100svh-7rem)] w-full overflow-hidden">
-        <Media resource={hero.media} poster={poster} fill priority imgClassName="object-cover" />
+      <div className={`relative ${frame} max-h-[calc(100svh-7rem)] w-full overflow-hidden`}>
+        <Media resource={hero.media} mobile={hero.mediaMobile} poster={poster} fill priority imgClassName="object-cover" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-44 bg-gradient-to-t from-navy-900/80 to-transparent md:block" />
         <div className="container-x absolute inset-x-0 bottom-0 hidden items-end justify-between gap-6 pb-8 md:flex">
           {hero.eyebrow ? <Eyebrow text={hero.eyebrow} /> : <span />}
