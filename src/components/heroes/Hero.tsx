@@ -1,6 +1,6 @@
 import { LinkRow } from '@/components/ui/CMSLink'
 import { Breadcrumbs, type Crumb } from '@/components/ui/Breadcrumbs'
-import { Media } from '@/components/ui/Media'
+import { Media, isVideoMedia } from '@/components/ui/Media'
 import { stagger } from '@/components/ui/Section'
 import type { Page } from '@/payload-types'
 
@@ -24,7 +24,49 @@ export function Hero({ hero, crumbs }: { hero: Page['hero']; crumbs?: Crumb[] })
   return <StandardHero hero={hero} crumbs={crumbs} />
 }
 
+function Eyebrow({ text }: { text: string }) {
+  return (
+    <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.16em] text-brand-200 uppercase backdrop-blur">
+      <span className="size-1.5 animate-pulse rounded-full bg-brand-300" />
+      {text}
+    </p>
+  )
+}
+
+/**
+ * Home hero when the media is a film with its own words in it: the film leads at full width and
+ * is never cropped at the sides, so its centred text stays whole. The page H1 is still in the
+ * HTML (search engines, screen readers); it shows under the film on phones and is visually hidden
+ * from tablet up, where the eyebrow and buttons sit along the bottom edge of the film.
+ */
+function VideoHero({ hero }: { hero: Page['hero'] }) {
+  const poster = hero.poster && typeof hero.poster === 'object' && hero.poster.url ? hero.poster.url : undefined
+  return (
+    <section className="relative isolate bg-navy-900 text-white">
+      <div className="relative aspect-video max-h-[calc(100svh-7rem)] w-full overflow-hidden">
+        <Media resource={hero.media} poster={poster} fill priority imgClassName="object-cover" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 hidden h-44 bg-gradient-to-t from-navy-900/80 to-transparent md:block" />
+        <div className="container-x absolute inset-x-0 bottom-0 hidden items-end justify-between gap-6 pb-8 md:flex">
+          {hero.eyebrow ? <Eyebrow text={hero.eyebrow} /> : <span />}
+          <LinkRow links={hero.links} />
+        </div>
+      </div>
+      <div className="container-x py-8 md:py-0">
+        {hero.eyebrow && (
+          <div className="mb-4 md:hidden">
+            <Eyebrow text={hero.eyebrow} />
+          </div>
+        )}
+        {hero.heading && <h1 className="text-[2rem] leading-[1.08] font-bold text-white md:sr-only">{hero.heading}</h1>}
+        {hero.text && <p className="mt-4 text-base leading-relaxed text-white/85 md:hidden">{hero.text}</p>}
+        <LinkRow links={hero.links} className="mt-6 md:hidden" />
+      </div>
+    </section>
+  )
+}
+
 function HomeHero({ hero }: { hero: Page['hero'] }) {
+  if (isVideoMedia(hero.media)) return <VideoHero hero={hero} />
   return (
     <section className="relative isolate overflow-hidden bg-navy-900 text-white">
       <div className="absolute inset-0 -z-10">

@@ -10,15 +10,29 @@ type Props = {
   priority?: boolean
   fill?: boolean
   alt?: string
+  /** Still image shown while a video loads. */
+  poster?: string
+}
+
+export function isVideoMedia(resource?: number | MediaDoc | null): resource is MediaDoc {
+  return Boolean(resource && typeof resource === 'object' && resource.url && resource.mimeType?.startsWith('video/'))
 }
 
 /** Renders a CMS upload (image or looping video) with next/image. */
-export function Media({ resource, className, imgClassName, sizes = '100vw', priority, fill, alt }: Props) {
+export function Media({ resource, className, imgClassName, sizes = '100vw', priority, fill, alt, poster }: Props) {
   if (!resource || typeof resource !== 'object' || !resource.url) return null
-  const isVideo = resource.mimeType?.startsWith('video/')
-  if (isVideo) {
+  if (resource.mimeType?.startsWith('video/')) {
     return (
-      <video className={imgClassName} autoPlay muted loop playsInline preload="metadata" aria-hidden="true">
+      <video
+        className={fill ? `absolute inset-0 size-full ${imgClassName ?? ''}` : imgClassName}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload={priority ? 'auto' : 'metadata'}
+        poster={poster}
+        aria-hidden="true"
+      >
         <source src={resource.url} type={resource.mimeType || 'video/mp4'} />
       </video>
     )
