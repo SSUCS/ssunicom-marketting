@@ -1,0 +1,170 @@
+[
+  {
+    "replaces": "who-we-are",
+    "file": "photo-team-who-we-are.webp",
+    "alt": "Colleagues sharing a laugh while reviewing a report together",
+    "photographer": "RDNE Stock project",
+    "source": "https://www.pexels.com/photo/7580636/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "silk",
+    "file": "photo-team-lead-coaching.webp",
+    "alt": "Team lead coaching an agent at their workstation",
+    "photographer": "Yan Krukau",
+    "source": "https://www.pexels.com/photo/a-man-and-a-woman-pointing-at-the-computer-screen-8867472/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "waves",
+    "file": "photo-delivery-floor.webp",
+    "alt": "Agents with headsets handling customer calls in a busy office",
+    "photographer": "Yan Krukau",
+    "source": "https://www.pexels.com/photo/people-wearing-headphones-in-the-office-8867233/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "experts",
+    "file": "photo-expert-advisor.webp",
+    "alt": "Smiling specialist with a headset at his desk",
+    "photographer": "Kampus Production",
+    "source": "https://www.pexels.com/photo/close-up-photo-of-a-professional-8204402/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "group-back-office",
+    "file": "photo-group-back-office.webp",
+    "alt": "Finance professionals reconciling accounts with a calculator and laptop",
+    "photographer": "Pavel Danilyuk",
+    "source": "https://www.pexels.com/photo/woman-using-calculator-at-the-office-7654131/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "group-cx",
+    "file": "photo-group-cx.webp",
+    "alt": "Customer support agent with a headset smiling during a call",
+    "photographer": "Mikhail Nilov",
+    "source": "https://www.pexels.com/photo/shallow-focus-photo-of-smiling-man-wearing-black-headset-7682203/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "group-industry",
+    "file": "photo-group-industry.webp",
+    "alt": "Specialist reviewing case documents at her desk",
+    "photographer": "RDNE Stock project",
+    "source": "https://www.pexels.com/photo/professional-woman-looking-at-a-document-7648004/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "group-marketing",
+    "file": "photo-group-marketing.webp",
+    "alt": "Marketing team reviewing campaign results on a laptop",
+    "photographer": "Mikhail Nilov",
+    "source": "https://www.pexels.com/photo/a-group-of-businesspeople-working-in-collaboration-6592690/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "group-technology",
+    "file": "photo-group-technology.webp",
+    "alt": "Developer writing code across two monitors",
+    "photographer": "Zayed Hossain",
+    "source": "https://www.pexels.com/photo/focused-developer-at-dual-monitor-setup-36706459/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-financial",
+    "file": "photo-industry-financial.webp",
+    "alt": "Analyst reviewing financial charts on several screens",
+    "photographer": "AlphaTradeZone",
+    "source": "https://www.pexels.com/photo/trader-looking-at-charts-in-the-monitors-5831253/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-healthcare",
+    "file": "photo-industry-healthcare.webp",
+    "alt": "Medical staff entering patient records at a workstation",
+    "photographer": "RDNE Stock project",
+    "source": "https://www.pexels.com/photo/a-nurse-typing-on-a-keyboard-while-sitting-6129037/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-insurance",
+    "file": "photo-industry-insurance.webp",
+    "alt": "Insurance policy form being completed with a pen",
+    "photographer": "Mikhail Nilov",
+    "source": "https://www.pexels.com/photo/a-home-insurance-policy-7736032/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-legal",
+    "file": "photo-industry-legal.webp",
+    "alt": "Legal professional reviewing paperwork in an office",
+    "photographer": "Pavel Danilyuk",
+    "source": "https://www.pexels.com/photo/female-lawyer-looking-at-documents-8111889/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-logistics",
+    "file": "photo-industry-logistics.webp",
+    "alt": "Warehouse worker checking inventory on a tablet",
+    "photographer": "Tiger Lily",
+    "source": "https://www.pexels.com/photo/man-among-construction-materials-4484042/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-real-estate",
+    "file": "photo-industry-real-estate.webp",
+    "alt": "Realtor handing over house keys at an open door",
+    "photographer": "Kampus Production",
+    "source": "https://www.pexels.com/photo/a-man-in-black-suit-standing-near-the-while-holding-keys-8815910/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-retail",
+    "file": "photo-industry-retail.webp",
+    "alt": "Online seller packing orders next to a laptop",
+    "photographer": "Kampus Production",
+    "source": "https://www.pexels.com/photo/woman-using-brown-box-for-packaging-7289719/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "industry-technology",
+    "file": "photo-industry-technology.webp",
+    "alt": "Technology team working together on laptops",
+    "photographer": "Ofspace LLC, Culture",
+    "source": "https://www.pexels.com/photo/men-working-on-laptop-in-coworking-space-16323454/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "tile-chart",
+    "file": "photo-case-qualified-meetings.webp",
+    "alt": "Sales team meeting a prospect over a video call",
+    "photographer": "MART PRODUCTION",
+    "source": "https://www.pexels.com/photo/business-people-in-a-meeting-via-video-call-7644158/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "tile-headset",
+    "file": "photo-case-cost-per-contact.webp",
+    "alt": "Support agents with headsets working through customer calls",
+    "photographer": "MART PRODUCTION",
+    "source": "https://www.pexels.com/photo/people-working-as-call-center-agents-7709179/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "tile-people",
+    "file": "photo-team-collaboration.webp",
+    "alt": "Colleagues collaborating around a desk in a modern office",
+    "photographer": "Pavel Danilyuk",
+    "source": "https://www.pexels.com/photo/woman-in-headphones-looking-at-papers-that-man-showing-her-7658417/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  },
+  {
+    "replaces": "tile-shield",
+    "file": "photo-data-security.webp",
+    "alt": "Laptop showing a security lock on screen",
+    "photographer": "Dan Nelson",
+    "source": "https://www.pexels.com/photo/a-laptop-over-a-round-table-4973899/",
+    "license": "Pexels License (free for commercial use, no attribution required)"
+  }
+]
