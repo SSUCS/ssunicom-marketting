@@ -37,6 +37,16 @@ export const hero: GroupField = {
       admin: { condition: (_, s) => s?.type === 'home' || s?.type === 'standard', description: 'Image or short looping video (MP4/WebM).' },
     },
     {
+      name: 'mediaMobile',
+      label: 'Phone video',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        condition: (_, s) => s?.type === 'home',
+        description: 'Optional square (1:1) cut of the hero video, played on phones. Used only when the media above is a video.',
+      },
+    },
+    {
       name: 'poster',
       type: 'upload',
       relationTo: 'media',

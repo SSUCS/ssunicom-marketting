@@ -207,6 +207,10 @@ export interface Page {
      */
     media?: (number | null) | Media;
     /**
+     * Optional square (1:1) cut of the hero video, played on phones. Used only when the media above is a video.
+     */
+    mediaMobile?: (number | null) | Media;
+    /**
      * Still image shown while a hero video loads.
      */
     poster?: (number | null) | Media;
@@ -2357,6 +2361,7 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
             };
         media?: T;
+        mediaMobile?: T;
         poster?: T;
       };
   layout?:
