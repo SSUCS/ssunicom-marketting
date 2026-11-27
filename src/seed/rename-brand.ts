@@ -1,7 +1,8 @@
 /**
- * The short brand name is "SS Universal" (never "SS Unicom"), and Kanpur appears only in the
- * company address; everywhere else the site says India. Used by rename-brand-content.ts to fix
- * content already in the CMS. Domain and email (ssunicomservice.com) are left alone.
+ * The short brand name is "SSUCS" (never "SS Unicom" or "SS Universal"), and Kanpur appears only in
+ * the company address; everywhere else the site says India. Used by rename-brand-content.ts to fix
+ * content already in the CMS. The registered legal name (SS Universal Communication Services Pvt Ltd),
+ * the domain and the email addresses are left alone.
  */
 
 /** Phrase rewrites for Kanpur, longest first. Addresses ("Civil Lines, Kanpur, Uttar Pradesh") never match. */
@@ -39,12 +40,19 @@ export const EXACT_VALUES: Record<string, string> = {
   'Kanpur, Uttar Pradesh': 'India',
 }
 
-export const OLD_SLUG = 'why-ss-unicom'
-export const NEW_SLUG = 'why-ss-universal'
+export const OLD_SLUG = 'why-ss-universal'
+export const NEW_SLUG = 'why-ssucs'
+
+/** The registered company name keeps its full form; it is protected while the short name changes. */
+const LEGAL_NAMES = ['SS Universal Communication Services Pvt Ltd', 'SS Universal Communication Services']
 
 export function renameText(value: string): string {
   if (value in EXACT_VALUES) return EXACT_VALUES[value]
   let out = value
   for (const [from, to] of KANPUR_PHRASES) out = out.split(from).join(to)
-  return out.split('SS Unicom').join('SS Universal').split('ss-unicom').join('ss-universal')
+  out = out.split('SS Unicom').join('SS Universal').split('ss-unicom').join('ss-universal')
+  LEGAL_NAMES.forEach((name, i) => (out = out.split(name).join(`\u0000${i}\u0000`)))
+  out = out.split('SS Universal').join('SSUCS').split('why-ss-universal').join('why-ssucs').split('ss-universal').join('ssucs')
+  LEGAL_NAMES.forEach((name, i) => (out = out.split(`\u0000${i}\u0000`).join(name)))
+  return out
 }

@@ -19,7 +19,7 @@ export const SiteSettings: GlobalConfig = {
             {
               type: 'row',
               fields: [
-                { name: 'siteName', type: 'text', required: true, defaultValue: 'SS Universal' },
+                { name: 'siteName', type: 'text', required: true, defaultValue: 'SSUCS' },
                 { name: 'legalName', type: 'text', required: true, defaultValue: 'SS Universal Communication Services Pvt Ltd' },
               ],
             },
@@ -99,7 +99,7 @@ export const SiteSettings: GlobalConfig = {
         {
           label: 'SEO defaults',
           fields: [
-            { name: 'titleTemplate', type: 'text', defaultValue: '%s | SS Universal', admin: { description: '%s is replaced by the page title.' } },
+            { name: 'titleTemplate', type: 'text', defaultValue: '%s | SSUCS', admin: { description: '%s is replaced by the page title.' } },
             { name: 'defaultTitle', type: 'text', required: true },
             { name: 'defaultDescription', type: 'textarea', required: true },
             { name: 'defaultOgImage', type: 'upload', relationTo: 'media', admin: { description: '1200×630. A generated image is used when empty.' } },

@@ -4,7 +4,7 @@ import { LogoMark } from '@/components/layout/Logo'
 import { COLOURS, FONTS, onColour } from '@/brand/tokens'
 import { Block } from '@/brand/ui'
 
-export const metadata = { title: { absolute: 'Brand guide | SS Universal' } }
+export const metadata = { title: { absolute: 'Brand guide | SSUCS' } }
 
 const PRINCIPLES = [
   { title: 'Dependable', text: 'We look like a team you can hand your operations to. Calm layouts, plenty of white space, nothing flashy.' },
@@ -21,7 +21,7 @@ export default function BrandHome() {
         <div className="relative grid items-center gap-8 md:grid-cols-[minmax(0,1fr)_auto]">
           <div>
             <p className="text-[0.72rem] font-bold tracking-[0.14em] text-brand-300 uppercase">SS Universal Communication Services Pvt Ltd</p>
-            <h1 className="display mt-4 text-[2.6rem] text-white sm:text-[3.6rem]">The SS Universal brand</h1>
+            <h1 className="display mt-4 text-[2.6rem] text-white sm:text-[3.6rem]">The SSUCS brand</h1>
             <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/80">
               How we look and sound, in one place. Use this guide when you build a web page, design a proposal, post on social media or brief a printer.
             </p>

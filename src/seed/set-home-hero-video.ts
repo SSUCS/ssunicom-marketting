@@ -18,9 +18,9 @@ import { getPayload } from 'payload'
 
 const fileFrom = (name: string) => (process.env[name] ? path.resolve(process.env[name]!) : undefined)
 const uploads = [
-  { field: 'media', file: fileFrom('HERO_VIDEO'), alt: 'SS Universal brand film: dependable people and disciplined process' },
-  { field: 'poster', file: fileFrom('HERO_POSTER'), alt: 'Teal light streaks, the opening frame of the SS Universal brand film' },
-  { field: 'mediaMobile', file: fileFrom('HERO_VIDEO_MOBILE'), alt: 'SS Universal brand film, square cut for phones' },
+  { field: 'media', file: fileFrom('HERO_VIDEO'), alt: 'SSUCS brand film: dependable people and disciplined process' },
+  { field: 'poster', file: fileFrom('HERO_POSTER'), alt: 'Teal light streaks, the opening frame of the SSUCS brand film' },
+  { field: 'mediaMobile', file: fileFrom('HERO_VIDEO_MOBILE'), alt: 'SSUCS brand film, square cut for phones' },
 ] as const
 
 const payload = await getPayload({ config })

@@ -4,7 +4,7 @@ import { MARK_PATHS, MARK_VIEWBOX } from '@/components/layout/Logo'
 
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
-export const alt = 'SS Universal: outsourcing for customer experience, back office and technology'
+export const alt = 'SSUCS: outsourcing for customer experience, back office and technology'
 
 export default function OgImage() {
   return new ImageResponse(
@@ -16,7 +16,7 @@ export default function OgImage() {
               <path key={d} d={d} fill="none" stroke="#a2ddd8" strokeWidth="4" strokeLinejoin="round" strokeLinecap="round" />
             ))}
           </svg>
-          <div style={{ fontSize: 40, fontWeight: 800 }}>SS Universal</div>
+          <div style={{ fontSize: 40, fontWeight: 800 }}>SSUCS</div>
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.05, maxWidth: 950 }}>Outsourcing your customers and auditors can trust.</div>

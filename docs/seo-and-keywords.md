@@ -2,7 +2,7 @@
 
 ## What is automatic
 
-- **Metadata:** every page, service, industry, article, case study and job has an SEO tab. Empty fields fall back to Site settings → SEO defaults. Titles use the template `%s | SS Universal`.
+- **Metadata:** every page, service, industry, article, case study and job has an SEO tab. Empty fields fall back to Site settings → SEO defaults. Titles use the template `%s | SSUCS`.
 - **Canonical URLs** always point at `https://www.ssuniversalcommunicationservices.com` (from `NEXT_PUBLIC_SERVER_URL`), never at preview domains.
 - **Structured data (JSON-LD):** ProfessionalService organisation with address, phone and area served; WebSite; BreadcrumbList on inner pages; Service on service pages; FAQPage wherever FAQs are shown; ItemList on directories; BlogPosting on articles; JobPosting on job pages (eligible for Google Jobs).
 - **Sitemap** at `/sitemap.xml`, rebuilt hourly and on every publish, excluding noindex pages.
@@ -47,7 +47,7 @@ The focus keyword field on every SEO tab shows a live check: whether the keyword
 - **Industry pages** target "<industry> BPO / outsourcing services".
 - **Local:** "BPO company India", "call center company India" and "BPO jobs in India" for the About and Careers pages. Kanpur appears only in the company address (footer, Contact page, schema and the Google Business Profile), never in headings or copy.
 - **Markets:** eight starter keywords, at least one per market (for example "BPO services for UAE businesses" and "call center outsourcing Canada"), all pointing at the home page for now. Once one market brings real enquiries, give it its own landing page.
-- **Brand:** "SS Universal", "SS Universal BPO", "SS Universal Communication Services".
+- **Brand:** "SSUCS", "SSUCS BPO", "SS Universal Communication Services".
 - **Content:** Insights articles target informational questions buyers ask before choosing a vendor, and link to the matching service.
 
 ## Launch checklist

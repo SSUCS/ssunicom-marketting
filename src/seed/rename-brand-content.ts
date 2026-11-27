@@ -1,8 +1,8 @@
 /**
- * Fixes content already in the CMS after the short name changed to "SS Universal":
- * every text value in every collection and global gets "SS Unicom" → "SS Universal", and Kanpur
+ * Fixes content already in the CMS after the short name changed to "SSUCS":
+ * every text value in every collection and global gets "SS Unicom" / "SS Universal" → "SSUCS", and Kanpur
  * is replaced with India everywhere except the company address (see rename-brand.ts).
- * The "Why SS Unicom" page moves to /why-ss-universal; the old URL redirects (redirects.ts).
+ * The "Why" page moves to /why-ssucs; the old URLs redirect (redirects.ts).
  *
  * Safe to run more than once: a second run finds nothing to change.
  * Run before deploying, so the build renders the new content: npm run content:rename:production
@@ -15,7 +15,7 @@ import { renameText } from './rename-brand'
 
 const dryRun = process.env.DRY_RUN === '1'
 // Visitor data and system tables are never rewritten.
-const SKIP = new Set(['users', 'form-submissions', 'payload-locked-documents', 'payload-preferences', 'payload-migrations', 'payload-jobs', 'payload-folders', 'payload-kv'])
+const SKIP = new Set(['users', 'form-submissions', 'job-applications', 'payload-locked-documents', 'payload-preferences', 'payload-migrations', 'payload-jobs', 'payload-folders', 'payload-kv'])
 // Bookkeeping fields Payload manages itself.
 const SYSTEM_KEYS = new Set(['id', 'createdAt', 'updatedAt', '_status', 'filename', 'url', 'thumbnailURL', 'mimeType', '_key', 'sizes'])
 
@@ -65,7 +65,7 @@ try {
   const started = Date.now()
 
   // 1. Scan everything first, so the total is known before anything is written.
-  log('Rename: scanning the CMS for "SS Unicom" and Kanpur...')
+  log('Rename: scanning the CMS for old brand names and Kanpur...')
   type Job = { kind: 'doc'; collection: string; id: number; name: string; data: Record<string, Json>; keyword?: Json } | { kind: 'global'; slug: string; name: string; data: Record<string, Json> }
   const jobs: Job[] = []
   for (const collection of payload.config.collections.map((c) => c.slug)) {
@@ -90,7 +90,7 @@ try {
 
   const total = jobs.length
   if (!total) {
-    log('Rename: nothing left to change. Everything already says SS Universal. Done.')
+    log('Rename: nothing left to change. Everything already says SSUCS. Done.')
     process.exit(0)
   }
   log(`Rename: ${total} documents to update${dryRun ? ' (dry run, nothing will be written)' : ''}.`)

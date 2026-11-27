@@ -198,7 +198,7 @@ async function seed(payload: Payload) {
         industry: industryIds[c.industry],
         services: c.services.map((slug) => serviceIds[slug]).filter(Boolean),
         publishedAt: new Date(Date.UTC(2026, 8 - i, 10)).toISOString(),
-        meta: { title: `${c.title} | SS Universal`, description: c.summary.slice(0, 158), image: media[c.image] },
+        meta: { title: `${c.title} | SSUCS`, description: c.summary.slice(0, 158), image: media[c.image] },
       },
     })
     caseIds[c.slug] = doc.id
@@ -271,7 +271,7 @@ async function seed(payload: Payload) {
         open: true,
         datePosted: posted.toISOString(),
         validThrough: validThrough.toISOString(),
-        meta: { title: `${j.title} job in India | SS Universal Careers`, description: j.summary.slice(0, 158) },
+        meta: { title: `${j.title} job in India | SSUCS Careers`, description: j.summary.slice(0, 158) },
       },
     } as never)
   }
@@ -318,7 +318,7 @@ async function seed(payload: Payload) {
         {
           blockType: 'checkbox',
           name: 'consent',
-          label: 'I agree to SS Universal contacting me about this enquiry, as described in the privacy policy.',
+          label: 'I agree to SSUCS contacting me about this enquiry, as described in the privacy policy.',
           required: true,
           width: 100,
         },
@@ -354,7 +354,7 @@ async function seed(payload: Payload) {
     slug: 'site-settings',
     context: { ...ctx },
     data: {
-      siteName: 'SS Universal',
+      siteName: 'SSUCS',
       legalName: 'SS Universal Communication Services Pvt Ltd',
       tagline: 'Business process outsourcing from India',
       phone: '+91 97947 74773',
@@ -371,10 +371,10 @@ async function seed(payload: Payload) {
       hours: 'Mon–Sat, 10:00–19:00 IST. Delivery teams work around the clock.',
       foundingYear: 2016,
       socials: [{ platform: 'linkedin', url: 'https://www.linkedin.com/company/ssunicomservice' }],
-      titleTemplate: '%s | SS Universal',
-      defaultTitle: 'SS Universal: Business Process Outsourcing Company in India',
+      titleTemplate: '%s | SSUCS',
+      defaultTitle: 'SSUCS: Business Process Outsourcing Company in India',
       defaultDescription:
-        'SS Universal provides customer experience, back-office, industry, technology and marketing outsourcing from India, for businesses in the Middle East, India, USA, UK, Canada and Australia.',
+        'SSUCS provides customer experience, back-office, industry, technology and marketing outsourcing from India, for businesses in the Middle East, India, USA, UK, Canada and Australia.',
       markets,
       cookieBanner: true,
       cookieText: 'We use cookies to measure how the site is used and to improve it. You can accept or decline analytics cookies.',
@@ -391,7 +391,7 @@ async function seed(payload: Payload) {
         { link: pageLink('trust-and-security', 'Trust & security') },
       ],
       navItems: [
-        { label: 'Why SS Universal', menu: 'link', link: pageLink('why-ss-universal', 'Why SS Universal') },
+        { label: 'Why SSUCS', menu: 'link', link: pageLink('why-ssucs', 'Why SSUCS') },
         {
           label: 'Services',
           menu: 'services',
@@ -443,7 +443,7 @@ async function seed(payload: Payload) {
           heading: 'Company',
           links: [
             { link: pageLink('about', 'About us') },
-            { link: pageLink('why-ss-universal', 'Why SS Universal') },
+            { link: pageLink('why-ssucs', 'Why SSUCS') },
             { link: pageLink('trust-and-security', 'Trust & security') },
             { link: pageLink('case-studies', 'Case studies') },
             { link: pageLink('careers', 'Careers') },
@@ -483,7 +483,7 @@ async function seed(payload: Payload) {
     kws.push({ keyword: meta.focusKeyword, cluster: 'Core pages', intent: p.slug === 'contact' ? 'navigational' : 'commercial', priority: 'p1', target })
     for (const k of meta.secondaryKeywords ?? []) kws.push({ keyword: k, cluster: 'Core pages', intent: 'commercial', priority: 'p2', market: /india/i.test(k) ? 'in' : 'global', target })
   }
-  for (const k of ['SS Universal', 'SS Universal BPO', 'SS Universal Communication Services']) {
+  for (const k of ['SSUCS', 'SSUCS BPO', 'SS Universal Communication Services']) {
     kws.push({ keyword: k, cluster: 'Brand', intent: 'navigational', market: 'global', priority: 'p1', target: { relationTo: 'pages', value: pageIds.home } })
   }
   for (const k of ['BPO company India', 'call center company India', 'outsourcing company India']) {

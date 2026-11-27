@@ -1478,7 +1478,7 @@ export interface FaqAccordionBlock {
         question: string;
         answer: string;
         /**
-         * Optional attribution, e.g. "Operations Head, SS Universal".
+         * Optional attribution, e.g. "Operations Head, SSUCS".
          */
         expert?: string | null;
         id?: string | null;

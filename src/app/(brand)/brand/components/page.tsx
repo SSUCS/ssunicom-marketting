@@ -114,7 +114,7 @@ export default function ComponentsPage() {
           </div>
           <label className="flex items-start gap-3 text-[0.95rem] text-ink/80 sm:col-span-2">
             <input type="checkbox" defaultChecked className="mt-1 size-4 accent-brand-700" />
-            Send me occasional updates about SS Universal services.
+            Send me occasional updates about SSUCS services.
           </label>
         </div>
       </Block>

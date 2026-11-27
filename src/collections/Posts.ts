@@ -29,7 +29,7 @@ export const Posts: CollectionConfig<'posts'> = {
     {
       type: 'row',
       fields: [
-        { name: 'authorName', type: 'text', defaultValue: 'SS Universal Team' },
+        { name: 'authorName', type: 'text', defaultValue: 'SSUCS Team' },
         { name: 'authorRole', type: 'text' },
       ],
     },
